@@ -1,0 +1,20 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "products"
+    label: "Products"
+    folder: "content/products"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Product Name", name: "title", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["Sofas", "Beds", "Wardrobes", "Dining Sets", "Veranda Chairs", "Office Furniture", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Kettles & Irons", "Pressure Washers", "Plastic Items"] }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Price", name: "price", widget: "string", default: "Price on request" }
+      - { label: "Image", name: "image", widget: "image", required: false }
+      - { label: "WhatsApp Message", name: "whatsapp", widget: "string", default: "Hi, I'm interested in this product" }
