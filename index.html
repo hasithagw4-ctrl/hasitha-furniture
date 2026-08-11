@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hasitha Furniture & Electronics | Alawwa</title>
+  <meta name="description" content="Hasitha Furniture and Electronics - Quality furniture and home electronics in Alawwa, Sri Lanka. Sofas, beds, wardrobes, dining sets, TVs, fridges and more.">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f7f4',
+              100: '#dceee6',
+              200: '#bbddd0',
+              300: '#8cc5b0',
+              400: '#5aa68c',
+              500: '#3a8a70',
+              600: '#2b6f5a',
+              700: '#245a4a',
+              800: '#1f483c',
+              900: '#0B3D2E',
+              950: '#072920'
+            },
+            beige: {
+              50: '#faf8f5',
+              100: '#f5f0e6',
+              200: '#ebe0d0',
+              300: '#E8D9C0',
+              400: '#d4c0a0',
+              500: '#c4a97e'
+            }
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    /* Smooth fade-in animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Navbar blur */
+    .nav-blur {
+      backdrop-filter: blur(12px);
+      background: rgba(11, 61, 46, 0.92);
+    }
+    
+    /* Card hover */
+    .product-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px -12px rgba(11, 61, 46, 0.15);
+    }
+    
+    /* Floating WhatsApp */
+    .whatsapp-float {
+      animation: pulse-soft 2.5s infinite;
+    }
+    
+    @keyframes pulse-soft {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    /* Hero gradient */
+    .hero-gradient {
+      background: linear-gradient(135deg, #0B3D2E 0%, #1a5c45 50%, #245a4a 100%);
+    }
+    
+    /* Category image placeholder */
+    .cat-placeholder {
+      background: linear-gradient(145deg, #e8d9c0 0%, #d4c0a0 100%);
+    }
+  </style>
+</head>
+<body class="bg-beige-50 text-gray-800">
+
+  <!-- ========== NAVBAR ========== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        
+        <!-- Logo / Brand -->
+        <a href="#" class="flex items-center gap-2 group">
+          <div class="w-10 h-10 rounded-full bg-beige-300 flex items-center justify-center text-primary-900 font-display font-bold text-xl">
+            H
+          </div>
+          <div class="hidden sm:block">
+            <span class="font-display text-xl text-white tracking-wide">Hasitha</span>
+            <span class="block text-[10px] text-beige-300 tracking-widest uppercase -mt-1">Furniture & Electronics</span>
+          </div>
+        </a>
+        
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#home" class="text-beige-100 hover:text-white text-sm font-medium transition">Home</a>
+          <a href="#furniture" class="text-beige-100 hover:text-white text-sm font-medium transition">Furniture</a>
+          <a href="#electronics" class="text-beige-100 hover:text-white text-sm font-medium transition">Electronics</a>
+          <a href="#about" class="text-beige-100 hover:text-white text-sm font-medium transition">About</a>
+          <a href="#contact" class="text-beige-100 hover:text-white text-sm font-medium transition">Contact</a>
+        </div>
+        
+        <!-- CTA Buttons -->
+        <div class="flex items-center gap-3">
+          <a href="tel:0772216854" class="hidden sm:flex items-center gap-2 bg-beige-300 text-primary-900 px-4 py-2 rounded-full text-sm font-semibold hover:bg-beige-200 transition">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+            Call
+          </a>
+          <button id="menuBtn" class="md:hidden text-white p-2">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-primary-900 border-t border-primary-800">
+      <div class="px-4 py-4 space-y-3">
+        <a href="#home" class="block text-beige-100 py-2">Home</a>
+        <a href="#furniture" class="block text-beige-100 py-2">Furniture</a>
+        <a href="#electronics" class="block text-beige-100 py-2">Electronics</a>
+        <a href="#about" class="block text-beige-100 py-2">About</a>
+        <a href="#contact" class="block text-beige-100 py-2">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section id="home" class="hero-gradient min-h-screen flex items-center relative overflow-hidden pt-20">
+    <!-- Decorative elements -->
+    <div class="absolute top-20 right-10 w-72 h-72 bg-beige-300/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 left-10 w-96 h-96 bg-primary-700/30 rounded-full blur-3xl"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+      <div class="max-w-3xl">
+        <p class="text-beige-300 text-sm tracking-[0.3em] uppercase mb-4 fade-in">Alawwa, Sri Lanka</p>
+        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-tight mb-6 fade-in">
+          Quality Furniture<br>
+          <span class="text-beige-300">& Home Electronics</span>
+        </h1>
+        <p class="text-beige-100/80 text-lg md:text-xl max-w-xl mb-10 fade-in">
+          Transform your home with premium furniture and reliable electronics. From elegant sofas to modern appliances — everything you need under one roof.
+        </p>
+        
+        <div class="flex flex-wrap gap-4 fade-in">
+          <a href="#furniture" class="bg-beige-300 text-primary-900 px-8 py-4 rounded-full font-semibold hover:bg-beige-200 transition transform hover:scale-105">
+            Explore Furniture
+          </a>
+          <a href="https://wa.me/94772216854" target="_blank" class="border-2 border-beige-300 text-beige-300 px-8 py-4 rounded-full font-semibold hover:bg-beige-300 hover:text-primary-900 transition">
+            WhatsApp Us
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-beige-300 animate-bounce">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
+    </div>
+  </section>
+
+  <!-- ========== FURNITURE CATEGORIES ========== -->
+  <section id="furniture" class="py-20 md:py-28 bg-beige-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <p class="text-primary-700 text-sm tracking-[0.25em] uppercase mb-3">Our Collection</p>
+        <h2 class="font-display text-3xl md:text-5xl text-primary-900">Furniture</h2>
+        <div class="w-20 h-1 bg-primary-700 mx-auto mt-4"></div>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        
+        <!-- Sofas -->
+        <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm fade-in">
+          <div class="h-56 cat-placeholder flex items-center justify-center">
+            <span class="text-primary-800/40 text-6xl">🛋️</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl text-primary-900 mb-2">Sofas</h3>
+            <p class="text-gray-600 text-sm mb-4">Comfortable and stylish sofas for your living room</p>
+            <a href="https://wa.me/94772216854?text=Hi, I'm interested in Sofas" class="text-primary-700 font-medium text-sm hover:underline">Inquire →</a>
+          </div>
+        </div>
+        
+        <!-- Beds -->
+        <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm fade-in">
+          <div class="h-56 cat-placeholder flex items-center justify-center">
+            <span class="text-primary-800/40 text-6xl">🛏️</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl text-primary-900 mb-2">Beds</h3>
+            <p class="text-gray-600 text-sm mb-4">Quality beds and bedroom furniture for restful sleep</p>
+            <a href="https://wa.me/94772216854?text=Hi, I'm interested in Beds" class="text-primary-700 font-medium text-sm hover:underline">Inquire →</a>
+          </div>
+        </div>
+        
+        <!-- Wardrobes -->
+        <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm fade-in">
+          <div class="h-56 cat-placeholder flex items-center justify-center">
+            <span class="text-primary-800/40 text-6xl">🚪</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl text-primary-900 mb-2">Wardrobes</h3>
+            <p class="text-gray-600 text-sm mb-4">Spacious and elegant wardrobes for organized storage</p>
+            <a href="https://wa.me/94772216854?text=Hi, I'm interested in Wardrobes" class="text-primary-700 font-medium text-sm hover:underline">Inquire →</a>
+          </div>
+        </div>
+        
+        <!-- Dining -->
+        <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm fade-in">
+          <div class="h-56 cat-placeholder flex items-center justify-center">
+            <span class="text-primary-800/40 text-6xl">🍽️</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl text-primary-900 mb-2">Dining Sets</h3>
+            <p class="text-gray-600 text-sm mb-4">Dining tables and chairs for memorable family meals</p>
+            <a href="https://wa.me/94772216854?text=Hi, I'm interested in Dining Sets" class="text-primary-700 font-medium text-sm hover:underline">Inquire →</a>
+          </div>
+        </div>
+        
+        <!-- Veranda -->
+        <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm fade-in">
+          <div class="h-56 cat-placeholder flex items-center justify-center">
+            <span class="text-primary-800/40 text-6xl">🪑</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl text-primary-900 mb-2">Veranda Chairs</h3>
+            <p class="text-gray-600 text-sm mb-4">Comfortable outdoor and veranda seating solutions</p>
+            <a href="https://wa.me/94772216854?text=Hi, I'm interested in Veranda Chairs" class="text-primary-700 font-medium text-sm hover:underline">Inquire →</a>
+          </div>
+        </div>
+        
+        <!-- Office -->
+        <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm fade-in">
+          <div class="h-56 cat-placeholder flex items-center justify-center">
+            <span class="text-primary-800/40 text-6xl">💼</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl text-primary-900 mb-2">Office Furniture</h3>
+            <p class="text-gray-600 text-sm mb-4">Desks, chairs and storage for productive workspaces</p>
+            <a href="https://wa.me/94772216854?text=Hi, I'm interested in Office Furniture" class="text-primary-700 font-medium text-sm hover:underline">Inquire →</a>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ELECTRONICS ========== -->
+  <section id="electronics" class="py-20 md:py-28 bg-primary-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <p class="text-beige-300 text-sm tracking-[0.25em] uppercase mb-3">Home Appliances</p>
+        <h2 class="font-display text-3xl md:text-5xl text-white">Electronics</h2>
+        <div class="w-20 h-1 bg-beige-300 mx-auto mt-4"></div>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        
+        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in">
+          <div class="text-4xl mb-3">📺</div>
+          <h3 class="font-medium">Televisions</h3>
+        </div>
+        
+        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in">
+          <div class="text-4xl mb-3">❄️</div>
+          <h3 class="font-medium">Refrigerators</h3>
+        </div>
+        
+        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in">
+          <div class="text-4xl mb-3">🧺</div>
+          <h3 class="font-medium">Washing Machines</h3>
+        </div>
+        
+        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in">
+          <div class="text-4xl mb-3">🔥</div>
+          <h3 class="font-medium">Ovens</h3>
+        </div>
+        
+        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in">
+          <div class="text-4xl mb-3">🥤</div>
+          <h3 class="font-medium">Blenders</h3>
+        </div>
+        
+        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in">
+          <div class="text-4xl mb-3">♨️</div>
+          <h3 class="font-medium">Kettles & Irons</h3>
+        </div>
+        
+        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in">
+          <div class="text-4xl mb-3">💧</div>
+          <h3 class="font-medium">Pressure Washers</h3>
+        </div>
+        
+        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in">
+          <div class="text-4xl mb-3">📦</div>
+          <h3 class="font-medium">Plastic Items</h3>
+        </div>
+        
+      </div>
+      
+      <div class="text-center mt-12 fade-in">
+        <a href="https://wa.me/94772216854?text=Hi, I'm interested in Electronics" class="inline-flex items-center gap-2 bg-beige-300 text-primary-900 px-8 py-4 rounded-full font-semibold hover:bg-beige-200 transition">
+          Ask about Electronics
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section id="about" class="py-20 md:py-28 bg-beige-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="fade-in">
+          <p class="text-primary-700 text-sm tracking-[0.25em] uppercase mb-3">Who We Are</p>
+          <h2 class="font-display text-3xl md:text-4xl text-primary-900 mb-6">Hasitha Furniture<br>& Electronics</h2>
+          <p class="text-gray-700 leading-relaxed mb-6">
+            Located in Alawwa, we provide quality furniture and reliable home electronics for families and businesses across the region. From elegant living room sets to essential home appliances, we focus on value, durability, and customer satisfaction.
+          </p>
+          <p class="text-gray-700 leading-relaxed">
+            Visit our showroom or contact us on WhatsApp for personalized recommendations and the best prices.
+          </p>
+        </div>
+        
+        <div class="bg-primary-900 rounded-3xl p-8 md:p-10 text-white fade-in">
+          <h3 class="font-display text-2xl mb-6">Why Choose Us</h3>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="text-beige-300 text-xl">✓</span>
+              <span>Wide range of furniture & electronics</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-beige-300 text-xl">✓</span>
+              <span>Quality products at fair prices</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-beige-300 text-xl">✓</span>
+              <span>Friendly local service in Alawwa</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-beige-300 text-xl">✓</span>
+              <span>Easy WhatsApp ordering & support</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section id="contact" class="py-20 md:py-28 bg-beige-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <p class="text-primary-700 text-sm tracking-[0.25em] uppercase mb-3">Get In Touch</p>
+        <h2 class="font-display text-3xl md:text-5xl text-primary-900">Contact Us</h2>
+        <div class="w-20 h-1 bg-primary-700 mx-auto mt-4"></div>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        
+        <a href="tel:0772216854" class="bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-md transition fade-in">
+          <div class="w-14 h-14 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-primary-800" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+          </div>
+          <h3 class="font-semibold text-primary-900 mb-1">Call Us</h3>
+          <p class="text-gray-600 text-sm">077 221 6854</p>
+          <p class="text-gray-600 text-sm">071 234 6183</p>
+        </a>
+        
+        <a href="https://wa.me/94772216854" target="_blank" class="bg-white rounded-2xl p-8 text-center shadow-sm hover:shadow-md transition fade-in">
+          <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-green-600" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
+          <h3 class="font-semibold text-primary-900 mb-1">WhatsApp</h3>
+          <p class="text-gray-600 text-sm">077 221 6854</p>
+        </a>
+        
+        <div class="bg-white rounded-2xl p-8 text-center shadow-sm fade-in">
+          <div class="w-14 h-14 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-primary-800" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+          </div>
+          <h3 class="font-semibold text-primary-900 mb-1">Location</h3>
+          <p class="text-gray-600 text-sm">C25/2 Ragalkanda,<br>Alawwa</p>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-primary-950 text-beige-200 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="text-center md:text-left">
+          <p class="font-display text-xl text-white mb-1">Hasitha Furniture & Electronics</p>
+          <p class="text-sm text-beige-400">Quality for your home • Alawwa</p>
+        </div>
+        <div class="flex gap-6 text-sm">
+          <a href="#furniture" class="hover:text-white transition">Furniture</a>
+          <a href="#electronics" class="hover:text-white transition">Electronics</a>
+          <a href="#contact" class="hover:text-white transition">Contact</a>
+        </div>
+      </div>
+      <div class="border-t border-primary-800 mt-8 pt-8 text-center text-sm text-beige-500">
+        © 2026 Hasitha Furniture & Electronics. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/94772216854" target="_blank" 
+     class="whatsapp-float fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition">
+    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+    // Navbar background on scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('nav-blur', 'shadow-lg');
+      } else {
+        navbar.classList.remove('nav-blur', 'shadow-lg');
+      }
+    });
+    
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Close mobile menu on link click
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+    
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+    
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
