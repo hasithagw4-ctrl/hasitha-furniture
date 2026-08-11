@@ -6,7 +6,8 @@
       "name": "putuwak",
       "category": "Veranda Chairs",
       "description": "thekka putuwak",
-      "image": "/images/uploads/gqjt8eqwyaavwtr.jpeg"
+      "image": "/images/uploads/gqjt8eqwyaavwtr.jpeg",
+      "stock": "In Stock"
     },
     {
       "price": "Price on request",
@@ -14,7 +15,8 @@
       "name": "almariyak",
       "category": "Wardrobes",
       "description": "sdsadc",
-      "image": "/images/uploads/gugg5xaxkaa-rsx.jpeg"
+      "image": "/images/uploads/gugg5xaxkaa-rsx.jpeg",
+      "stock": "Out of Stock"
     }
   ]
 }
