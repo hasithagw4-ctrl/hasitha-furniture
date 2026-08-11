@@ -1,3 +1,12 @@
 {
-  "products": []
+  "products": [
+    {
+      "price": "Rs.13,000",
+      "whatsapp": "Hi, I'm interested in this product",
+      "name": "putuwak",
+      "category": "Veranda Chairs",
+      "description": "thekka putuwak",
+      "image": "/images/uploads/gqjt8eqwyaavwtr.jpeg"
+    }
+  ]
 }
