@@ -1,0 +1,12 @@
+{
+  "products": [
+    {
+      "name": "Test Product",
+      "category": "Beds",
+      "description": "This is a test product",
+      "price": "100000",
+      "image": "",
+      "whatsapp": "Hi, I'm interested in this product"
+    }
+  ]
+}
