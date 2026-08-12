@@ -25,6 +25,8 @@ collections:
               - { label: "Price", name: "price", widget: "string", default: "Price on request" }
               - { label: "Discount", name: "discount", widget: "string", required: false }
               - { label: "Stock Status", name: "stock", widget: "select", options: ["In Stock", "Out of Stock"], default: "In Stock" }
+              - { label: "Visible on Website", name: "visible", widget: "boolean", default: true, hint: "Turn OFF to hide without deleting" }
+              - { label: "Featured on Homepage", name: "featured", widget: "boolean", default: false, hint: "Show in homepage Latest Products section" }
               - { label: "Main Image", name: "image", widget: "image", required: false }
               - label: "Gallery Images"
                 name: "gallery"
@@ -38,7 +40,6 @@ collections:
                 fields:
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "Value", name: "value", widget: "string" }
-              - { label: "Featured on Homepage", name: "featured", widget: "boolean", default: false, hint: "Show this product in the homepage featured section" }
               - { label: "WhatsApp Message", name: "whatsapp", widget: "string", default: "Hi, I'm interested in this product" }
 
   - name: "slides"
@@ -51,8 +52,11 @@ collections:
           - label: "Slides"
             name: "slides"
             widget: "list"
-            summary: "{{fields.title}}"
+            summary: "{{fields.title}} {{fields.visible}}"
             fields:
               - { label: "Image", name: "image", widget: "image" }
               - { label: "Title", name: "title", widget: "string", required: false }
               - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
+              - { label: "Visible", name: "visible", widget: "boolean", default: true, hint: "Turn OFF to hide without deleting" }
+              - { label: "Publish Date", name: "publish_date", widget: "datetime", required: false, hint: "Show only after this date/time (leave empty = show now)" }
+              - { label: "End Date", name: "end_date", widget: "datetime", required: false, hint: "Hide after this date/time (leave empty = no end)" }

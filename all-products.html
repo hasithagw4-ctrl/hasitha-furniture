@@ -153,7 +153,7 @@
       try {
         var res = await fetch('/data/products.json');
         var data = await res.json();
-        allProducts = (data.products || []).map(function(p, i) {
+        allProducts = (data.products || []).filter(function(p){ return p.visible !== false && p.visible !== "false"; }).map(function(p, i) {
           return Object.assign({}, p, { _i: i });
         });
         render(allProducts);

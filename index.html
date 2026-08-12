@@ -718,6 +718,27 @@
     // Load products from Admin CMS
     let allProducts = [];
 
+    function isVisibleProduct(p) {
+      if (p.visible === false || p.visible === 'false') return false;
+      return true;
+    }
+
+    function isActiveSlide(s) {
+      if (s.visible === false || s.visible === 'false') return false;
+      const now = new Date();
+      if (s.publish_date) {
+        const start = new Date(s.publish_date);
+        if (!isNaN(start) && now < start) return false;
+      }
+      if (s.end_date) {
+        const end = new Date(s.end_date);
+        if (!isNaN(end) && now > end) return false;
+      }
+      return true;
+    }
+
+
+
     
     function openProductModal(index) {
       const p = allProducts[index];
@@ -811,7 +832,7 @@
       try {
         const res = await fetch("/data/products.json");
         const data = await res.json();
-        allProducts = data.products || [];
+        allProducts = (data.products || []).filter(isVisibleProduct);
         renderProducts(allProducts);
       } catch (e) {
         console.error(e);
@@ -897,7 +918,7 @@
         const res = await fetch('/data/products.json');
         const data = await res.json();
         const products = (data.products || []).map((p, i) => ({...p, _i: i}));
-        const featured = products.filter(p => p.featured === true || p.featured === 'true');
+        const featured = products.filter(p => isVisibleProduct(p) && (p.featured === true || p.featured === 'true'));
         const section = document.getElementById('featured');
         const grid = document.getElementById('featured-grid');
         if (!section || !grid) return;
@@ -938,7 +959,7 @@
       try {
         const res = await fetch('/data/slides.json');
         const data = await res.json();
-        slideItems = data.slides || [];
+        slideItems = (data.slides || []).filter(isActiveSlide);
         const container = document.getElementById('slides-container');
         const dots = document.getElementById('slide-dots');
         const prev = document.getElementById('slide-prev');
