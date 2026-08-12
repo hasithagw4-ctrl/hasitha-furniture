@@ -2,13 +2,13 @@
   "slides": [
     {
       "image": "/images/uploads/gugg5xaxkaa-rsx.jpeg",
-      "visible": true
+      "visible": false
     },
     {
       "image": "/images/uploads/gqjt8eqwyaavwtr.jpeg",
       "title": "ghgg",
       "subtitle": "gg",
-      "visible": true
+      "visible": false
     }
   ]
 }
