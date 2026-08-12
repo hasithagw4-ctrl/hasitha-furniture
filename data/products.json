@@ -3,7 +3,8 @@
     {
       "price": "Rs.13,000",
       "name": "putuwak",
-      "featured": true,
+      "featured": "No",
+      "visible": "Yes",
       "whatsapp": "Hi, I'm interested in this product",
       "gallery": [
         "/images/uploads/gqjt8eqwyaavwtr.jpeg",
