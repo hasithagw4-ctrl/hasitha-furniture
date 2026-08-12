@@ -6,13 +6,76 @@
   <title>Category | Hasitha Furniture & Electronics</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script>
-    function getParam(n){ return new URLSearchParams(window.location.search).get(n); }
-    let categoryProducts = [];
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50:'#f0f7f4',100:'#dceee6',200:'#bbddd0',300:'#8cc5b0',400:'#5aa68c',
+              500:'#3a8a70',600:'#2b6f5a',700:'#245a4a',800:'#1f483c',900:'#0B3D2E',950:'#072920'
+            },
+            beige: {50:'#faf8f5',100:'#f5f0e6',200:'#ebe0d0',300:'#E8D9C0',400:'#d4c0a0',500:'#c4a97e'}
+          },
+          fontFamily: { display: ['Playfair Display','serif'], sans: ['Inter','sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>body{font-family:Inter,sans-serif}.font-display{font-family:'Playfair Display',serif}</style>
+</head>
+<body class="bg-beige-50 text-gray-800">
+
+  <nav class="bg-primary-900 text-white sticky top-0 z-50 shadow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-full bg-beige-300 flex items-center justify-center text-primary-900 font-display font-bold">H</div>
+        <span class="font-display text-lg">Hasitha Furniture</span>
+      </a>
+      <a href="/" class="text-sm text-beige-200 hover:text-white">← Back to Home</a>
+    </div>
+  </nav>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-8">
+      <p class="text-primary-700 text-sm tracking-[0.25em] uppercase mb-2">Category</p>
+      <h1 id="cat-title" class="font-display text-3xl md:text-5xl text-primary-900">Loading...</h1>
+      <div class="w-20 h-1 bg-primary-700 mx-auto mt-4"></div>
+    </div>
+
+    <div class="max-w-xl mx-auto mb-10">
+      <div class="relative">
+        <input type="text" id="cat-search" placeholder="Search in this category..."
+               class="w-full px-5 py-3 pl-12 rounded-full border border-primary-200 focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white shadow-sm text-sm"
+               oninput="filterLocal(this.value)">
+        <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </div>
+    </div>
+
+    <div id="empty" class="hidden text-center py-16 text-gray-500">
+      <p class="mb-4">No products in this category yet.</p>
+      <a href="/" class="text-primary-700 underline">Back to home</a>
+    </div>
+
+    <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"></div>
+  </main>
+
+  <footer class="bg-primary-950 text-beige-300 py-8 mt-12 text-center text-sm">
+    <a href="/" class="hover:text-white">Hasitha Furniture & Electronics</a> · Ragalkanda, Alawwa
+  </footer>
+
+  <script>
+    function getParam(n) {
+      return new URLSearchParams(window.location.search).get(n);
+    }
+
+    var categoryProducts = [];
 
     function renderGrid(list) {
-      const grid = document.getElementById('grid');
-      const empty = document.getElementById('empty');
+      var grid = document.getElementById('grid');
+      var empty = document.getElementById('empty');
       if (!list.length) {
         grid.innerHTML = '';
         empty.classList.remove('hidden');
@@ -20,59 +83,63 @@
         return;
       }
       empty.classList.add('hidden');
-      grid.innerHTML = list.map(p => `
-          <a href="/product.html?id=${p._i}" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">
-            <div class="h-56 bg-beige-200 flex items-center justify-center overflow-hidden">
-              ${p.image
-                ? `<img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">`
-                : `<span class="text-5xl opacity-40">📦</span>`}
-            </div>
-            <div class="p-6">
-              <p class="text-xs text-primary-600 uppercase tracking-wider mb-1">${p.category || ''}</p>
-              <h3 class="font-display text-xl text-primary-900 mb-2">${p.name}</h3>
-              <p class="text-gray-600 text-sm mb-3 line-clamp-2">${p.description || ''}</p>
-              <div class="flex items-center gap-2 mb-1">
-                <p class="font-semibold text-primary-800">${p.price || 'Price on request'}</p>
-                ${p.discount ? `<span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">${p.discount}</span>` : ''}
-              </div>
-              <p class="text-xs ${p.stock === 'Out of Stock' ? 'text-red-600' : 'text-green-600'}">${p.stock || 'In Stock'}</p>
-            </div>
-          </a>
-        `).join('');
+      grid.innerHTML = list.map(function(p) {
+        var img = p.image
+          ? '<img src="' + p.image + '" alt="' + (p.name || '') + '" class="w-full h-full object-cover">'
+          : '<span class="text-5xl opacity-40">📦</span>';
+        var disc = p.discount
+          ? '<span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">' + p.discount + '</span>'
+          : '';
+        var stockClass = p.stock === 'Out of Stock' ? 'text-red-600' : 'text-green-600';
+        return '<a href="/product.html?id=' + p._i + '" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">' +
+          '<div class="h-56 bg-beige-200 flex items-center justify-center overflow-hidden">' + img + '</div>' +
+          '<div class="p-6">' +
+            '<p class="text-xs text-primary-600 uppercase tracking-wider mb-1">' + (p.category || '') + '</p>' +
+            '<h3 class="font-display text-xl text-primary-900 mb-2">' + (p.name || '') + '</h3>' +
+            '<p class="text-gray-600 text-sm mb-3">' + (p.description || '') + '</p>' +
+            '<div class="flex items-center gap-2 mb-1">' +
+              '<p class="font-semibold text-primary-800">' + (p.price || 'Price on request') + '</p>' + disc +
+            '</div>' +
+            '<p class="text-xs ' + stockClass + '">' + (p.stock || 'In Stock') + '</p>' +
+          '</div></a>';
+      }).join('');
     }
 
     function filterLocal(q) {
-      const query = (q || '').toLowerCase().trim();
+      var query = (q || '').toLowerCase().trim();
       if (!query) {
         renderGrid(categoryProducts);
         return;
       }
-      const filtered = categoryProducts.filter(p => {
-        const name = (p.name || '').toLowerCase();
-        const desc = (p.description || '').toLowerCase();
-        return name.includes(query) || desc.includes(query);
+      var filtered = categoryProducts.filter(function(p) {
+        var name = (p.name || '').toLowerCase();
+        var desc = (p.description || '').toLowerCase();
+        return name.indexOf(query) !== -1 || desc.indexOf(query) !== -1;
       });
       renderGrid(filtered);
     }
 
     async function load() {
-      const cat = getParam('cat') || '';
+      var cat = getParam('cat') || '';
       document.getElementById('cat-title').textContent = cat || 'All Products';
       document.title = (cat || 'Category') + ' | Hasitha Furniture';
 
       try {
-        const res = await fetch('/data/products.json');
-        const data = await res.json();
-        const products = (data.products || []).map((p, i) => ({...p, _i: i}));
+        var res = await fetch('/data/products.json');
+        var data = await res.json();
+        var products = (data.products || []).map(function(p, i) {
+          return Object.assign({}, p, { _i: i });
+        });
         categoryProducts = cat
-          ? products.filter(p => (p.category || '').toLowerCase() === cat.toLowerCase())
+          ? products.filter(function(p) {
+              return (p.category || '').toLowerCase() === cat.toLowerCase();
+            })
           : products;
 
         if (!categoryProducts.length) {
           document.getElementById('empty').classList.remove('hidden');
           return;
         }
-
         renderGrid(categoryProducts);
       } catch (e) {
         console.error(e);
@@ -80,8 +147,8 @@
         document.getElementById('empty').querySelector('p').textContent = 'Could not load products.';
       }
     }
+
     load();
   </script>
-
 </body>
 </html>
