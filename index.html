@@ -135,6 +135,7 @@
           <a href="#home" class="text-beige-100 hover:text-white text-sm font-medium transition">Home</a>
           <a href="#furniture" class="text-beige-100 hover:text-white text-sm font-medium transition">Furniture</a>
           <a href="#electronics" class="text-beige-100 hover:text-white text-sm font-medium transition">Electronics</a>
+          <a href="#gifts" class="text-beige-100 hover:text-white text-sm font-medium transition">Gifts</a>
           <a href="#about" class="text-beige-100 hover:text-white text-sm font-medium transition">About</a>
           <a href="#contact" class="text-beige-100 hover:text-white text-sm font-medium transition">Contact</a>
         </div>
@@ -158,6 +159,7 @@
         <a href="#home" class="block text-beige-100 py-2">Home</a>
         <a href="#furniture" class="block text-beige-100 py-2">Furniture</a>
         <a href="#electronics" class="block text-beige-100 py-2">Electronics</a>
+        <a href="#gifts" class="block text-beige-100 py-2">Gifts</a>
         <a href="#about" class="block text-beige-100 py-2">About</a>
         <a href="#contact" class="block text-beige-100 py-2">Contact</a>
       </div>
@@ -280,7 +282,31 @@
             <a href="https://wa.me/94772216854?text=Hi, I'm interested in Office Furniture" class="text-primary-700 font-medium text-sm hover:underline">Inquire →</a>
           </div>
         </div>
+
+        <!-- Mattresses -->
+        <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm fade-in cursor-pointer" onclick="filterByCategory('Mattresses')">
+          <div class="h-56 cat-placeholder flex items-center justify-center">
+            <span class="text-primary-800/40 text-6xl">🛏️</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl text-primary-900 mb-2">Mattresses</h3>
+            <p class="text-gray-600 text-sm mb-4">Comfortable mattresses for better sleep</p>
+            <a href="https://wa.me/94772216854?text=Hi, I'm interested in Mattresses" class="text-primary-700 font-medium text-sm hover:underline">Inquire →</a>
+          </div>
+        </div>
         
+        <!-- Other Furniture -->
+        <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm fade-in cursor-pointer" onclick="filterByCategory('Other Furniture')">
+          <div class="h-56 cat-placeholder flex items-center justify-center">
+            <span class="text-primary-800/40 text-6xl">🛋️</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl text-primary-900 mb-2">Other Furniture</h3>
+            <p class="text-gray-600 text-sm mb-4">More furniture items for your home</p>
+            <a href="https://wa.me/94772216854?text=Hi, I'm interested in Other Furniture" class="text-primary-700 font-medium text-sm hover:underline">Inquire →</a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -331,7 +357,28 @@
           <h3 class="font-medium">Pressure Washers</h3>
         </div>
         
-                <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="filterByCategory('Plastic Items')">
+        
+        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="filterByCategory('Fans')">
+          <div class="text-4xl mb-3">🌀</div>
+          <h3 class="font-medium">Fans</h3>
+        </div>
+        
+        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="filterByCategory('Vacuum Cleaners')">
+          <div class="text-4xl mb-3">🧹</div>
+          <h3 class="font-medium">Vacuum Cleaners</h3>
+        </div>
+        
+        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="filterByCategory('Rice Cookers')">
+          <div class="text-4xl mb-3">🍚</div>
+          <h3 class="font-medium">Rice Cookers</h3>
+        </div>
+        
+        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="filterByCategory('Other Electronics')">
+          <div class="text-4xl mb-3">🔌</div>
+          <h3 class="font-medium">Other Electronics</h3>
+        </div>
+
+        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="filterByCategory('Plastic Items')">
           <div class="text-4xl mb-3">📦</div>
           <h3 class="font-medium">Plastic Items</h3>
         </div>
@@ -343,6 +390,31 @@
           Ask about Electronics
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- ========== GIFT ITEMS ========== -->
+  <section id="gifts" class="py-20 md:py-28 bg-beige-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <p class="text-primary-700 text-sm tracking-[0.25em] uppercase mb-3">Special Collection</p>
+        <h2 class="font-display text-3xl md:text-5xl text-primary-900">Gift Items</h2>
+        <div class="w-20 h-1 bg-primary-700 mx-auto mt-4"></div>
+      </div>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm fade-in cursor-pointer" onclick="filterByCategory('Gift Items')">
+          <div class="h-56 cat-placeholder flex items-center justify-center">
+            <span class="text-primary-800/40 text-6xl">🎁</span>
+          </div>
+          <div class="p-6">
+            <h3 class="font-display text-xl text-primary-900 mb-2">Gift Items</h3>
+            <p class="text-gray-600 text-sm mb-4">Thoughtful gifts for every occasion</p>
+            <a href="https://wa.me/94772216854?text=Hi, I'm interested in Gift Items" class="text-primary-700 font-medium text-sm hover:underline">Inquire →</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -397,6 +469,18 @@
         <h2 class="font-display text-3xl md:text-5xl text-primary-900">Latest Products</h2>
         <div class="w-20 h-1 bg-primary-700 mx-auto mt-4"></div>
       </div>
+      
+      <div class="max-w-xl mx-auto mb-10">
+        <div class="relative">
+          <input type="text" id="product-search" placeholder="Search products..." 
+                 class="w-full px-5 py-3 pl-12 rounded-full border border-primary-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white shadow-sm"
+                 oninput="searchProducts(this.value)">
+          <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+        </div>
+      </div>
+
       <div id="category-filter-info" class="text-center mb-8 hidden">
         <p class="text-primary-700 font-medium">Showing: <span id="active-category" class="font-semibold"></span></p>
         <button onclick="showAllProducts()" class="mt-2 text-sm text-primary-600 underline hover:text-primary-800">Show All Products</button>
@@ -561,6 +645,28 @@
         info.classList.remove("hidden");
       }
       document.getElementById("products")?.scrollIntoView({ behavior: "smooth" });
+    }
+
+    
+    function searchProducts(query) {
+      const q = (query || "").toLowerCase().trim();
+      if (!q) {
+        showAllProducts();
+        return;
+      }
+      const filtered = allProducts.filter(p => {
+        const name = (p.name || "").toLowerCase();
+        const desc = (p.description || "").toLowerCase();
+        const cat = (p.category || "").toLowerCase();
+        return name.includes(q) || desc.includes(q) || cat.includes(q);
+      });
+      renderProducts(filtered);
+      const info = document.getElementById("category-filter-info");
+      const active = document.getElementById("active-category");
+      if (info && active) {
+        active.textContent = 'Search: "' + query + '"';
+        info.classList.remove("hidden");
+      }
     }
 
     function showAllProducts() {
