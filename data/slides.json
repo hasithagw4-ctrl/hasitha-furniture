@@ -1,12 +1,14 @@
 {
   "slides": [
     {
-      "image": "/images/uploads/gugg5xaxkaa-rsx.jpeg"
+      "image": "/images/uploads/gugg5xaxkaa-rsx.jpeg",
+      "visible": true
     },
     {
       "image": "/images/uploads/gqjt8eqwyaavwtr.jpeg",
       "title": "ghgg",
-      "subtitle": "gg"
+      "subtitle": "gg",
+      "visible": true
     }
   ]
 }
