@@ -16,12 +16,27 @@ collections:
           - label: "Products List"
             name: "products"
             widget: "list"
+            summary: "{{fields.name}} — {{fields.category}}"
             fields:
               - { label: "Product Name", name: "name", widget: "string" }
               - { label: "Category", name: "category", widget: "select", options: ["Sofas", "Beds", "Wardrobes", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Kettles & Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Other Electronics", "Plastic Items", "Gift Items"] }
-              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Short Description", name: "description", widget: "text" }
+              - { label: "Full Details", name: "details", widget: "text", required: false, hint: "Longer product description shown on detail view" }
               - { label: "Price", name: "price", widget: "string", default: "Price on request" }
               - { label: "Discount", name: "discount", widget: "string", required: false, hint: "Example: 10% OFF or Rs. 5000 OFF" }
               - { label: "Stock Status", name: "stock", widget: "select", options: ["In Stock", "Out of Stock"], default: "In Stock" }
-              - { label: "Image", name: "image", widget: "image", required: false }
+              - { label: "Main Image", name: "image", widget: "image", required: false }
+              - label: "Gallery Images"
+                name: "gallery"
+                widget: "list"
+                required: false
+                field: { label: "Image", name: "src", widget: "image" }
+              - label: "Specifications"
+                name: "specs"
+                widget: "list"
+                required: false
+                summary: "{{fields.label}}: {{fields.value}}"
+                fields:
+                  - { label: "Label", name: "label", widget: "string", hint: "e.g. Material, Size, Color" }
+                  - { label: "Value", name: "value", widget: "string", hint: "e.g. Teak Wood, 6x3 ft" }
               - { label: "WhatsApp Message", name: "whatsapp", widget: "string", default: "Hi, I'm interested in this product" }

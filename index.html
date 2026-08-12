@@ -678,6 +678,95 @@
     // Load products from Admin CMS
     let allProducts = [];
 
+    
+    function openProductModal(index) {
+      const p = allProducts[index];
+      if (!p) return;
+      const modal = document.getElementById('product-modal');
+      document.getElementById('modal-category').textContent = p.category || '';
+      document.getElementById('modal-name').textContent = p.name || '';
+      document.getElementById('modal-price').textContent = p.price || 'Price on request';
+      document.getElementById('modal-description').textContent = p.description || '';
+      
+      const disc = document.getElementById('modal-discount');
+      if (p.discount) {
+        disc.textContent = p.discount;
+        disc.classList.remove('hidden');
+      } else {
+        disc.classList.add('hidden');
+      }
+      
+      const stock = document.getElementById('modal-stock');
+      stock.textContent = p.stock || 'In Stock';
+      stock.className = 'text-sm mb-4 ' + (p.stock === 'Out of Stock' ? 'text-red-600' : 'text-green-600');
+      
+      const detailsWrap = document.getElementById('modal-details-wrap');
+      if (p.details) {
+        document.getElementById('modal-details').textContent = p.details;
+        detailsWrap.classList.remove('hidden');
+      } else {
+        detailsWrap.classList.add('hidden');
+      }
+      
+      const specsWrap = document.getElementById('modal-specs-wrap');
+      const specsBody = document.getElementById('modal-specs');
+      if (p.specs && p.specs.length) {
+        specsBody.innerHTML = p.specs.map(s => `
+          <tr class="border-b border-gray-100">
+            <td class="py-2 pr-4 text-gray-500 font-medium w-1/3">${s.label || ''}</td>
+            <td class="py-2 text-gray-800">${s.value || ''}</td>
+          </tr>
+        `).join('');
+        specsWrap.classList.remove('hidden');
+      } else {
+        specsWrap.classList.add('hidden');
+      }
+      
+      // Images
+      const mainImg = document.getElementById('modal-main-image');
+      const noImg = document.getElementById('modal-no-image');
+      const thumbs = document.getElementById('modal-thumbs');
+      let images = [];
+      if (p.image) images.push(p.image);
+      if (p.gallery && Array.isArray(p.gallery)) {
+        p.gallery.forEach(g => {
+          const src = typeof g === 'string' ? g : (g && g.src);
+          if (src && !images.includes(src)) images.push(src);
+        });
+      }
+      if (images.length) {
+        mainImg.src = images[0];
+        mainImg.classList.remove('hidden');
+        noImg.classList.add('hidden');
+        thumbs.innerHTML = images.map((src, i) => `
+          <button type="button" onclick="document.getElementById('modal-main-image').src='${src}'"
+            class="w-16 h-16 rounded-lg overflow-hidden border-2 flex-shrink-0 ${i===0 ? 'border-primary-600' : 'border-transparent'} hover:border-primary-400">
+            <img src="${src}" class="w-full h-full object-cover" alt="">
+          </button>
+        `).join('');
+      } else {
+        mainImg.classList.add('hidden');
+        noImg.classList.remove('hidden');
+        thumbs.innerHTML = '';
+      }
+      
+      const wa = document.getElementById('modal-whatsapp');
+      wa.href = 'https://wa.me/94772216854?text=' + encodeURIComponent(p.whatsapp || ('Hi, I am interested in ' + p.name));
+      
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeProductModal() {
+      document.getElementById('product-modal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeProductModal();
+    });
+
+
     async function loadProducts() {
       try {
         const res = await fetch("/data/products.json");
@@ -698,8 +787,10 @@
         grid.innerHTML = '<div class="col-span-full text-center text-gray-500 py-10">No products in this category yet.</div>';
         return;
       }
-      grid.innerHTML = products.map(p => `
-        <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+      grid.innerHTML = products.map((p, idx) => {
+        const globalIdx = allProducts.indexOf(p);
+        return `
+        <div class="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer hover:shadow-md transition" onclick="openProductModal(${globalIdx >= 0 ? globalIdx : idx})">
           <div class="h-56 bg-beige-200 flex items-center justify-center overflow-hidden">
             ${p.image ? `<img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">` : `<span class="text-5xl opacity-40">📦</span>`}
           </div>
@@ -712,10 +803,10 @@
               ${p.discount ? `<span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">${p.discount}</span>` : ""}
             </div>
             <p class="text-xs mb-3 ${p.stock === "Out of Stock" ? "text-red-600" : "text-green-600"}">${p.stock || "In Stock"}</p>
-            <a href="https://wa.me/94772216854?text=${encodeURIComponent(p.whatsapp || "Hi, I am interested in " + p.name)}" class="text-primary-700 font-medium text-sm hover:underline">Inquire on WhatsApp →</a>
+            <span class="text-primary-700 font-medium text-sm">View details →</span>
           </div>
         </div>
-      `).join("");
+      `}).join("");
     }
 
     function filterByCategory(category) {
@@ -762,5 +853,49 @@
     loadProducts();
 
   </script>
+
+  <!-- ========== PRODUCT DETAIL MODAL ========== -->
+  <div id="product-modal" class="fixed inset-0 z-[100] hidden">
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeProductModal()"></div>
+    <div class="absolute inset-4 md:inset-10 lg:inset-16 bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-w-5xl mx-auto">
+      <!-- Images -->
+      <div class="md:w-1/2 bg-beige-100 flex flex-col">
+        <div class="relative flex-1 min-h-[240px] md:min-h-0 flex items-center justify-center overflow-hidden">
+          <img id="modal-main-image" src="" alt="" class="w-full h-full object-cover">
+          <div id="modal-no-image" class="hidden text-6xl opacity-40">📦</div>
+        </div>
+        <div id="modal-thumbs" class="flex gap-2 p-3 overflow-x-auto bg-beige-50 border-t border-beige-200"></div>
+      </div>
+      <!-- Details -->
+      <div class="md:w-1/2 p-6 md:p-8 overflow-y-auto flex flex-col">
+        <button onclick="closeProductModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 z-10">✕</button>
+        <p id="modal-category" class="text-xs text-primary-600 uppercase tracking-wider mb-1"></p>
+        <h2 id="modal-name" class="font-display text-2xl md:text-3xl text-primary-900 mb-2"></h2>
+        <div class="flex items-center gap-2 mb-2">
+          <p id="modal-price" class="font-semibold text-primary-800 text-lg"></p>
+          <span id="modal-discount" class="hidden text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full"></span>
+        </div>
+        <p id="modal-stock" class="text-sm mb-4"></p>
+        <p id="modal-description" class="text-gray-600 text-sm mb-4"></p>
+        <div id="modal-details-wrap" class="hidden mb-4">
+          <h3 class="font-semibold text-primary-900 text-sm mb-1">Details</h3>
+          <p id="modal-details" class="text-gray-600 text-sm whitespace-pre-line"></p>
+        </div>
+        <div id="modal-specs-wrap" class="hidden mb-6">
+          <h3 class="font-semibold text-primary-900 text-sm mb-2">Specifications</h3>
+          <table class="w-full text-sm">
+            <tbody id="modal-specs"></tbody>
+          </table>
+        </div>
+        <div class="mt-auto pt-4">
+          <a id="modal-whatsapp" href="#" target="_blank"
+             class="inline-flex items-center justify-center gap-2 w-full bg-green-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-700 transition">
+            Inquire on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
