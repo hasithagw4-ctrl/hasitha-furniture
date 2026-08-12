@@ -6,77 +6,21 @@
   <title>Category | Hasitha Furniture & Electronics</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: {
-              50:'#f0f7f4',100:'#dceee6',200:'#bbddd0',300:'#8cc5b0',400:'#5aa68c',
-              500:'#3a8a70',600:'#2b6f5a',700:'#245a4a',800:'#1f483c',900:'#0B3D2E',950:'#072920'
-            },
-            beige: {50:'#faf8f5',100:'#f5f0e6',200:'#ebe0d0',300:'#E8D9C0',400:'#d4c0a0',500:'#c4a97e'}
-          },
-          fontFamily: { display: ['Playfair Display','serif'], sans: ['Inter','sans-serif'] }
-        }
-      }
-    }
-  </script>
-  <style>body{font-family:Inter,sans-serif}.font-display{font-family:'Playfair Display',serif}</style>
-</head>
-<body class="bg-beige-50 text-gray-800">
-
-  <nav class="bg-primary-900 text-white sticky top-0 z-50 shadow">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-      <a href="/" class="flex items-center gap-2">
-        <div class="w-9 h-9 rounded-full bg-beige-300 flex items-center justify-center text-primary-900 font-display font-bold">H</div>
-        <span class="font-display text-lg">Hasitha Furniture</span>
-      </a>
-      <a href="/" class="text-sm text-beige-200 hover:text-white">← Back to Home</a>
-    </div>
-  </nav>
-
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="text-center mb-12">
-      <p class="text-primary-700 text-sm tracking-[0.25em] uppercase mb-2">Category</p>
-      <h1 id="cat-title" class="font-display text-3xl md:text-5xl text-primary-900">Loading...</h1>
-      <div class="w-20 h-1 bg-primary-700 mx-auto mt-4"></div>
-    </div>
-
-    <div id="empty" class="hidden text-center py-16 text-gray-500">
-      <p class="mb-4">No products in this category yet.</p>
-      <a href="/" class="text-primary-700 underline">Back to home</a>
-    </div>
-
-    <div id="grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"></div>
-  </main>
-
-  <footer class="bg-primary-950 text-beige-300 py-8 mt-12 text-center text-sm">
-    <a href="/" class="hover:text-white">Hasitha Furniture & Electronics</a> · Ragalkanda, Alawwa
-  </footer>
-
-  <script>
+    <script>
     function getParam(n){ return new URLSearchParams(window.location.search).get(n); }
+    let categoryProducts = [];
 
-    async function load() {
-      const cat = getParam('cat') || '';
-      document.getElementById('cat-title').textContent = cat || 'All Products';
-      document.title = (cat || 'Category') + ' | Hasitha Furniture';
-
-      try {
-        const res = await fetch('/data/products.json');
-        const data = await res.json();
-        const products = (data.products || []).map((p, i) => ({...p, _i: i}));
-        const filtered = cat
-          ? products.filter(p => (p.category || '').toLowerCase() === cat.toLowerCase())
-          : products;
-
-        if (!filtered.length) {
-          document.getElementById('empty').classList.remove('hidden');
-          return;
-        }
-
-        document.getElementById('grid').innerHTML = filtered.map(p => `
+    function renderGrid(list) {
+      const grid = document.getElementById('grid');
+      const empty = document.getElementById('empty');
+      if (!list.length) {
+        grid.innerHTML = '';
+        empty.classList.remove('hidden');
+        empty.querySelector('p').textContent = 'No products found.';
+        return;
+      }
+      empty.classList.add('hidden');
+      grid.innerHTML = list.map(p => `
           <a href="/product.html?id=${p._i}" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">
             <div class="h-56 bg-beige-200 flex items-center justify-center overflow-hidden">
               ${p.image
@@ -95,6 +39,41 @@
             </div>
           </a>
         `).join('');
+    }
+
+    function filterLocal(q) {
+      const query = (q || '').toLowerCase().trim();
+      if (!query) {
+        renderGrid(categoryProducts);
+        return;
+      }
+      const filtered = categoryProducts.filter(p => {
+        const name = (p.name || '').toLowerCase();
+        const desc = (p.description || '').toLowerCase();
+        return name.includes(query) || desc.includes(query);
+      });
+      renderGrid(filtered);
+    }
+
+    async function load() {
+      const cat = getParam('cat') || '';
+      document.getElementById('cat-title').textContent = cat || 'All Products';
+      document.title = (cat || 'Category') + ' | Hasitha Furniture';
+
+      try {
+        const res = await fetch('/data/products.json');
+        const data = await res.json();
+        const products = (data.products || []).map((p, i) => ({...p, _i: i}));
+        categoryProducts = cat
+          ? products.filter(p => (p.category || '').toLowerCase() === cat.toLowerCase())
+          : products;
+
+        if (!categoryProducts.length) {
+          document.getElementById('empty').classList.remove('hidden');
+          return;
+        }
+
+        renderGrid(categoryProducts);
       } catch (e) {
         console.error(e);
         document.getElementById('empty').classList.remove('hidden');
@@ -103,5 +82,6 @@
     }
     load();
   </script>
+
 </body>
 </html>
