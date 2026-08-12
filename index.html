@@ -719,12 +719,12 @@
     let allProducts = [];
 
     function isVisibleProduct(p) {
-      if (p.visible === false || p.visible === 'false') return false;
+      if (p.visible === false || p.visible === 'false' || p.visible === 'No') return false;
       return true;
     }
 
     function isActiveSlide(s) {
-      if (s.visible === false || s.visible === 'false') return false;
+      if (s.visible === false || s.visible === 'false' || s.visible === 'No') return false;
       const now = new Date();
       if (s.publish_date) {
         const start = new Date(s.publish_date);
@@ -918,7 +918,7 @@
         const res = await fetch('/data/products.json');
         const data = await res.json();
         const products = (data.products || []).map((p, i) => ({...p, _i: i}));
-        const featured = products.filter(p => isVisibleProduct(p) && (p.featured === true || p.featured === 'true'));
+        const featured = products.filter(p => isVisibleProduct(p) && (p.featured === true || p.featured === 'true' || p.featured === 'Yes'));
         const section = document.getElementById('featured');
         const grid = document.getElementById('featured-grid');
         if (!section || !grid) return;

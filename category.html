@@ -127,7 +127,7 @@
       try {
         var res = await fetch('/data/products.json');
         var data = await res.json();
-        var products = (data.products || []).filter(function(p){ return p.visible !== false && p.visible !== "false"; }).map(function(p, i) {
+        var products = (data.products || []).filter(function(p){ return p.visible !== false && p.visible !== "false" && p.visible !== "No"; }).map(function(p, i) {
           return Object.assign({}, p, { _i: i });
         });
         categoryProducts = cat
