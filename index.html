@@ -201,7 +201,22 @@
   </section>
 
   <!-- ========== FURNITURE CATEGORIES ========== -->
-  <section id="furniture" class="py-20 md:py-28 bg-beige-50">
+  
+  <!-- ========== SEARCH BAR ========== -->
+  <section class="bg-beige-50 py-6 border-b border-beige-200 sticky top-16 z-40">
+    <div class="max-w-2xl mx-auto px-4">
+      <div class="relative">
+        <input type="text" id="product-search" placeholder="Search furniture, electronics, gifts..." 
+               class="w-full px-5 py-3.5 pl-12 rounded-full border border-primary-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white shadow-sm text-sm"
+               oninput="searchProducts(this.value)">
+        <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+<section id="furniture" class="py-20 md:py-28 bg-beige-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16 fade-in">
         <p class="text-primary-700 text-sm tracking-[0.25em] uppercase mb-3">Our Collection</p>
@@ -470,17 +485,6 @@
         <div class="w-20 h-1 bg-primary-700 mx-auto mt-4"></div>
       </div>
       
-      <div class="max-w-xl mx-auto mb-10">
-        <div class="relative">
-          <input type="text" id="product-search" placeholder="Search products..." 
-                 class="w-full px-5 py-3 pl-12 rounded-full border border-primary-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white shadow-sm"
-                 oninput="searchProducts(this.value)">
-          <svg class="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-          </svg>
-        </div>
-      </div>
-
       <div id="category-filter-info" class="text-center mb-8 hidden">
         <p class="text-primary-700 font-medium">Showing: <span id="active-category" class="font-semibold"></span></p>
         <button onclick="showAllProducts()" class="mt-2 text-sm text-primary-600 underline hover:text-primary-800">Show All Products</button>
@@ -667,6 +671,7 @@
         active.textContent = 'Search: "' + query + '"';
         info.classList.remove("hidden");
       }
+      document.getElementById("products")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     function showAllProducts() {
