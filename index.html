@@ -220,6 +220,23 @@
     </div>
   </section>
 
+
+  <!-- ========== HOMEPAGE SLIDESHOW ========== -->
+  <section id="slideshow" class="relative bg-beige-100 overflow-hidden">
+    <div id="slide-track" class="relative w-full h-56 sm:h-72 md:h-96 lg:h-[28rem]">
+      <div id="slides-container" class="absolute inset-0">
+        <div class="w-full h-full flex items-center justify-center bg-beige-200 text-gray-400 text-sm" id="slides-placeholder">
+          Add slideshow images from Admin → Homepage Slideshow
+        </div>
+      </div>
+      <!-- Arrows -->
+      <button type="button" id="slide-prev" class="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 hover:bg-white shadow flex items-center justify-center text-primary-900 hidden" aria-label="Previous">‹</button>
+      <button type="button" id="slide-next" class="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 hover:bg-white shadow flex items-center justify-center text-primary-900 hidden" aria-label="Next">›</button>
+      <!-- Dots -->
+      <div id="slide-dots" class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10"></div>
+    </div>
+  </section>
+
 <section id="furniture" class="py-20 md:py-28 bg-beige-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16 fade-in">
@@ -851,6 +868,81 @@
     }
 
     loadProducts();
+
+    // Homepage slideshow
+    let slideIndex = 0;
+    let slideTimer = null;
+    let slideItems = [];
+
+    async function loadSlideshow() {
+      try {
+        const res = await fetch('/data/slides.json');
+        const data = await res.json();
+        slideItems = data.slides || [];
+        const container = document.getElementById('slides-container');
+        const dots = document.getElementById('slide-dots');
+        const prev = document.getElementById('slide-prev');
+        const next = document.getElementById('slide-next');
+        if (!container || !slideItems.length) return;
+
+        container.innerHTML = slideItems.map((s, i) => `
+          <div class="slide absolute inset-0 transition-opacity duration-700 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}">
+            <img src="${s.image}" alt="${s.title || ''}" class="w-full h-full object-cover">
+            ${(s.title || s.subtitle) ? `
+              <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end">
+                <div class="p-6 md:p-10 text-white">
+                  ${s.title ? `<h3 class="font-display text-2xl md:text-4xl mb-1">${s.title}</h3>` : ''}
+                  ${s.subtitle ? `<p class="text-sm md:text-base text-white/90">${s.subtitle}</p>` : ''}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `).join('');
+
+        dots.innerHTML = slideItems.map((_, i) => `
+          <button type="button" class="slide-dot w-2.5 h-2.5 rounded-full ${i===0?'bg-white':'bg-white/50'}" data-i="${i}"></button>
+        `).join('');
+
+        if (slideItems.length > 1) {
+          prev.classList.remove('hidden');
+          next.classList.remove('hidden');
+          prev.onclick = () => goSlide(slideIndex - 1);
+          next.onclick = () => goSlide(slideIndex + 1);
+          dots.querySelectorAll('.slide-dot').forEach(btn => {
+            btn.onclick = () => goSlide(parseInt(btn.dataset.i, 10));
+          });
+          startSlideTimer();
+        }
+      } catch (e) {
+        console.error('Slideshow load error', e);
+      }
+    }
+
+    function goSlide(n) {
+      if (!slideItems.length) return;
+      slideIndex = (n + slideItems.length) % slideItems.length;
+      document.querySelectorAll('#slides-container .slide').forEach((el, i) => {
+        el.classList.toggle('opacity-100', i === slideIndex);
+        el.classList.toggle('z-10', i === slideIndex);
+        el.classList.toggle('opacity-0', i !== slideIndex);
+        el.classList.toggle('z-0', i !== slideIndex);
+      });
+      document.querySelectorAll('.slide-dot').forEach((d, i) => {
+        d.classList.toggle('bg-white', i === slideIndex);
+        d.classList.toggle('bg-white/50', i !== slideIndex);
+      });
+      startSlideTimer();
+    }
+
+    function startSlideTimer() {
+      clearInterval(slideTimer);
+      if (slideItems.length > 1) {
+        slideTimer = setInterval(() => goSlide(slideIndex + 1), 5000);
+      }
+    }
+
+    loadSlideshow();
+
 
   </script>
 
