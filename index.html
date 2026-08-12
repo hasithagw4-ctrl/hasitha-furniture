@@ -222,18 +222,20 @@
 
 
   <!-- ========== HOMEPAGE SLIDESHOW ========== -->
-  <section id="slideshow" class="relative bg-beige-100 overflow-hidden hidden">
-    <div id="slide-track" class="relative w-full h-56 sm:h-72 md:h-96 lg:h-[28rem]">
-      <div id="slides-container" class="absolute inset-0">
-        <div class="w-full h-full flex items-center justify-center bg-beige-200 text-gray-400 text-sm" id="slides-placeholder">
-          Add slideshow images from Admin → Homepage Slideshow
+  <section id="slideshow" class="relative bg-beige-50 py-4 md:py-6 px-4 sm:px-6 lg:px-8 hidden">
+    <div class="max-w-7xl mx-auto">
+      <div id="slide-track" class="relative w-full h-52 sm:h-64 md:h-80 lg:h-[26rem] rounded-2xl overflow-hidden shadow-md">
+        <div id="slides-container" class="absolute inset-0">
+          <div class="w-full h-full flex items-center justify-center bg-beige-200 text-gray-400 text-sm" id="slides-placeholder">
+            Add slideshow images from Admin → Homepage Slideshow
+          </div>
         </div>
+        <!-- Arrows -->
+        <button type="button" id="slide-prev" class="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 hover:bg-white shadow flex items-center justify-center text-primary-900 hidden" aria-label="Previous">‹</button>
+        <button type="button" id="slide-next" class="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 hover:bg-white shadow flex items-center justify-center text-primary-900 hidden" aria-label="Next">›</button>
+        <!-- Dots -->
+        <div id="slide-dots" class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10"></div>
       </div>
-      <!-- Arrows -->
-      <button type="button" id="slide-prev" class="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 hover:bg-white shadow flex items-center justify-center text-primary-900 hidden" aria-label="Previous">‹</button>
-      <button type="button" id="slide-next" class="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/80 hover:bg-white shadow flex items-center justify-center text-primary-900 hidden" aria-label="Next">›</button>
-      <!-- Dots -->
-      <div id="slide-dots" class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10"></div>
     </div>
   </section>
 
