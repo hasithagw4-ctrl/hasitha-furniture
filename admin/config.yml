@@ -38,6 +38,7 @@ collections:
                 fields:
                   - { label: "Label", name: "label", widget: "string" }
                   - { label: "Value", name: "value", widget: "string" }
+              - { label: "Featured on Homepage", name: "featured", widget: "boolean", default: false, hint: "Show this product in the homepage featured section" }
               - { label: "WhatsApp Message", name: "whatsapp", widget: "string", default: "Hi, I'm interested in this product" }
 
   - name: "slides"
