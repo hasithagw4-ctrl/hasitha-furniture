@@ -222,7 +222,7 @@
 
 
   <!-- ========== HOMEPAGE SLIDESHOW ========== -->
-  <section id="slideshow" class="relative bg-beige-100 overflow-hidden">
+  <section id="slideshow" class="relative bg-beige-100 overflow-hidden hidden">
     <div id="slide-track" class="relative w-full h-56 sm:h-72 md:h-96 lg:h-[28rem]">
       <div id="slides-container" class="absolute inset-0">
         <div class="w-full h-full flex items-center justify-center bg-beige-200 text-gray-400 text-sm" id="slides-placeholder">
@@ -883,7 +883,11 @@
         const dots = document.getElementById('slide-dots');
         const prev = document.getElementById('slide-prev');
         const next = document.getElementById('slide-next');
-        if (!container || !slideItems.length) return;
+        if (!container || !slideItems.length) {
+          document.getElementById('slideshow')?.classList.add('hidden');
+          return;
+        }
+        document.getElementById('slideshow')?.classList.remove('hidden');
 
         container.innerHTML = slideItems.map((s, i) => `
           <div class="slide absolute inset-0 transition-opacity duration-700 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}">
