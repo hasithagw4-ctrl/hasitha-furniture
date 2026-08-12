@@ -2,12 +2,17 @@
   "products": [
     {
       "price": "Rs.13,000",
-      "whatsapp": "Hi, I'm interested in this product",
       "name": "putuwak",
-      "category": "Veranda Chairs",
-      "description": "thekka putuwak",
+      "featured": true,
+      "whatsapp": "Hi, I'm interested in this product",
+      "gallery": [
+        "/images/uploads/gqjt8eqwyaavwtr.jpeg",
+        "/images/uploads/gugg5xaxkaa-rsx.jpeg"
+      ],
+      "stock": "In Stock",
       "image": "/images/uploads/gqjt8eqwyaavwtr.jpeg",
-      "stock": "In Stock"
+      "description": "thekka putuwak",
+      "category": "Veranda Chairs"
     },
     {
       "price": "20,000",
