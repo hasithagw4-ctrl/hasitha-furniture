@@ -790,7 +790,7 @@
       grid.innerHTML = products.map((p, idx) => {
         const globalIdx = allProducts.indexOf(p);
         return `
-        <div class="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer hover:shadow-md transition" onclick="openProductModal(${globalIdx >= 0 ? globalIdx : idx})">
+        <div class="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer hover:shadow-md transition" onclick="window.location.href='/product.html?id='+(${globalIdx >= 0 ? globalIdx : idx})">
           <div class="h-56 bg-beige-200 flex items-center justify-center overflow-hidden">
             ${p.image ? `<img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">` : `<span class="text-5xl opacity-40">📦</span>`}
           </div>
