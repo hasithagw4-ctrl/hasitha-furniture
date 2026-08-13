@@ -34,6 +34,15 @@
     body { font-family: Inter, sans-serif; }
     .font-display { font-family: 'Playfair Display', serif; }
   </style>
+
+  <style>
+    .img-nav-btn { display: none !important; }
+    @media (min-width: 768px) {
+      .main-image-wrap:hover .img-nav-btn.has-multiple {
+        display: flex !important;
+      }
+    }
+  </style>
 </head>
 <body class="bg-beige-50 text-gray-800">
 
@@ -60,11 +69,11 @@
       <div class="grid md:grid-cols-2 gap-8 lg:gap-12 mb-16">
         <!-- Gallery -->
         <div>
-          <div id="main-image-wrap" class="relative bg-beige-200 rounded-2xl overflow-hidden aspect-[4/3] flex items-center justify-center mb-3 select-none">
+          <div id="main-image-wrap" class="main-image-wrap relative bg-beige-200 rounded-2xl overflow-hidden aspect-[4/3] flex items-center justify-center mb-3 select-none">
             <img id="main-image" src="" alt="" class="w-full h-full object-cover hidden cursor-pointer">
             <span id="no-image" class="text-6xl opacity-40">📦</span>
-            <button type="button" id="img-prev" class="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center text-primary-900 text-xl hover:bg-white hidden" aria-label="Previous">‹</button>
-            <button type="button" id="img-next" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center text-primary-900 text-xl hover:bg-white hidden" aria-label="Next">›</button>
+            <button type="button" id="img-prev" class="img-nav-btn absolute left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 shadow items-center justify-center text-primary-900 text-xl hover:bg-white" aria-label="Previous">‹</button>
+            <button type="button" id="img-next" class="img-nav-btn absolute right-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 shadow items-center justify-center text-primary-900 text-xl hover:bg-white" aria-label="Next">›</button>
           </div>
           <div id="thumbs" class="flex gap-2 overflow-x-auto"></div>
         </div>
@@ -185,19 +194,16 @@
       var prev = document.getElementById('img-prev');
       var next = document.getElementById('img-next');
       var wrap = document.getElementById('main-image-wrap');
-      if (!window._productImages || window._productImages.length < 2) {
-        if (prev) prev.classList.add('hidden');
-        if (next) next.classList.add('hidden');
-        return;
-      }
+      var multi = window._productImages && window._productImages.length > 1;
       if (prev) {
-        prev.classList.remove('hidden');
+        prev.classList.toggle('has-multiple', multi);
         prev.onclick = function(e) { e.stopPropagation(); showProductImage(currentImgIndex - 1); };
       }
       if (next) {
-        next.classList.remove('hidden');
+        next.classList.toggle('has-multiple', multi);
         next.onclick = function(e) { e.stopPropagation(); showProductImage(currentImgIndex + 1); };
       }
+      if (!multi) return;
       // Swipe support
       if (wrap && !wrap._swipeBound) {
         wrap._swipeBound = true;
