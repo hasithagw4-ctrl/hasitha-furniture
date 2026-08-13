@@ -33,7 +33,8 @@ collections:
                 widget: "list"
                 required: false
                 field: { label: "Image", name: "src", widget: "image" }
-              - label: "Specifications"
+              - { label: "Specifications (bulk)", name: "specs_text", widget: "text", required: false, hint: "One per line: Label | Value   e.g. Material | Teak wood" }
+              - label: "Specifications (optional rows)"
                 name: "specs"
                 widget: "list"
                 required: false
