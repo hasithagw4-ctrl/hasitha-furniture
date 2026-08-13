@@ -26,6 +26,18 @@ collections:
       - { label: "Stock Status", name: "stock", widget: "select", options: ["In Stock", "Out of Stock"], default: "In Stock" }
       - { label: "Visible on Website", name: "visible", widget: "select", options: ["Yes", "No"], default: "Yes", required: true }
       - { label: "Featured on Homepage", name: "featured", widget: "select", options: ["Yes", "No"], default: "No", required: true }
+      - label: "Featured Position (1-4)"
+        name: "featured_position"
+        widget: "select"
+        required: false
+        default: ""
+        hint: "Optional. Only for Featured products. 1 = first, 2 = second, etc. Leave empty = normal upload order after positioned ones."
+        options:
+          - { label: "Auto (upload order)", value: "" }
+          - { label: "1 — First", value: "1" }
+          - { label: "2 — Second", value: "2" }
+          - { label: "3 — Third", value: "3" }
+          - { label: "4 — Fourth", value: "4" }
       - { label: "Main Image", name: "image", widget: "image", required: false }
       - label: "Gallery Images"
         name: "gallery"
