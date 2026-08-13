@@ -121,14 +121,24 @@
     var lbIndex = 0;
 
     function openLightbox(src, list) {
-      lbImages = list && list.length ? list : [src];
-      lbIndex = Math.max(0, lbImages.indexOf(src));
-      if (lbIndex < 0) lbIndex = 0;
-      document.getElementById('lightbox-img').src = lbImages[lbIndex];
+      lbImages = (list && list.length) ? list.slice() : [src];
+      lbIndex = 0;
+      for (var i = 0; i < lbImages.length; i++) {
+        if (lbImages[i] === src || (src && src.indexOf(lbImages[i]) !== -1) || (lbImages[i] && String(src).endsWith(lbImages[i].replace(/^\//,'')))) {
+          lbIndex = i;
+          break;
+        }
+      }
+      document.getElementById('lightbox-img').src = lbImages[lbIndex] || src;
       var lb = document.getElementById('lightbox');
       lb.classList.remove('hidden');
       lb.classList.add('flex');
       document.body.style.overflow = 'hidden';
+    }
+
+    function openLightboxAt(index) {
+      if (!window._productImages || !window._productImages.length) return;
+      openLightbox(window._productImages[index], window._productImages);
     }
 
     function closeLightbox() {
@@ -253,12 +263,25 @@
             if (mainEl.src) openLightbox(mainEl.src, window._productImages || []);
           };
         }
-        document.getElementById('thumbs').innerHTML = images.map((src, i) => `
-          <button type="button" onclick="setMainImage('${src}'); openLightbox('${src}', window._productImages || [])"
-            class="w-20 h-20 rounded-xl overflow-hidden border-2 flex-shrink-0 ${i===0?'border-primary-600':'border-transparent'} hover:border-primary-400">
-            <img src="${src}" class="w-full h-full object-cover" alt="">
-          </button>
-        `).join('');
+        document.getElementById('thumbs').innerHTML = images.map(function(src, i) {
+          return '<button type="button" data-idx="' + i + '" class="thumb-btn w-20 h-20 rounded-xl overflow-hidden border-2 flex-shrink-0 ' + (i===0?'border-primary-600':'border-transparent') + ' hover:border-primary-400">' +
+            '<img src="' + src + '" class="w-full h-full object-cover pointer-events-none" alt="">' +
+          '</button>';
+        }).join('');
+        document.querySelectorAll('.thumb-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var i = parseInt(btn.getAttribute('data-idx'), 10);
+            var src = window._productImages[i];
+            setMainImage(src);
+            document.querySelectorAll('.thumb-btn').forEach(function(b) {
+              b.classList.remove('border-primary-600');
+              b.classList.add('border-transparent');
+            });
+            btn.classList.add('border-primary-600');
+            btn.classList.remove('border-transparent');
+            openLightboxAt(i);
+          });
+        });
 
         document.getElementById('whatsapp-btn').href =
           'https://wa.me/94772216854?text=' + encodeURIComponent(p.whatsapp || ('Hi, I am interested in ' + p.name));
