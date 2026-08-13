@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product | Hasitha Furniture & Electronics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#f0f7f4', 100: '#dceee6', 200: '#bbddd0', 300: '#8cc5b0',
+              400: '#5aa68c', 500: '#3a8a70', 600: '#2b6f5a', 700: '#245a4a',
+              800: '#1f483c', 900: '#0B3D2E', 950: '#072920'
+            },
+            beige: {
+              50: '#faf8f5', 100: '#f5f0e6', 200: '#ebe0d0', 300: '#E8D9C0',
+              400: '#d4c0a0', 500: '#c4a97e'
+            }
+          },
+          fontFamily: {
+            display: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: Inter, sans-serif; }
+    .font-display { font-family: 'Playfair Display', serif; }
+  </style>
+
+  <style>
+    .img-nav-btn { display: none !important; }
+    @media (min-width: 768px) {
+      #main-image-wrap:hover .img-nav-btn.has-multiple {
+        display: flex !important;
+      }
+    }
+    #main-image-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #f5f0e6;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    #main-image {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: contain !important;
+      object-position: center !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    #main-image.hidden { display: none !important; }
+    #no-image {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: normal;
+    }
+    #no-image.hidden { display: none !important; }
+  </style>
+</head>
+<body class="bg-beige-50 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-primary-900 text-white sticky top-0 z-50 shadow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-full bg-beige-300 flex items-center justify-center text-primary-900 font-display font-bold">H</div>
+        <span class="font-display text-lg">Hasitha Furniture</span>
+      </a>
+      <a href="/" class="text-sm text-beige-200 hover:text-white">← Back to Home</a>
+    </div>
+  </nav>
+
+  <!-- Product Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div id="loading" class="text-center py-20 text-gray-500">Loading product...</div>
+    <div id="not-found" class="hidden text-center py-20">
+      <p class="text-gray-500 mb-4">Product not found.</p>
+      <a href="/" class="text-primary-700 underline">Go home</a>
+    </div>
+
+    <div id="product-content" class="hidden">
+      <div class="grid md:grid-cols-2 gap-8 lg:gap-12 mb-16">
+        <!-- Gallery -->
+        <div>
+          <div id="main-image-wrap">
+            <img id="main-image" src="" alt="" class="hidden cursor-pointer">
+            <span id="no-image" class="text-6xl opacity-40">📦</span>
+            <button type="button" id="img-prev" class="img-nav-btn absolute left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 shadow items-center justify-center text-primary-900 text-xl hover:bg-white" aria-label="Previous">‹</button>
+            <button type="button" id="img-next" class="img-nav-btn absolute right-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 shadow items-center justify-center text-primary-900 text-xl hover:bg-white" aria-label="Next">›</button>
+          </div>
+          <div id="thumbs" class="flex gap-2 overflow-x-auto pb-1 scrollbar-thin"></div>
+        </div>
+
+        <!-- Info -->
+        <div>
+          <p id="category" class="text-xs text-primary-600 uppercase tracking-wider mb-2"></p>
+          <h1 id="name" class="font-display text-3xl md:text-4xl text-primary-900 mb-3"></h1>
+          <div class="flex items-center gap-3 mb-2">
+            <p id="price" class="text-xl font-semibold text-primary-800"></p>
+            <span id="discount" class="hidden text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full"></span>
+          </div>
+          <p id="stock" class="text-sm mb-6"></p>
+          <p id="description" class="text-gray-600 mb-4"></p>
+          <div id="details-wrap" class="hidden mb-6">
+            <h2 class="font-semibold text-primary-900 mb-2">Details</h2>
+            <p id="details" class="text-gray-600 text-sm whitespace-pre-line"></p>
+          </div>
+          <div id="specs-wrap" class="hidden mb-8">
+            <h2 class="font-semibold text-primary-900 mb-3">Specifications</h2>
+            <table class="w-full text-sm border border-beige-200 rounded-lg overflow-hidden">
+              <tbody id="specs"></tbody>
+            </table>
+          </div>
+          <a id="whatsapp-btn" href="#" target="_blank"
+             class="inline-flex items-center gap-2 bg-green-600 text-white px-8 py-3.5 rounded-full font-semibold hover:bg-green-700 transition">
+            Inquire on WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Similar Products -->
+      <section id="similar-section" class="hidden border-t border-beige-200 pt-12">
+        <h2 class="font-display text-2xl md:text-3xl text-primary-900 mb-8 text-center">Similar Products</h2>
+        <div id="similar-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </section>
+    </div>
+  </main>
+
+  
+  <!-- Image Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-[200] hidden bg-black/90 items-center justify-center p-4" onclick="closeLightbox()">
+    <button type="button" onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-3xl w-12 h-12 flex items-center justify-center hover:bg-white/10 rounded-full">&times;</button>
+    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg" onclick="event.stopPropagation()">
+    <button type="button" id="lb-prev" onclick="event.stopPropagation(); lbNav(-1)" class="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white text-4xl w-12 h-12 flex items-center justify-center hover:bg-white/10 rounded-full">‹</button>
+    <button type="button" id="lb-next" onclick="event.stopPropagation(); lbNav(1)" class="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white text-4xl w-12 h-12 flex items-center justify-center hover:bg-white/10 rounded-full">›</button>
+  </div>
+
+  <footer class="bg-primary-950 text-beige-300 py-8 mt-12 text-center text-sm">
+    <a href="/" class="hover:text-white">Hasitha Furniture & Electronics</a> · Ragalkanda, Alawwa
+  </footer>
+
+  <script>
+    
+    var lbImages = [];
+    var lbIndex = 0;
+
+    function openLightbox(src, list) {
+      lbImages = (list && list.length) ? list.slice() : [src];
+      lbIndex = 0;
+      for (var i = 0; i < lbImages.length; i++) {
+        if (lbImages[i] === src || (src && src.indexOf(lbImages[i]) !== -1) || (lbImages[i] && String(src).endsWith(String(lbImages[i]).replace(/^\//,'')))) {
+          lbIndex = i;
+          break;
+        }
+      }
+      document.getElementById('lightbox-img').src = lbImages[lbIndex] || src;
+      var lb = document.getElementById('lightbox');
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      if (!window.lbHistoryPushed) {
+        try {
+          history.pushState({ lightbox: true }, '');
+          window.lbHistoryPushed = true;
+        } catch (e) {}
+      }
+    }
+
+    function isLightboxOpen() {
+      var lb = document.getElementById('lightbox');
+      return lb && !lb.classList.contains('hidden');
+    }
+
+    function closeLightbox() {
+      var lb = document.getElementById('lightbox');
+      if (!lb) return;
+      var wasOpen = !lb.classList.contains('hidden');
+      lb.classList.add('hidden');
+      lb.classList.remove('flex');
+      document.body.style.overflow = '';
+      if (wasOpen && window.lbHistoryPushed) {
+        window.lbHistoryPushed = false;
+        try {
+          if (history.state && history.state.lightbox) history.back();
+        } catch (e) {}
+      }
+    }
+
+    window.addEventListener('popstate', function() {
+      window.lbHistoryPushed = false;
+      var lb = document.getElementById('lightbox');
+      if (lb && !lb.classList.contains('hidden')) {
+        lb.classList.add('hidden');
+        lb.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+    });
+
+    function lbNav(dir) {
+      if (!lbImages.length) return;
+      lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+      document.getElementById('lightbox-img').src = lbImages[lbIndex];
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (document.getElementById('lightbox').classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lbNav(-1);
+      if (e.key === 'ArrowRight') lbNav(1);
+    });
+
+    function getParam(name) {
+      return new URLSearchParams(window.location.search).get(name);
+    }
+
+    
+    var currentImgIndex = 0;
+
+    function showProductImage(index) {
+      if (!window._productImages || !window._productImages.length) return;
+      currentImgIndex = (index + window._productImages.length) % window._productImages.length;
+      var src = window._productImages[currentImgIndex];
+      setMainImage(src);
+      document.querySelectorAll('.thumb-btn').forEach(function(b, i) {
+        b.classList.toggle('border-primary-600', i === currentImgIndex);
+        b.classList.toggle('border-transparent', i !== currentImgIndex);
+      });
+    }
+
+    function setupImageNav() {
+      var prev = document.getElementById('img-prev');
+      var next = document.getElementById('img-next');
+      var wrap = document.getElementById('main-image-wrap');
+      var multi = window._productImages && window._productImages.length > 1;
+      if (prev) {
+        prev.classList.toggle('has-multiple', multi);
+        prev.onclick = function(e) { e.stopPropagation(); showProductImage(currentImgIndex - 1); };
+      }
+      if (next) {
+        next.classList.toggle('has-multiple', multi);
+        next.onclick = function(e) { e.stopPropagation(); showProductImage(currentImgIndex + 1); };
+      }
+      if (!multi) return;
+      // Swipe support
+      if (wrap && !wrap._swipeBound) {
+        wrap._swipeBound = true;
+        var startX = 0;
+        var startY = 0;
+        wrap.addEventListener('touchstart', function(e) {
+          if (!e.touches || !e.touches.length) return;
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+        }, { passive: true });
+        wrap.addEventListener('touchend', function(e) {
+          if (!e.changedTouches || !e.changedTouches.length) return;
+          var dx = e.changedTouches[0].clientX - startX;
+          var dy = e.changedTouches[0].clientY - startY;
+          if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+          if (dx < 0) showProductImage(currentImgIndex + 1);
+          else showProductImage(currentImgIndex - 1);
+        }, { passive: true });
+      }
+    }
+
+    function setMainImage(src) {
+      const img = document.getElementById('main-image');
+      const no = document.getElementById('no-image');
+      if (src) {
+        img.src = src;
+        img.classList.remove('hidden');
+        no.classList.add('hidden');
+      } else {
+        img.removeAttribute('src');
+        img.classList.add('hidden');
+        no.classList.remove('hidden');
+      }
+    }
+
+    
+        function parseSpecs(p) {
+          var list = [];
+          if (p.specs && p.specs.length) {
+            p.specs.forEach(function(s) {
+              if (s && (s.label || s.value)) list.push({ label: s.label || '', value: s.value || '' });
+            });
+          }
+          if (p.specs_text) {
+            String(p.specs_text).split(/\r?\n/).forEach(function(line) {
+              line = line.trim();
+              if (!line) return;
+              var parts = line.split('|');
+              if (parts.length < 2) parts = line.split(':');
+              if (parts.length >= 2) {
+                list.push({ label: parts[0].trim(), value: parts.slice(1).join('|').trim() });
+              }
+            });
+          }
+          return list;
+        }
+
+    async function load() {
+      const id = getParam('id');
+      try {
+        const res = await fetch('/data/products.json');
+        const data = await res.json();
+        const products = data.products || [];
+        const index = parseInt(id, 10);
+        if (isNaN(index) || index < 0 || index >= products.length) {
+          document.getElementById('loading').classList.add('hidden');
+          document.getElementById('not-found').classList.remove('hidden');
+          return;
+        }
+        const p = products[index];
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('product-content').classList.remove('hidden');
+        document.title = (p.name || 'Product') + ' | Hasitha Furniture';
+
+        document.getElementById('category').textContent = p.category || '';
+        document.getElementById('name').textContent = p.name || '';
+        document.getElementById('price').textContent = p.price || 'Price on request';
+        document.getElementById('description').textContent = p.description || '';
+
+        const disc = document.getElementById('discount');
+        if (p.discount) { disc.textContent = p.discount; disc.classList.remove('hidden'); }
+
+        const stock = document.getElementById('stock');
+        stock.textContent = p.stock || 'In Stock';
+        stock.className = 'text-sm mb-6 ' + (p.stock === 'Out of Stock' ? 'text-red-600' : 'text-green-600');
+
+        if (p.details) {
+          document.getElementById('details').textContent = p.details;
+          document.getElementById('details-wrap').classList.remove('hidden');
+        }
+
+        var specList = parseSpecs(p);
+        if (specList.length) {
+          document.getElementById('specs').innerHTML = specList.map(s => `
+            <tr class="border-b border-beige-200">
+              <td class="py-2.5 px-4 bg-beige-50 text-gray-500 font-medium w-1/3">${s.label || ''}</td>
+              <td class="py-2.5 px-4 text-gray-800">${s.value || ''}</td>
+            </tr>
+          `).join('');
+          document.getElementById('specs-wrap').classList.remove('hidden');
+        }
+
+        // Images
+        let images = [];
+        if (p.image) images.push(p.image);
+        if (p.gallery && Array.isArray(p.gallery)) {
+          p.gallery.forEach(g => {
+            const src = typeof g === 'string' ? g : (g && g.src);
+            if (src && !images.includes(src)) images.push(src);
+          });
+        }
+        window._productImages = images;
+        currentImgIndex = 0;
+        setMainImage(images[0] || '');
+        setupImageNav();
+        var mainEl = document.getElementById('main-image');
+        if (mainEl) {
+          mainEl.classList.add('cursor-pointer');
+          mainEl.onclick = function() {
+            if (window._productImages && window._productImages.length) {
+              openLightbox(window._productImages[currentImgIndex], window._productImages);
+            }
+          };
+        }
+        document.getElementById('thumbs').innerHTML = images.map(function(src, i) {
+          return '<button type="button" data-idx="' + i + '" class="thumb-btn w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border-2 flex-shrink-0 bg-beige-100 ' + (i===0?'border-primary-600':'border-transparent') + ' hover:border-primary-400">' +
+            '<img src="' + src + '" class="w-full h-full object-cover pointer-events-none" alt="">' +
+          '</button>';
+        }).join('');
+        document.querySelectorAll('.thumb-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var i = parseInt(btn.getAttribute('data-idx'), 10);
+            showProductImage(i);
+          });
+        });
+
+        document.getElementById('whatsapp-btn').href =
+          'https://wa.me/94772216854?text=' + encodeURIComponent(p.whatsapp || ('Hi, I am interested in ' + p.name));
+
+        // Similar products (same category, exclude current)
+        const similar = products
+          .map((item, i) => ({ ...item, _i: i }))
+          .filter(item => item._i !== index && (item.category || '') === (p.category || ''))
+          .slice(0, 6);
+
+        if (similar.length) {
+          document.getElementById('similar-section').classList.remove('hidden');
+          document.getElementById('similar-grid').innerHTML = similar.map(item => `
+            <a href="/product.html?id=${item._i}" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">
+              <div class="h-48 bg-beige-200 flex items-center justify-center overflow-hidden">
+                ${item.image
+                  ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">`
+                  : `<span class="text-4xl opacity-40">📦</span>`}
+              </div>
+              <div class="p-5">
+                <p class="text-xs text-primary-600 uppercase tracking-wider mb-1">${item.category || ''}</p>
+                <h3 class="font-display text-lg text-primary-900 mb-1">${item.name}</h3>
+                <p class="font-semibold text-primary-800 text-sm">${item.price || 'Price on request'}</p>
+              </div>
+            </a>
+          `).join('');
+        }
+      } catch (e) {
+        console.error(e);
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('not-found').classList.remove('hidden');
+      }
+    }
+    load();
+  </script>
+</body>
+</html>
