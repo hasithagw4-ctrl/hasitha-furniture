@@ -19,7 +19,7 @@ collections:
             summary: "{{fields.name}} — {{fields.category}}"
             fields:
               - { label: "Product Name", name: "name", widget: "string" }
-              - { label: "Category", name: "category", widget: "select", options: ["Sofas", "Beds", "Wardrobes", "Dining Tables", "Dining Chairs", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Kettles & Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Other Electronics", "Plastic Items", "Gift Items"] }
+              - { label: "Category", name: "category", widget: "select", options: ["Sofas", "Beds", "Wardrobes", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Kettles & Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Other Electronics", "Plastic Items", "Gift Items"] }
               - { label: "Short Description", name: "description", widget: "text" }
               - { label: "Full Details", name: "details", widget: "text", required: false }
               - { label: "Price", name: "price", widget: "string", default: "Price on request" }
