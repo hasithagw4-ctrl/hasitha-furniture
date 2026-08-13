@@ -87,14 +87,14 @@
 
     function cardHtml(p) {
       var img = p.image
-        ? '<img src="' + p.image + '" alt="' + (p.name||'') + '" class="w-full h-full object-cover">'
+        ? '<img src="' + p.image + '" alt="' + (p.name||'') + '" class="w-full h-full object-contain">'
         : '<span class="text-5xl opacity-40">📦</span>';
       var disc = p.discount
         ? '<span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">' + p.discount + '</span>'
         : '';
       var stockClass = p.stock === 'Out of Stock' ? 'text-red-600' : 'text-green-600';
       return '<a href="/product.html?id=' + p._i + '" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">' +
-        '<div class="h-48 bg-beige-200 flex items-center justify-center overflow-hidden">' + img + '</div>' +
+        '<div class="h-48 bg-beige-100 flex items-center justify-center overflow-hidden">' + img + '</div>' +
         '<div class="p-5">' +
           '<p class="text-xs text-primary-600 uppercase tracking-wider mb-1">' + (p.category||'') + '</p>' +
           '<h3 class="font-display text-lg text-primary-900 mb-1">' + (p.name||'') + '</h3>' +
