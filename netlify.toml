@@ -1,0 +1,5 @@
+[build]
+  command = "node scripts/build-products.js"
+  publish = "."
+
+# Don't run build failure if no products yet

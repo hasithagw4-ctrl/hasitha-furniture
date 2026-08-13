@@ -8,40 +8,32 @@ public_folder: "/images/uploads"
 collections:
   - name: "products"
     label: "Products"
-    files:
-      - name: "products"
-        label: "All Products"
-        file: "data/products.json"
-        fields:
-          - label: "Products List"
-            name: "products"
-            widget: "list"
-            summary: "{{fields.name}} — {{fields.category}}"
-            fields:
-              - { label: "Product Name", name: "name", widget: "string" }
-              - { label: "Category", name: "category", widget: "select", options: ["Sofas", "Beds", "Wardrobes", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Kettles & Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Other Electronics", "Plastic Items", "Gift Items"] }
-              - { label: "Short Description", name: "description", widget: "text" }
-              - { label: "Full Details", name: "details", widget: "text", required: false }
-              - { label: "Price", name: "price", widget: "string", default: "Price on request" }
-              - { label: "Discount", name: "discount", widget: "string", required: false }
-              - { label: "Stock Status", name: "stock", widget: "select", options: ["In Stock", "Out of Stock"], default: "In Stock" }
-              - { label: "Visible on Website", name: "visible", widget: "select", options: ["Yes", "No"], default: "Yes", required: true, hint: "Select No to hide without deleting" }
-              - { label: "Featured on Homepage", name: "featured", widget: "select", options: ["Yes", "No"], default: "No", required: true, hint: "Select Yes to show in homepage Latest Products" }
-              - { label: "Main Image", name: "image", widget: "image", required: false }
-              - label: "Gallery Images"
-                name: "gallery"
-                widget: "list"
-                required: false
-                field: { label: "Image", name: "src", widget: "image" }
-              - { label: "Specifications (bulk)", name: "specs_text", widget: "text", required: false, hint: "One per line: Label | Value   e.g. Material | Teak wood" }
-              - label: "Specifications (optional rows)"
-                name: "specs"
-                widget: "list"
-                required: false
-                fields:
-                  - { label: "Label", name: "label", widget: "string" }
-                  - { label: "Value", name: "value", widget: "string" }
-              - { label: "WhatsApp Message", name: "whatsapp", widget: "string", default: "Hi, I'm interested in this product", required: false }
+    label_singular: "Product"
+    folder: "content/products"
+    create: true
+    slug: "{{slug}}"
+    extension: "json"
+    format: "json"
+    sortable_fields: ["name", "category"]
+    summary: "{{name}} — {{category}}"
+    fields:
+      - { label: "Product Name", name: "name", widget: "string" }
+      - { label: "Category", name: "category", widget: "select", options: ["Sofas", "Beds", "Wardrobes", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Kettles & Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Other Electronics", "Plastic Items", "Gift Items"] }
+      - { label: "Short Description", name: "description", widget: "text", required: false }
+      - { label: "Full Details", name: "details", widget: "text", required: false }
+      - { label: "Price", name: "price", widget: "string", default: "Price on request" }
+      - { label: "Discount", name: "discount", widget: "string", required: false }
+      - { label: "Stock Status", name: "stock", widget: "select", options: ["In Stock", "Out of Stock"], default: "In Stock" }
+      - { label: "Visible on Website", name: "visible", widget: "select", options: ["Yes", "No"], default: "Yes", required: true }
+      - { label: "Featured on Homepage", name: "featured", widget: "select", options: ["Yes", "No"], default: "No", required: true }
+      - { label: "Main Image", name: "image", widget: "image", required: false }
+      - label: "Gallery Images"
+        name: "gallery"
+        widget: "list"
+        required: false
+        field: { label: "Image", name: "src", widget: "image" }
+      - { label: "Specifications (bulk)", name: "specs_text", widget: "text", required: false, hint: "One per line: Label | Value" }
+      - { label: "WhatsApp Message", name: "whatsapp", widget: "string", default: "Hi, I'm interested in this product", required: false }
 
   - name: "slides"
     label: "Homepage Slideshow"
@@ -58,6 +50,6 @@ collections:
               - { label: "Image", name: "image", widget: "image" }
               - { label: "Title", name: "title", widget: "string", required: false }
               - { label: "Subtitle", name: "subtitle", widget: "string", required: false }
-              - { label: "Visible", name: "visible", widget: "select", options: ["Yes", "No"], default: "Yes", required: true, hint: "Select No to hide without deleting" }
-              - { label: "Publish Date", name: "publish_date", widget: "datetime", required: false, hint: "Show only after this date (empty = show now)" }
-              - { label: "End Date", name: "end_date", widget: "datetime", required: false, hint: "Hide after this date (empty = no end)" }
+              - { label: "Visible", name: "visible", widget: "select", options: ["Yes", "No"], default: "Yes", required: true }
+              - { label: "Publish Date", name: "publish_date", widget: "datetime", required: false }
+              - { label: "End Date", name: "end_date", widget: "datetime", required: false }
