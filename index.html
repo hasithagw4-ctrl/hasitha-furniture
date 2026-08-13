@@ -894,6 +894,20 @@
         const data = await res.json();
         const products = (data.products || []).map((p, i) => ({...p, _i: i}));
         const featured = products.filter(p => isVisibleProduct(p) && (p.featured === true || p.featured === 'true' || p.featured === 'Yes'));
+        // Sort: positioned 1-4 first (by position), then rest in upload order
+        featured.sort(function(a, b) {
+          function pos(p) {
+            var v = p.featured_position;
+            if (v === undefined || v === null || v === '') return null;
+            var n = parseInt(v, 10);
+            return (n >= 1 && n <= 4) ? n : null;
+          }
+          var pa = pos(a), pb = pos(b);
+          if (pa !== null && pb !== null) return pa - pb;
+          if (pa !== null) return -1;
+          if (pb !== null) return 1;
+          return a._i - b._i;
+        });
         const section = document.getElementById('featured');
         const grid = document.getElementById('featured-grid');
         if (!section || !grid) return;
