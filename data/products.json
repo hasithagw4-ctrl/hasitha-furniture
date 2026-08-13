@@ -1,25 +1,3 @@
 {
-  "products": [
-    {
-      "details": "uujsfdjfhjdf\nfdsfs\nsdfsf\nfsdfsfs",
-      "price": "14444",
-      "name": "abc test",
-      "featured": "No",
-      "visible": "Yes",
-      "whatsapp": "Hi, I'm interested in this product",
-      "stock": "In Stock",
-      "specs": [
-        {
-          "label": "wdas",
-          "value": "asdad"
-        },
-        {
-          "label": "adas",
-          "value": "adsad"
-        }
-      ],
-      "description": "dudjh\ndfff",
-      "category": "Beds"
-    }
-  ]
+  "products": []
 }
