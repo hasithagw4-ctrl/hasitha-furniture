@@ -70,6 +70,23 @@
       line-height: normal;
     }
     #no-image.hidden { display: none !important; }
+
+    #thumbs {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      touch-action: pan-x;
+      overscroll-behavior-x: contain;
+      overscroll-behavior-y: none;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      padding-bottom: 4px;
+      width: 100%;
+      max-width: 100%;
+    }
+    #thumbs::-webkit-scrollbar { height: 4px; }
+
   </style>
 </head>
 <body class="bg-beige-50 text-gray-800">
@@ -103,7 +120,7 @@
             <button type="button" id="img-prev" class="img-nav-btn absolute left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 shadow items-center justify-center text-primary-900 text-xl hover:bg-white" aria-label="Previous">‹</button>
             <button type="button" id="img-next" class="img-nav-btn absolute right-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 shadow items-center justify-center text-primary-900 text-xl hover:bg-white" aria-label="Next">›</button>
           </div>
-          <div id="thumbs" class="flex gap-2 overflow-x-auto pb-1 scrollbar-thin"></div>
+          <div id="thumbs"></div>
         </div>
 
         <!-- Info -->
@@ -391,6 +408,17 @@
             showProductImage(i);
           });
         });
+        // Keep horizontal thumb scroll separate from page swipe
+        var thumbsEl = document.getElementById('thumbs');
+        if (thumbsEl && !thumbsEl._touchBound) {
+          thumbsEl._touchBound = true;
+          thumbsEl.addEventListener('touchstart', function(e) {
+            e.stopPropagation();
+          }, { passive: true });
+          thumbsEl.addEventListener('touchmove', function(e) {
+            e.stopPropagation();
+          }, { passive: true });
+        }
 
         document.getElementById('whatsapp-btn').href =
           'https://wa.me/94772216854?text=' + encodeURIComponent(p.whatsapp || ('Hi, I am interested in ' + p.name));
