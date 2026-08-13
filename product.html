@@ -60,9 +60,11 @@
       <div class="grid md:grid-cols-2 gap-8 lg:gap-12 mb-16">
         <!-- Gallery -->
         <div>
-          <div class="bg-beige-200 rounded-2xl overflow-hidden aspect-[4/3] flex items-center justify-center mb-3">
-            <img id="main-image" src="" alt="" class="w-full h-full object-cover hidden">
+          <div id="main-image-wrap" class="relative bg-beige-200 rounded-2xl overflow-hidden aspect-[4/3] flex items-center justify-center mb-3 select-none">
+            <img id="main-image" src="" alt="" class="w-full h-full object-cover hidden cursor-pointer">
             <span id="no-image" class="text-6xl opacity-40">📦</span>
+            <button type="button" id="img-prev" class="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center text-primary-900 text-xl hover:bg-white hidden" aria-label="Previous">‹</button>
+            <button type="button" id="img-next" class="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 shadow flex items-center justify-center text-primary-900 text-xl hover:bg-white hidden" aria-label="Next">›</button>
           </div>
           <div id="thumbs" class="flex gap-2 overflow-x-auto"></div>
         </div>
@@ -165,6 +167,58 @@
       return new URLSearchParams(window.location.search).get(name);
     }
 
+    
+    var currentImgIndex = 0;
+
+    function showProductImage(index) {
+      if (!window._productImages || !window._productImages.length) return;
+      currentImgIndex = (index + window._productImages.length) % window._productImages.length;
+      var src = window._productImages[currentImgIndex];
+      setMainImage(src);
+      document.querySelectorAll('.thumb-btn').forEach(function(b, i) {
+        b.classList.toggle('border-primary-600', i === currentImgIndex);
+        b.classList.toggle('border-transparent', i !== currentImgIndex);
+      });
+    }
+
+    function setupImageNav() {
+      var prev = document.getElementById('img-prev');
+      var next = document.getElementById('img-next');
+      var wrap = document.getElementById('main-image-wrap');
+      if (!window._productImages || window._productImages.length < 2) {
+        if (prev) prev.classList.add('hidden');
+        if (next) next.classList.add('hidden');
+        return;
+      }
+      if (prev) {
+        prev.classList.remove('hidden');
+        prev.onclick = function(e) { e.stopPropagation(); showProductImage(currentImgIndex - 1); };
+      }
+      if (next) {
+        next.classList.remove('hidden');
+        next.onclick = function(e) { e.stopPropagation(); showProductImage(currentImgIndex + 1); };
+      }
+      // Swipe support
+      if (wrap && !wrap._swipeBound) {
+        wrap._swipeBound = true;
+        var startX = 0;
+        var startY = 0;
+        wrap.addEventListener('touchstart', function(e) {
+          if (!e.touches || !e.touches.length) return;
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+        }, { passive: true });
+        wrap.addEventListener('touchend', function(e) {
+          if (!e.changedTouches || !e.changedTouches.length) return;
+          var dx = e.changedTouches[0].clientX - startX;
+          var dy = e.changedTouches[0].clientY - startY;
+          if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+          if (dx < 0) showProductImage(currentImgIndex + 1);
+          else showProductImage(currentImgIndex - 1);
+        }, { passive: true });
+      }
+    }
+
     function setMainImage(src) {
       const img = document.getElementById('main-image');
       const no = document.getElementById('no-image');
@@ -254,13 +308,17 @@
             if (src && !images.includes(src)) images.push(src);
           });
         }
-        setMainImage(images[0] || '');
         window._productImages = images;
+        currentImgIndex = 0;
+        setMainImage(images[0] || '');
+        setupImageNav();
         var mainEl = document.getElementById('main-image');
         if (mainEl) {
           mainEl.classList.add('cursor-pointer');
           mainEl.onclick = function() {
-            if (mainEl.src) openLightbox(mainEl.src, window._productImages || []);
+            if (window._productImages && window._productImages.length) {
+              openLightbox(window._productImages[currentImgIndex], window._productImages);
+            }
           };
         }
         document.getElementById('thumbs').innerHTML = images.map(function(src, i) {
@@ -271,14 +329,7 @@
         document.querySelectorAll('.thumb-btn').forEach(function(btn) {
           btn.addEventListener('click', function() {
             var i = parseInt(btn.getAttribute('data-idx'), 10);
-            var src = window._productImages[i];
-            setMainImage(src);
-            document.querySelectorAll('.thumb-btn').forEach(function(b) {
-              b.classList.remove('border-primary-600');
-              b.classList.add('border-transparent');
-            });
-            btn.classList.add('border-primary-600');
-            btn.classList.remove('border-transparent');
+            showProductImage(i);
           });
         });
 
