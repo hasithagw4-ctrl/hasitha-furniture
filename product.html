@@ -102,11 +102,55 @@
     </div>
   </main>
 
+  
+  <!-- Image Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-[200] hidden bg-black/90 items-center justify-center p-4" onclick="closeLightbox()">
+    <button type="button" onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-3xl w-12 h-12 flex items-center justify-center hover:bg-white/10 rounded-full">&times;</button>
+    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg" onclick="event.stopPropagation()">
+    <button type="button" id="lb-prev" onclick="event.stopPropagation(); lbNav(-1)" class="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white text-4xl w-12 h-12 flex items-center justify-center hover:bg-white/10 rounded-full">‹</button>
+    <button type="button" id="lb-next" onclick="event.stopPropagation(); lbNav(1)" class="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white text-4xl w-12 h-12 flex items-center justify-center hover:bg-white/10 rounded-full">›</button>
+  </div>
+
   <footer class="bg-primary-950 text-beige-300 py-8 mt-12 text-center text-sm">
     <a href="/" class="hover:text-white">Hasitha Furniture & Electronics</a> · Ragalkanda, Alawwa
   </footer>
 
   <script>
+    
+    var lbImages = [];
+    var lbIndex = 0;
+
+    function openLightbox(src, list) {
+      lbImages = list && list.length ? list : [src];
+      lbIndex = Math.max(0, lbImages.indexOf(src));
+      if (lbIndex < 0) lbIndex = 0;
+      document.getElementById('lightbox-img').src = lbImages[lbIndex];
+      var lb = document.getElementById('lightbox');
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      var lb = document.getElementById('lightbox');
+      lb.classList.add('hidden');
+      lb.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    function lbNav(dir) {
+      if (!lbImages.length) return;
+      lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+      document.getElementById('lightbox-img').src = lbImages[lbIndex];
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (document.getElementById('lightbox').classList.contains('hidden')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lbNav(-1);
+      if (e.key === 'ArrowRight') lbNav(1);
+    });
+
     function getParam(name) {
       return new URLSearchParams(window.location.search).get(name);
     }
@@ -201,8 +245,16 @@
           });
         }
         setMainImage(images[0] || '');
+        window._productImages = images;
+        var mainEl = document.getElementById('main-image');
+        if (mainEl) {
+          mainEl.classList.add('cursor-pointer');
+          mainEl.onclick = function() {
+            if (mainEl.src) openLightbox(mainEl.src, window._productImages || []);
+          };
+        }
         document.getElementById('thumbs').innerHTML = images.map((src, i) => `
-          <button type="button" onclick="setMainImage('${src}')"
+          <button type="button" onclick="setMainImage('${src}'); openLightbox('${src}', window._productImages || [])"
             class="w-20 h-20 rounded-xl overflow-hidden border-2 flex-shrink-0 ${i===0?'border-primary-600':'border-transparent'} hover:border-primary-400">
             <img src="${src}" class="w-full h-full object-cover" alt="">
           </button>
