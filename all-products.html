@@ -107,20 +107,16 @@
     function cardHtml(p) {
       var img = p.image
         ? '<img src="' + p.image + '" alt="' + (p.name||'') + '" class="w-full h-full object-contain">'
-        : '<span class="text-5xl opacity-40">📦</span>';
+        : '<span class="text-3xl sm:text-5xl opacity-40">📦</span>';
       var disc = p.discount
-        ? '<span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">' + p.discount + '</span>'
+        ? '<span class="text-[10px] sm:text-xs bg-red-100 text-red-700 px-1.5 py-0.5 rounded-full">' + p.discount + '</span>'
         : '';
-      var stockClass = p.stock === 'Out of Stock' ? 'text-red-600' : 'text-green-600';
-      return '<a href="/product.html?id=' + p._i + '" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">' +
-        '<div class="h-48 bg-beige-100 flex items-center justify-center overflow-hidden">' + img + '</div>' +
-        '<div class="p-5">' +
-          '<p class="text-xs text-primary-600 uppercase tracking-wider mb-1">' + (p.category||'') + '</p>' +
-          '<h3 class="font-display text-lg text-primary-900 mb-1">' + (p.name||'') + '</h3>' +
-          '<div class="flex items-center gap-2">' +
-            '<p class="font-semibold text-primary-800 text-sm">' + (p.price||'Price on request') + '</p>' + disc +
-          '</div>' +
-          '<p class="text-xs mt-1 ' + stockClass + '">' + (p.stock||'In Stock') + '</p>' +
+      return '<a href="/product.html?id=' + p._i + '" class="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">' +
+        '<div class="aspect-square bg-beige-100 flex items-center justify-center overflow-hidden p-2">' + img + '</div>' +
+        '<div class="p-2.5 sm:p-4">' +
+          '<h3 class="font-display text-sm sm:text-lg text-primary-900 mb-1 line-clamp-2 leading-snug">' + (p.name||'') + '</h3>' +
+          '<p class="font-semibold text-primary-800 text-sm sm:text-base">' + (p.price||'Price on request') + '</p>' +
+          (disc ? '<div class="mt-1">' + disc + '</div>' : '') +
         '</div></a>';
     }
 
@@ -137,7 +133,7 @@
         any = true;
         html += '<section class="mb-14">' +
           '<h2 class="font-display text-2xl md:text-3xl text-primary-900 mb-6">' + g.title + '</h2>' +
-          '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">' +
+          '<div class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6">' +
           items.map(cardHtml).join('') +
           '</div></section>';
       });
@@ -149,7 +145,7 @@
         any = true;
         html += '<section class="mb-14">' +
           '<h2 class="font-display text-2xl md:text-3xl text-primary-900 mb-6">Other</h2>' +
-          '<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">' +
+          '<div class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6">' +
           others.map(cardHtml).join('') +
           '</div></section>';
       }
