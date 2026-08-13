@@ -135,7 +135,7 @@
       lbImages = (list && list.length) ? list.slice() : [src];
       lbIndex = 0;
       for (var i = 0; i < lbImages.length; i++) {
-        if (lbImages[i] === src || (src && src.indexOf(lbImages[i]) !== -1) || (lbImages[i] && String(src).endsWith(lbImages[i].replace(/^\//,'')))) {
+        if (lbImages[i] === src || (src && src.indexOf(lbImages[i]) !== -1) || (lbImages[i] && String(src).endsWith(String(lbImages[i]).replace(/^\//,'')))) {
           lbIndex = i;
           break;
         }
@@ -145,19 +145,43 @@
       lb.classList.remove('hidden');
       lb.classList.add('flex');
       document.body.style.overflow = 'hidden';
+      if (!window.lbHistoryPushed) {
+        try {
+          history.pushState({ lightbox: true }, '');
+          window.lbHistoryPushed = true;
+        } catch (e) {}
+      }
     }
 
-    function openLightboxAt(index) {
-      if (!window._productImages || !window._productImages.length) return;
-      openLightbox(window._productImages[index], window._productImages);
+    function isLightboxOpen() {
+      var lb = document.getElementById('lightbox');
+      return lb && !lb.classList.contains('hidden');
     }
 
     function closeLightbox() {
       var lb = document.getElementById('lightbox');
+      if (!lb) return;
+      var wasOpen = !lb.classList.contains('hidden');
       lb.classList.add('hidden');
       lb.classList.remove('flex');
       document.body.style.overflow = '';
+      if (wasOpen && window.lbHistoryPushed) {
+        window.lbHistoryPushed = false;
+        try {
+          if (history.state && history.state.lightbox) history.back();
+        } catch (e) {}
+      }
     }
+
+    window.addEventListener('popstate', function() {
+      window.lbHistoryPushed = false;
+      var lb = document.getElementById('lightbox');
+      if (lb && !lb.classList.contains('hidden')) {
+        lb.classList.add('hidden');
+        lb.classList.remove('flex');
+        document.body.style.overflow = '';
+      }
+    });
 
     function lbNav(dir) {
       if (!lbImages.length) return;
