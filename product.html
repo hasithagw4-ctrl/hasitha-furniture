@@ -73,6 +73,53 @@
       padding: 0 !important;
     }
     #main-image.hidden { display: none !important; }
+
+    #colors-scroll {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+      overscroll-behavior-x: contain;
+    }
+    #colors-scroll::-webkit-scrollbar { height: 4px; }
+    #colors-scroll::-webkit-scrollbar-thumb { background: #c9b090; border-radius: 4px; }
+    .color-chip {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      min-width: 4rem;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      padding: 0.25rem;
+    }
+    .color-swatch {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 9999px;
+      border: 2px solid #e8ddd0;
+      box-shadow: 0 1px 2px rgba(0,0,0,.08);
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+    }
+    .color-chip.active .color-swatch {
+      border-color: #3D2914;
+      box-shadow: 0 0 0 2px #3D2914;
+    }
+    .color-label {
+      font-size: 0.7rem;
+      color: #574226;
+      max-width: 4.5rem;
+      text-align: center;
+      line-height: 1.2;
+    }
+
     #no-image {
       position: absolute;
       inset: 0;
@@ -165,6 +212,11 @@
             <span id="discount" class="hidden text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full"></span>
           </div>
           <p id="stock" class="text-sm mb-6"></p>
+          <div id="colors-wrap" class="hidden mb-6">
+            <p class="text-sm font-medium text-primary-900 mb-2">Available colors</p>
+            <div id="colors-scroll"></div>
+          </div>
+
           <p id="description" class="text-gray-600 mb-4"></p>
           <div id="details-wrap" class="hidden mb-6">
             <h2 class="font-semibold text-primary-900 mb-2">Details</h2>
@@ -443,6 +495,74 @@
             showProductImage(i);
           });
         });
+
+
+        // Colors (optional)
+        var colorsWrap = document.getElementById('colors-wrap');
+        var colorsScroll = document.getElementById('colors-scroll');
+        var colorList = [];
+        if ((p.has_colors === 'Yes' || p.has_colors === true) && p.colors && p.colors.length) {
+          colorList = p.colors.filter(function(c) { return c && (c.name || c.image); });
+        }
+        if (colorList.length) {
+          colorsWrap.classList.remove('hidden');
+          // ensure color images are in gallery list for thumbs/nav
+          colorList.forEach(function(c) {
+            if (c.image && images.indexOf(c.image) === -1) {
+              images.push(c.image);
+            }
+          });
+          window._productImages = images;
+          // rebuild thumbs if we added images
+          thumbsEl.innerHTML = images.map(function(src, i) {
+            return '<button type="button" data-idx="' + i + '" class="thumb-btn' + (i===0?' active border-primary-600':'') + '">' +
+              '<img src="' + src + '" alt="">' +
+            '</button>';
+          }).join('');
+          thumbsEl.querySelectorAll('.thumb-btn').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+              e.preventDefault();
+              var i = parseInt(btn.getAttribute('data-idx'), 10);
+              showProductImage(i);
+              // sync color chip
+              colorsScroll.querySelectorAll('.color-chip').forEach(function(ch) {
+                ch.classList.toggle('active', ch.getAttribute('data-img') === images[i]);
+              });
+            });
+          });
+          setupImageNav();
+
+          colorsScroll.innerHTML = colorList.map(function(c, i) {
+            var swatchStyle = '';
+            if (c.swatch) {
+              swatchStyle = 'background-color:' + c.swatch + ';';
+            } else if (c.image) {
+              swatchStyle = 'background-image:url(\\'' + c.image + '\\');';
+            } else {
+              swatchStyle = 'background-color:#d9c9b5;';
+            }
+            return '<button type="button" class="color-chip' + (i===0?' active':'') + '" data-img="' + (c.image||'') + '" data-name="' + (c.name||'') + '">' +
+              '<span class="color-swatch" style="' + swatchStyle + '"></span>' +
+              '<span class="color-label">' + (c.name || 'Color') + '</span>' +
+            '</button>';
+          }).join('');
+
+          colorsScroll.querySelectorAll('.color-chip').forEach(function(chip) {
+            chip.addEventListener('click', function() {
+              colorsScroll.querySelectorAll('.color-chip').forEach(function(c) { c.classList.remove('active'); });
+              chip.classList.add('active');
+              var img = chip.getAttribute('data-img');
+              if (img) {
+                var idx = images.indexOf(img);
+                if (idx === -1) {
+                  setMainImage(img);
+                } else {
+                  showProductImage(idx);
+                }
+              }
+            });
+          });
+        }
 
         document.getElementById('whatsapp-btn').href =
           'https://wa.me/94772216854?text=' + encodeURIComponent(p.whatsapp || ('Hi, I am interested in ' + p.name));
