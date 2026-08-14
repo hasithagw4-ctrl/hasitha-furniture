@@ -326,6 +326,15 @@
       if (e.key === 'ArrowRight') lbNav(1);
     });
 
+
+    function setStockText(status) {
+      var stock = document.getElementById('stock');
+      if (!stock) return;
+      var s = status || 'In Stock';
+      stock.textContent = s;
+      stock.className = 'text-sm mb-6 ' + (s === 'Out of Stock' ? 'text-red-600' : 'text-green-600');
+    }
+
     function getParam(name) {
       return new URLSearchParams(window.location.search).get(name);
     }
@@ -506,6 +515,10 @@
         }
         if (colorList.length) {
           colorsWrap.classList.remove('hidden');
+          // default stock = first color's stock
+          if (colorList[0] && colorList[0].stock) {
+            setStockText(colorList[0].stock);
+          }
           // ensure color images are in gallery list for thumbs/nav
           colorList.forEach(function(c) {
             if (c.image && images.indexOf(c.image) === -1) {
@@ -541,7 +554,7 @@ swatchStyle = "background-image:url('" + c.image + "')";
             } else {
               swatchStyle = 'background-color:#d9c9b5;';
             }
-            return '<button type="button" class="color-chip' + (i===0?' active':'') + '" data-img="' + (c.image||'') + '" data-name="' + (c.name||'') + '">' +
+            return '<button type="button" class="color-chip' + (i===0?' active':'') + '" data-img="' + (c.image||'') + '" data-name="' + (c.name||'') + '" data-stock="' + (c.stock||'In Stock') + '">' +
               '<span class="color-swatch" style="' + swatchStyle + '"></span>' +
               '<span class="color-label">' + (c.name || 'Color') + '</span>' +
             '</button>';
@@ -552,6 +565,8 @@ swatchStyle = "background-image:url('" + c.image + "')";
               colorsScroll.querySelectorAll('.color-chip').forEach(function(c) { c.classList.remove('active'); });
               chip.classList.add('active');
               var img = chip.getAttribute('data-img');
+              var colorStock = chip.getAttribute('data-stock') || 'In Stock';
+              setStockText(colorStock);
               if (img) {
                 var idx = images.indexOf(img);
                 if (idx === -1) {
