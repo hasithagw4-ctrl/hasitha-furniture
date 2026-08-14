@@ -831,8 +831,8 @@
         const globalIdx = allProducts.indexOf(p);
         return `
         <div class="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer hover:shadow-md transition" onclick="window.location.href='/product.html?id='+(${globalIdx >= 0 ? globalIdx : idx})">
-          <div class="h-56 bg-beige-100 flex items-center justify-center overflow-hidden p-2">
-            ${p.image ? `<img src="${p.image}" alt="${p.name}" class="max-w-full max-h-full object-contain">` : `<span class="text-5xl opacity-40">📦</span>`}
+          <div class="aspect-square bg-beige-100 overflow-hidden">
+            ${p.image ? `<img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">` : `<span class="text-5xl opacity-40 flex items-center justify-center h-full">📦</span>`}
           </div>
           <div class="p-6">
             <p class="text-xs text-primary-600 uppercase tracking-wider mb-1">${p.category || ""}</p>
