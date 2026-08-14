@@ -50,6 +50,24 @@ collections:
         required: false
         field: { label: "Image", name: "src", widget: "image" }
       - { label: "Specifications (bulk)", name: "specs_text", widget: "text", required: false, hint: "One per line: Label | Value" }
+
+      - label: "Enable Color Options"
+        name: "has_colors"
+        widget: "select"
+        options: ["No", "Yes"]
+        default: "No"
+        required: false
+        hint: "Turn Yes only if this product has multiple colors (e.g. plastic chairs)."
+      - label: "Colors"
+        name: "colors"
+        widget: "list"
+        required: false
+        summary: "{{name}}"
+        hint: "Optional. Each color needs a name and the photo for that color. Shown only when Enable Color Options = Yes."
+        fields:
+          - { label: "Color Name", name: "name", widget: "string", hint: "e.g. Red, Blue, Black" }
+          - { label: "Swatch (optional)", name: "swatch", widget: "string", required: false, hint: "Hex color for the circle e.g. #e11d48 or red. Leave empty = use image." }
+          - { label: "Color Photo", name: "image", widget: "image", required: false, hint: "Photo shown when customer selects this color (add same image in Gallery too if you want it in thumbs)." }
       - { label: "WhatsApp Message", name: "whatsapp", widget: "string", default: "Hi, I'm interested in this product", required: false }
 
   - name: "slides"
