@@ -104,12 +104,12 @@
       empty.classList.add('hidden');
       grid.innerHTML = list.map(function(p) {
         var img = p.image
-          ? '<img src="' + p.image + '" alt="' + (p.name || '') + '" class="w-full h-full object-contain">'
+          ? '<img src="' + p.image + '" alt="' + (p.name || '') + '" class="w-full h-full object-cover">'
           : '<span class="text-3xl sm:text-5xl opacity-40">📦</span>';
         var disc = p.discount ? '<span class="text-[10px] sm:text-xs bg-red-100 text-red-700 px-1.5 py-0.5 rounded-full">' + p.discount + '</span>' : '';
         var stockClass = p.stock === 'Out of Stock' ? 'text-red-600' : 'text-green-600';
         return '<a href="/product.html?id=' + p._i + '" class="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">' +
-          '<div class="aspect-square bg-beige-100 flex items-center justify-center overflow-hidden p-2">' + img + '</div>' +
+          '<div class="aspect-square bg-beige-100 overflow-hidden">' + img + '</div>' +
           '<div class="p-2.5 sm:p-4">' +
             '<h3 class="font-display text-sm sm:text-lg text-primary-900 mb-1 line-clamp-2 leading-snug">' + (p.name || '') + '</h3>' +
             '<p class="font-semibold text-primary-800 text-sm sm:text-base">' + (p.price || 'Price on request') + '</p>' +
