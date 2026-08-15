@@ -86,6 +86,106 @@
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
+    
+    /* Category show-more: mobile 4, desktop 6 visible */
+    @media (max-width: 767px) {
+      #furniture-grid:not(.is-expanded) .cat-card:nth-child(n+5),
+      #electronics-grid:not(.is-expanded) .cat-card:nth-child(n+5) {
+        display: none;
+      }
+    }
+    @media (min-width: 768px) {
+      #furniture-grid:not(.is-expanded) .cat-card:nth-child(n+7),
+      #electronics-grid:not(.is-expanded) .cat-card:nth-child(n+7) {
+        display: none;
+      }
+    }
+    .cat-show-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 1.5rem;
+      padding: 0.65rem 1.5rem;
+      border-radius: 9999px;
+      border: 1px solid #c9b090;
+      background: #fff;
+      color: #3D2914;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .cat-show-more:hover { background: #3D2914; color: #fff; }
+    #electronics .cat-show-more {
+      border-color: rgba(255,255,255,.35);
+      background: transparent;
+      color: #fff;
+    }
+    #electronics .cat-show-more:hover { background: #fff; color: #3D2914; }
+
+    .product-grid-compact {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+    @media (min-width: 768px) {
+      .product-grid-compact {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.85rem;
+      }
+    }
+    @media (min-width: 1100px) {
+      .product-grid-compact {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+    }
+    .product-card-sm {
+      background: #fff;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,.06);
+      cursor: pointer;
+      transition: box-shadow .2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .product-card-sm:hover { box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+    .product-card-sm .img-wrap {
+      aspect-ratio: 1;
+      background: #f0e8dc;
+      overflow: hidden;
+    }
+    .product-card-sm .img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .product-card-sm .meta {
+      padding: 0.4rem 0.45rem 0.55rem;
+    }
+    .product-card-sm .meta h3 {
+      font-size: 0.7rem;
+      line-height: 1.25;
+      color: #3D2914;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin: 0 0 0.15rem;
+      font-weight: 500;
+    }
+    @media (min-width: 768px) {
+      .product-card-sm .meta h3 { font-size: 0.85rem; }
+      .product-card-sm .meta { padding: 0.55rem 0.65rem 0.7rem; }
+    }
+    .product-card-sm .meta .price {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #574226;
+      margin: 0;
+    }
+    @media (min-width: 768px) {
+      .product-card-sm .meta .price { font-size: 0.8rem; }
+    }
+
     .product-card:hover {
       transform: translateY(-8px);
       box-shadow: 0 25px 50px -12px rgba(61, 41, 20, 0.15);
@@ -256,7 +356,7 @@
         <h2 class="font-display text-3xl md:text-4xl text-primary-900">Latest Products</h2>
         <div class="w-16 h-1 bg-primary-700 mx-auto mt-3"></div>
       </div>
-      <div id="featured-grid" class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6 mb-10"></div>
+      <div id="featured-grid" class="product-grid-compact mb-10"></div>
       <div class="text-center">
         <a href="/all-products.html" class="inline-flex items-center gap-2 bg-primary-800 text-white px-8 py-3.5 rounded-full font-semibold hover:bg-primary-700 transition">
           Show All
@@ -274,87 +374,90 @@
         <div class="w-20 h-1 bg-primary-700 mx-auto mt-4"></div>
       </div>
       
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Sofas'">
+      <div id="furniture-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Sofas'">
           <div class="text-4xl mb-3">🛋️</div>
           <h3 class="font-medium text-primary-900">Sofas</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Beds'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Beds'">
           <div class="text-4xl mb-3">🛏️</div>
           <h3 class="font-medium text-primary-900">Beds</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Wardrobes'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Wardrobes'">
           <div class="text-4xl mb-3">🚪</div>
           <h3 class="font-medium text-primary-900">Wardrobes</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Dressing%20Tables'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Dressing%20Tables'">
           <div class="text-4xl mb-3">🪞</div>
           <h3 class="font-medium text-primary-900">Dressing Tables</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Dining%20Tables'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Dining%20Tables'">
           <div class="text-4xl mb-3">🪵</div>
           <h3 class="font-medium text-primary-900">Dining Tables</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Dining%20Chairs'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Dining%20Chairs'">
           <div class="text-4xl mb-3">🪑</div>
           <h3 class="font-medium text-primary-900">Dining Chairs</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Dining%20Sets'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Dining%20Sets'">
           <div class="text-4xl mb-3">🍽️</div>
           <h3 class="font-medium text-primary-900">Dining Sets</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Veranda%20Chairs'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Veranda%20Chairs'">
           <div class="text-4xl mb-3">🏡</div>
           <h3 class="font-medium text-primary-900">Veranda Chairs</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Office%20Furniture'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Office%20Furniture'">
           <div class="text-4xl mb-3">💼</div>
           <h3 class="font-medium text-primary-900">Office Furniture</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Mattresses'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Mattresses'">
           <div class="text-4xl mb-3">🛌</div>
           <h3 class="font-medium text-primary-900">Mattresses</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Wall%20Units'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Wall%20Units'">
           <div class="text-4xl mb-3">🗄️</div>
           <h3 class="font-medium text-primary-900">Wall Units</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Coffee%20Tables'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Coffee%20Tables'">
           <div class="text-4xl mb-3">☕</div>
           <h3 class="font-medium text-primary-900">Coffee Tables</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=TV%20Stands'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=TV%20Stands'">
           <div class="text-4xl mb-3">📺</div>
           <h3 class="font-medium text-primary-900">TV Stands</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Display%20Cupboards'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Display%20Cupboards'">
           <div class="text-4xl mb-3">🏛️</div>
           <h3 class="font-medium text-primary-900">Display Cupboards</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Shoe%20Racks'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Shoe%20Racks'">
           <div class="text-4xl mb-3">👟</div>
           <h3 class="font-medium text-primary-900">Shoe Racks</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Drawer%20Cupboards'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Drawer%20Cupboards'">
           <div class="text-4xl mb-3">🗃️</div>
           <h3 class="font-medium text-primary-900">Drawer Cupboards</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Desks'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Desks'">
           <div class="text-4xl mb-3">🖥️</div>
           <h3 class="font-medium text-primary-900">Desks</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Other%20Furniture'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Other%20Furniture'">
           <div class="text-4xl mb-3">📦</div>
           <h3 class="font-medium text-primary-900">Other Furniture</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Plastic%20Items'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Plastic%20Items'">
           <div class="text-4xl mb-3">🧴</div>
           <h3 class="font-medium text-primary-900">Plastic Items</h3>
         </div>
-        <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Gift%20Items'">
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Gift%20Items'">
           <div class="text-4xl mb-3">🎁</div>
           <h3 class="font-medium text-primary-900">Gift Items</h3>
         </div>
+      </div>
+      <div class="text-center">
+        <button type="button" class="cat-show-more" data-grid="furniture-grid" onclick="toggleCatGrid(this)">Show more</button>
       </div>
     </div>
   </section>
@@ -368,72 +471,75 @@
         <div class="w-20 h-1 bg-beige-300 mx-auto mt-4"></div>
       </div>
       
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      <div id="electronics-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
         
-                <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Televisions'">
+                <div class="cat-card bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Televisions'">
           <div class="text-4xl mb-3">📺</div>
           <h3 class="font-medium">Televisions</h3>
         </div>
         
-                <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Refrigerators'">
+                <div class="cat-card bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Refrigerators'">
           <div class="text-4xl mb-3">❄️</div>
           <h3 class="font-medium">Refrigerators</h3>
         </div>
         
-                <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Washing%20Machines'">
+                <div class="cat-card bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Washing%20Machines'">
           <div class="text-4xl mb-3">🧺</div>
           <h3 class="font-medium">Washing Machines</h3>
         </div>
         
-                <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Ovens'">
+                <div class="cat-card bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Ovens'">
           <div class="text-4xl mb-3">🔥</div>
           <h3 class="font-medium">Ovens</h3>
         </div>
         
-                <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Blenders'">
+                <div class="cat-card bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Blenders'">
           <div class="text-4xl mb-3">🥤</div>
           <h3 class="font-medium">Blenders</h3>
         </div>
         
-                <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Kettles%20%26%20Irons'">
+                <div class="cat-card bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Kettles%20%26%20Irons'">
           <div class="text-4xl mb-3">♨️</div>
           <h3 class="font-medium">Kettles & Irons</h3>
         </div>
         
-                <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Pressure%20Washers'">
+                <div class="cat-card bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Pressure%20Washers'">
           <div class="text-4xl mb-3">💧</div>
           <h3 class="font-medium">Pressure Washers</h3>
         </div>
         
         
-        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Fans'">
+        <div class="cat-card bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Fans'">
           <div class="text-4xl mb-3">🌀</div>
           <h3 class="font-medium">Fans</h3>
         </div>
         
-        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Vacuum%20Cleaners'">
+        <div class="cat-card bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Vacuum%20Cleaners'">
           <div class="text-4xl mb-3">🧹</div>
           <h3 class="font-medium">Vacuum Cleaners</h3>
         </div>
         
-        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Rice%20Cookers'">
+        <div class="cat-card bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Rice%20Cookers'">
           <div class="text-4xl mb-3">🍚</div>
           <h3 class="font-medium">Rice Cookers</h3>
         </div>
         
-        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Party%20Boxes'">
+        <div class="cat-card bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Party%20Boxes'">
           <div class="text-4xl mb-3">🔊</div>
           <h3 class="font-medium">Party Boxes</h3>
         </div>
-        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Sound%20Systems%20%26%20Radios'">
+        <div class="cat-card bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Sound%20Systems%20%26%20Radios'">
           <div class="text-4xl mb-3">📻</div>
           <h3 class="font-medium">Sound Systems & Radios</h3>
         </div>
-        <div class="bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Other%20Electronics'">
+        <div class="cat-card bg-primary-800/50 rounded-2xl p-6 text-center hover:bg-primary-800 transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Other%20Electronics'">
           <div class="text-4xl mb-3">🔌</div>
           <h3 class="font-medium">Other Electronics</h3>
         </div>
         
+      </div>
+      <div class="text-center">
+        <button type="button" class="cat-show-more" data-grid="electronics-grid" onclick="toggleCatGrid(this)">Show more</button>
       </div>
       
       <div class="text-center mt-12 fade-in">
@@ -486,7 +592,7 @@
         <p class="text-primary-700 font-medium">Showing: <span id="active-category" class="font-semibold"></span></p>
         <button onclick="showAllProducts()" class="mt-2 text-sm text-primary-600 underline hover:text-primary-800">Show All Products</button>
       </div>
-      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div id="products-grid" class="product-grid-compact">
         <div class="col-span-full text-center text-gray-500 py-10">Loading products...</div>
       </div>
     </div>
@@ -776,6 +882,15 @@
     });
 
 
+
+    function toggleCatGrid(btn) {
+      var id = btn.getAttribute('data-grid');
+      var grid = document.getElementById(id);
+      if (!grid) return;
+      var open = grid.classList.toggle('is-expanded');
+      btn.textContent = open ? 'Show less' : 'Show more';
+    }
+
     async function loadProducts() {
       try {
         const res = await fetch("/data/products.json");
@@ -798,24 +913,20 @@
       }
       grid.innerHTML = products.map((p, idx) => {
         const globalIdx = allProducts.indexOf(p);
+        const id = globalIdx >= 0 ? globalIdx : idx;
         return `
-        <div class="bg-white rounded-2xl overflow-hidden shadow-sm cursor-pointer hover:shadow-md transition" onclick="window.location.href='/product.html?id='+(${globalIdx >= 0 ? globalIdx : idx})">
-          <div class="aspect-square bg-beige-100 overflow-hidden">
-            ${p.image ? `<img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">` : `<span class="text-5xl opacity-40 flex items-center justify-center h-full">📦</span>`}
+        <a href="/product.html?id=${id}" class="product-card-sm block">
+          <div class="img-wrap">
+            ${p.image
+              ? `<img src="${p.image}" alt="${p.name || ''}">`
+              : `<div class="w-full h-full flex items-center justify-center text-2xl opacity-40">📦</div>`}
           </div>
-          <div class="p-6">
-            <p class="text-xs text-primary-600 uppercase tracking-wider mb-1">${p.category || ""}</p>
-            <h3 class="font-display text-xl text-primary-900 mb-2">${p.name}</h3>
-            <p class="text-gray-600 text-sm mb-3">${p.description || ""}</p>
-            <div class="flex items-center gap-2 mb-2">
-              <p class="font-semibold text-primary-800">${p.price || "Price on request"}</p>
-              ${p.discount ? `<span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">${p.discount}</span>` : ""}
-            </div>
-            <p class="text-xs mb-3 ${p.stock === "Out of Stock" ? "text-red-600" : "text-green-600"}">${p.stock || "In Stock"}</p>
-            <span class="text-primary-700 font-medium text-sm">View details →</span>
+          <div class="meta">
+            <h3>${p.name || ''}</h3>
+            <p class="price">${p.price || 'Price on request'}</p>
           </div>
-        </div>
-      `}).join("");
+        </a>`;
+      }).join("");
     }
 
     function filterByCategory(category) {
@@ -859,6 +970,15 @@
       if (info) info.classList.add("hidden");
     }
 
+
+    document.querySelectorAll('.cat-show-more').forEach(function(btn) {
+      var grid = document.getElementById(btn.getAttribute('data-grid'));
+      if (!grid) return;
+      var n = grid.querySelectorAll('.cat-card').length;
+      var need = window.matchMedia('(min-width: 768px)').matches ? 6 : 4;
+      if (n <= need) btn.style.display = 'none';
+    });
+
     loadProducts();
 
     async function loadFeatured() {
@@ -889,18 +1009,16 @@
           return;
         }
         section.classList.remove('hidden');
-        grid.innerHTML = featured.slice(0, 6).map(p => `
-          <a href="/product.html?id=${p._i}" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">
-            <div class="aspect-square bg-beige-100 overflow-hidden">
-              ${p.image ? `<img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover">` : `<span class="text-5xl opacity-40 flex items-center justify-center h-full">📦</span>`}
+        grid.innerHTML = featured.slice(0, 10).map(p => `
+          <a href="/product.html?id=${p._i}" class="product-card-sm block">
+            <div class="img-wrap">
+              ${p.image
+                ? `<img src="${p.image}" alt="${p.name || ''}">`
+                : `<div class="w-full h-full flex items-center justify-center text-2xl opacity-40">📦</div>`}
             </div>
-            <div class="p-5">
-              <p class="text-xs text-primary-600 uppercase tracking-wider mb-1">${p.category || ''}</p>
-              <h3 class="font-display text-lg text-primary-900 mb-1">${p.name}</h3>
-              <div class="flex items-center gap-2">
-                <p class="font-semibold text-primary-800 text-sm">${p.price || 'Price on request'}</p>
-                ${p.discount ? `<span class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full">${p.discount}</span>` : ''}
-              </div>
+            <div class="meta">
+              <h3>${p.name || ''}</h3>
+              <p class="price">${p.price || 'Price on request'}</p>
             </div>
           </a>
         `).join('');
