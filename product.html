@@ -335,6 +335,23 @@
       stock.className = 'text-sm mb-6 ' + (s === 'Out of Stock' ? 'text-red-600' : 'text-green-600');
     }
 
+
+    function productCategories(p) {
+      if (!p) return [];
+      if (Array.isArray(p.categories) && p.categories.length) return p.categories.filter(Boolean);
+      if (Array.isArray(p.category) && p.category.length) return p.category.filter(Boolean);
+      if (p.category) return [p.category];
+      return [];
+    }
+    function inCategory(p, cat) {
+      if (!cat) return true;
+      var c = String(cat).toLowerCase();
+      return productCategories(p).some(function(x) { return String(x).toLowerCase() === c; });
+    }
+    function categoryLabel(p) {
+      return productCategories(p).join(' · ');
+    }
+
     function getParam(name) {
       return new URLSearchParams(window.location.search).get(name);
     }
@@ -441,7 +458,7 @@
         document.getElementById('product-content').classList.remove('hidden');
         document.title = (p.name || 'Product') + ' | Hasitha Furniture';
 
-        document.getElementById('category').textContent = p.category || '';
+        document.getElementById('category').textContent = categoryLabel(p);
         document.getElementById('name').textContent = p.name || '';
         document.getElementById('price').textContent = p.price || 'Price on request';
         document.getElementById('description').textContent = p.description || '';
@@ -585,7 +602,7 @@ swatchStyle = "background-image:url('" + c.image + "')";
         // Similar products (same category, exclude current)
         const similar = products
           .map((item, i) => ({ ...item, _i: i }))
-          .filter(item => item._i !== index && (item.category || '') === (p.category || ''))
+          .filter(function(item){ if (item._i === index) return false; var a=productCategories(item); var b=productCategories(p); return a.some(function(x){ return b.indexOf(x)!==-1; }); })
           .slice(0, 6);
 
         if (similar.length) {
@@ -598,7 +615,7 @@ swatchStyle = "background-image:url('" + c.image + "')";
                   : `<span class="text-4xl opacity-40">📦</span>`}
               </div>
               <div class="p-5">
-                <p class="text-xs text-primary-600 uppercase tracking-wider mb-1">${item.category || ''}</p>
+                <p class="text-xs text-primary-600 uppercase tracking-wider mb-1">${categoryLabel(item)}</p>
                 <h3 class="font-display text-lg text-primary-900 mb-1">${item.name}</h3>
                 <p class="font-semibold text-primary-800 text-sm">${item.price || 'Price on request'}</p>
               </div>

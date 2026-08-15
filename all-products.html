@@ -85,6 +85,23 @@
   <script>
     var allProducts = [];
 
+    function productCategories(p) {
+      if (!p) return [];
+      if (Array.isArray(p.categories) && p.categories.length) return p.categories.filter(Boolean);
+      if (Array.isArray(p.category) && p.category.length) return p.category.filter(Boolean);
+      if (p.category) return [p.category];
+      return [];
+    }
+    function inCategory(p, cat) {
+      if (!cat) return true;
+      var c = String(cat).toLowerCase();
+      return productCategories(p).some(function(x) { return String(x).toLowerCase() === c; });
+    }
+    function categoryLabel(p) {
+      return productCategories(p).join(' · ');
+    }
+;
+
     var groups = [
       {
         title: 'Furniture',
@@ -126,7 +143,7 @@
       groups.forEach(function(g) {
         var items = list.filter(function(p) {
           return g.cats.some(function(c) {
-            return (p.category||'').toLowerCase() === c.toLowerCase();
+            return inCategory(p, c);
           });
         });
         if (!items.length) return;
@@ -140,7 +157,11 @@
       // orphan categories not in groups
       var known = {};
       groups.forEach(function(g){ g.cats.forEach(function(c){ known[c.toLowerCase()] = true; }); });
-      var others = list.filter(function(p){ return !known[(p.category||'').toLowerCase()]; });
+      var others = list.filter(function(p){
+          var cats = productCategories(p);
+          if (!cats.length) return true;
+          return !cats.some(function(c){ return known[String(c).toLowerCase()]; });
+        });
       if (others.length) {
         any = true;
         html += '<section class="mb-14">' +
@@ -160,7 +181,7 @@
       render(allProducts.filter(function(p) {
         return (p.name||'').toLowerCase().indexOf(query) !== -1 ||
                (p.description||'').toLowerCase().indexOf(query) !== -1 ||
-               (p.category||'').toLowerCase().indexOf(query) !== -1;
+               productCategories(p).join(' ').toLowerCase().indexOf(query) !== -1;
       }));
     }
 

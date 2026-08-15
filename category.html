@@ -92,6 +92,23 @@
 
     var categoryProducts = [];
 
+    function productCategories(p) {
+      if (!p) return [];
+      if (Array.isArray(p.categories) && p.categories.length) return p.categories.filter(Boolean);
+      if (Array.isArray(p.category) && p.category.length) return p.category.filter(Boolean);
+      if (p.category) return [p.category];
+      return [];
+    }
+    function inCategory(p, cat) {
+      if (!cat) return true;
+      var c = String(cat).toLowerCase();
+      return productCategories(p).some(function(x) { return String(x).toLowerCase() === c; });
+    }
+    function categoryLabel(p) {
+      return productCategories(p).join(' · ');
+    }
+
+
     function renderGrid(list) {
       var grid = document.getElementById('grid');
       var empty = document.getElementById('empty');
@@ -144,9 +161,7 @@
           return Object.assign({}, p, { _i: i });
         });
         categoryProducts = cat
-          ? products.filter(function(p) {
-              return (p.category || '').toLowerCase() === cat.toLowerCase();
-            })
+          ? products.filter(function(p) { return inCategory(p, cat); })
           : products;
 
         if (!categoryProducts.length) {

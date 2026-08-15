@@ -1,6 +1,11 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: hasithagw4-ctrl/hasitha-furniture
   branch: main
+
+logo_url: /images/logo.png
+site_url: https://hasithafurniture.com
+display_url: https://hasithafurniture.com
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
@@ -11,14 +16,20 @@ collections:
     label_singular: "Product"
     folder: "content/products"
     create: true
-    slug: "{{name}}"
+    slug: "{{slug}}"
     extension: "json"
     format: "json"
     sortable_fields: ["name", "category"]
     summary: "{{name}} — {{category}}"
     fields:
       - { label: "Product Name", name: "name", widget: "string" }
-      - { label: "Category", name: "category", widget: "select", options: ["Sofas", "Beds", "Wardrobes", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Kettles & Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Other Electronics", "Plastic Items", "Gift Items"] }
+      - label: "Categories"
+        name: "category"
+        widget: "select"
+        multiple: true
+        required: true
+        hint: "Select one or more. Example: Veranda Chairs + Plastic Items so it shows in both."
+        options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Kettles & Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Other Electronics", "Plastic Items", "Gift Items"]
       - { label: "Short Description", name: "description", widget: "text", required: false }
       - { label: "Full Details", name: "details", widget: "text", required: false }
       - { label: "Price", name: "price", widget: "string", default: "Price on request" }
@@ -26,6 +37,18 @@ collections:
       - { label: "Stock Status", name: "stock", widget: "select", options: ["In Stock", "Out of Stock"], default: "In Stock" }
       - { label: "Visible on Website", name: "visible", widget: "select", options: ["Yes", "No"], default: "Yes", required: true }
       - { label: "Featured on Homepage", name: "featured", widget: "select", options: ["Yes", "No"], default: "No", required: true }
+      - label: "Featured Position (1-4)"
+        name: "featured_position"
+        widget: "select"
+        required: false
+        default: ""
+        hint: "Optional. Only for Featured products. 1 = first, 2 = second, etc. Leave empty = normal upload order after positioned ones."
+        options:
+          - { label: "Auto (upload order)", value: "" }
+          - { label: "1 — First", value: "1" }
+          - { label: "2 — Second", value: "2" }
+          - { label: "3 — Third", value: "3" }
+          - { label: "4 — Fourth", value: "4" }
       - { label: "Main Image", name: "image", widget: "image", required: false }
       - label: "Gallery Images"
         name: "gallery"
@@ -33,6 +56,25 @@ collections:
         required: false
         field: { label: "Image", name: "src", widget: "image" }
       - { label: "Specifications (bulk)", name: "specs_text", widget: "text", required: false, hint: "One per line: Label | Value" }
+
+      - label: "Enable Color Options"
+        name: "has_colors"
+        widget: "select"
+        options: ["No", "Yes"]
+        default: "No"
+        required: false
+        hint: "Turn Yes only if this product has multiple colors (e.g. plastic chairs)."
+      - label: "Colors"
+        name: "colors"
+        widget: "list"
+        required: false
+        summary: "{{name}}"
+        hint: "Optional. Each color needs a name and the photo for that color. Shown only when Enable Color Options = Yes."
+        fields:
+          - { label: "Color Name", name: "name", widget: "string", hint: "e.g. Red, Blue, Black" }
+          - { label: "Swatch (optional)", name: "swatch", widget: "string", required: false, hint: "Hex color for the circle e.g. #e11d48 or red. Leave empty = use image." }
+          - { label: "Color Photo", name: "image", widget: "image", required: false, hint: "Photo shown when customer selects this color (add same image in Gallery too if you want it in thumbs)." }
+          - { label: "Stock for this color", name: "stock", widget: "select", options: ["In Stock", "Out of Stock"], default: "In Stock", required: false, hint: "Shown on product page when this color is selected." }
       - { label: "WhatsApp Message", name: "whatsapp", widget: "string", default: "Hi, I'm interested in this product", required: false }
 
   - name: "slides"
