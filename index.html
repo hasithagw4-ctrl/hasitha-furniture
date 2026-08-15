@@ -95,8 +95,8 @@
       }
     }
     @media (min-width: 768px) {
-      #furniture-grid:not(.is-expanded) .cat-card:nth-child(n+7),
-      #electronics-grid:not(.is-expanded) .cat-card:nth-child(n+7) {
+      #furniture-grid:not(.is-expanded) .cat-card:nth-child(n+5),
+      #electronics-grid:not(.is-expanded) .cat-card:nth-child(n+5) {
         display: none;
       }
     }
@@ -988,7 +988,7 @@
       var grid = document.getElementById(btn.getAttribute('data-grid'));
       if (!grid) return;
       var n = grid.querySelectorAll('.cat-card').length;
-      var need = window.matchMedia('(min-width: 768px)').matches ? 6 : 4;
+      var need = 4;
       if (n <= need) btn.style.display = 'none';
     });
 
