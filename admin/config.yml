@@ -23,7 +23,13 @@ collections:
     summary: "{{name}} — {{category}}"
     fields:
       - { label: "Product Name", name: "name", widget: "string" }
-      - { label: "Category", name: "category", widget: "select", options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Kettles & Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Other Electronics", "Plastic Items", "Gift Items"] }
+      - label: "Categories"
+        name: "category"
+        widget: "select"
+        multiple: true
+        required: false
+        hint: "Optional multi-select. Pick one or more (e.g. Veranda Chairs + Plastic Items, or Sofa + Living Room)."
+        options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Wall Units", "Coffee Tables", "TV Stands", "Display Cupboards", "Shoe Racks", "Drawer Cupboards", "Desks", "Living Room", "Bedroom", "Kitchen", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Kettles & Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Other Electronics", "Plastic Items", "Gift Items"]
       - { label: "Short Description", name: "description", widget: "text", required: false }
       - { label: "Full Details", name: "details", widget: "text", required: false }
       - { label: "Price", name: "price", widget: "string", default: "Price on request" }
