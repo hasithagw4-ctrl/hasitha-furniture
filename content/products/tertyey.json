@@ -1,18 +1,28 @@
 {
-  "name": "tertyey",
+  "name": "Piyestra PVAC 011 Plastic Arm Chair",
   "category": "Veranda Chairs",
-  "description": "",
-  "details": "",
-  "price": "Price on request",
+  "description": "Durable green plastic armchair with armrests, ribbed seat and patterned backrest. Stackable, lightweight and ideal for veranda, garden or indoor use. Backed by 3-year warranty.",
+  "details": "The Piyestra PVAC 011 is a sturdy plastic armchair built for everyday comfort. It features a contoured ribbed seat, supportive armrests and a stylish diamond-grid backrest. Made from high-quality plastic with UV protection, it suits both indoor and outdoor use. The stackable design allows easy storage. Lightweight yet strong, it is perfect for homes, verandas, gardens and events in Sri Lanka. Comes with a 3-year manufacturer warranty.",
+  "price": "Rs. 4,100",
   "discount": "",
   "stock": "In Stock",
   "visible": "Yes",
-  "featured": "No",
+  "featured": "Yes",
   "featured_position": "",
-  "image": "/images/uploads/pasted-image-1786773350623.png",
-  "gallery": [],
-  "specs_text": "",
-  "has_colors": "No",
-  "colors": [],
+  "image": "/images/uploads/pasted-image-1786774237161.png",
+  "gallery": [
+    "/images/uploads/pasted-image-1786774268382.png",
+    "/images/uploads/pasted-image-1786774285058.png"
+  ],
+  "specs_text": "Brand | Piyestra\nModel | PVAC 011\nProduct Type | Plastic Arm Chair / Veranda Chair\nMaterial | High-quality Plastic (Polypropylene)\nArmrests | Yes\nSeat | Ribbed / Contoured\nBackrest | Diamond-grid pattern\nStackable | Yes\nSuitable For | Indoor & Outdoor\nWarranty | 3 Years",
+  "has_colors": "Yes",
+  "colors": [
+    {
+      "name": "Green",
+      "swatch": "#87a545",
+      "image": "",
+      "stock": "In Stock"
+    }
+  ],
   "whatsapp": "Hi, I'm interested in this product"
 }
