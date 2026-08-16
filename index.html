@@ -59,6 +59,13 @@
       font-family: 'Inter', sans-serif;
     }
     
+    /* Lining numbers — same size as letters (Playfair old-style nums fix) */
+    .font-display,
+    .product-card-sm .meta h3,
+    .product-card-feat .meta h3 {
+      font-variant-numeric: lining-nums;
+      font-feature-settings: "lnum" 1;
+    }
     .font-display {
       font-family: 'Playfair Display', serif;
     }
@@ -226,6 +233,8 @@
       padding: 0.4rem 0.45rem 0.55rem;
     }
     .product-card-sm .meta h3 {
+      font-variant-numeric: lining-nums;
+      font-feature-settings: "lnum" 1;
       font-size: 0.7rem;
       line-height: 1.25;
       color: #3D2914;

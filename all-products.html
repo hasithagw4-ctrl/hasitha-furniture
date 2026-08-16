@@ -41,7 +41,16 @@
       }
     }
   </script>
-  <style>body{font-family:Inter,sans-serif}.font-display{font-family:'Playfair Display',serif}</style>
+  <style>body{font-family:Inter,sans-serif}.font-display{font-family:'Playfair Display',serif}
+    /* Lining numbers — same size as letters (Playfair old-style nums fix) */
+    .font-display,
+    .product-card-sm .meta h3,
+    .product-card-feat .meta h3 {
+      font-variant-numeric: lining-nums;
+      font-feature-settings: "lnum" 1;
+    }
+
+  </style>
 </head>
 <body class="bg-beige-50 text-gray-800">
 
