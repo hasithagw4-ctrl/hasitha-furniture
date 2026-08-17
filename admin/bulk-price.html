@@ -229,22 +229,12 @@
       var s = String(str).trim();
       if (!s) return null;
       if (/request|call|n\/a|na|tbd/i.test(s) && !/\d/.test(s)) return null;
-      // keep only digits and dots/commas that look like numbers
-      var cleaned = s.replace(/[^0-9.,]/g, '');
-      if (!cleaned) return null;
-      // remove thousand separators (commas), keep last dot as decimal if present
-      if (cleaned.indexOf(',') >= 0 && cleaned.indexOf('.') >= 0) {
-        cleaned = cleaned.replace(/,/g, '');
-      } else if (cleaned.indexOf(',') >= 0) {
-        // Rs. 68,900 or European 68,90
-        var parts = cleaned.split(',');
-        if (parts.length === 2 && parts[1].length <= 2) {
-          cleaned = parts[0].replace(/\./g, '') + '.' + parts[1];
-        } else {
-          cleaned = cleaned.replace(/,/g, '');
-        }
-      }
-      var n = parseFloat(cleaned);
+      // Remove thousand separators, then take first real number
+      // (avoid treating the dot in "Rs." as a decimal)
+      s = s.replace(/,/g, '');
+      var m = s.match(/(\d+(?:\.\d+)?)/);
+      if (!m) return null;
+      var n = parseFloat(m[1]);
       return isNaN(n) ? null : n;
     }
 
