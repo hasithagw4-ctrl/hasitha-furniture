@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bulk Price Update — Hasitha Furniture</title>
+  <style>
+    :root {
+      --bg: #f7f3ec;
+      --card: #fff;
+      --text: #3d2914;
+      --muted: #7a6548;
+      --line: #e5d9c6;
+      --accent: #3d2914;
+      --ok: #166534;
+      --warn: #b45309;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 1.25rem; }
+    h1 { font-size: 1.35rem; margin: 0 0 0.25rem; }
+    .sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.25rem; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1rem 1.1rem;
+      margin-bottom: 1rem;
+    }
+    label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem; color: var(--muted); }
+    select, input[type="number"] {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-size: 1rem;
+      background: #fff;
+      color: var(--text);
+    }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    @media (max-width: 640px) { .row { grid-template-columns: 1fr; } }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; }
+    @media (max-width: 640px) { .row3 { grid-template-columns: 1fr; } }
+    .btns { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 1.15rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-secondary { background: #fff; color: var(--accent); border: 1px solid var(--line); }
+    .btn-primary:disabled, .btn-secondary:disabled { opacity: 0.5; cursor: not-allowed; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    th, td { text-align: left; padding: 0.55rem 0.4rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; }
+    .old { color: var(--muted); text-decoration: line-through; }
+    .new { color: var(--ok); font-weight: 600; }
+    .skip { color: var(--warn); font-size: 0.8rem; }
+    .note {
+      background: #fff8e8;
+      border: 1px solid #f0dfb0;
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      font-size: 0.88rem;
+      color: #6b5420;
+    }
+    .note ol { margin: 0.4rem 0 0; padding-left: 1.2rem; }
+    .stat { font-size: 0.9rem; color: var(--muted); margin: 0.5rem 0 0; }
+    a.back { color: var(--accent); font-size: 0.9rem; text-decoration: none; }
+    .empty { text-align: center; color: var(--muted); padding: 1.5rem; }
+
+    .cat-box {
+      max-height: 220px;
+      overflow-y: auto;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 0.5rem 0.65rem;
+      background: #fff;
+    }
+    .cat-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.15rem;
+      font-size: 0.9rem;
+    }
+    .cat-item input { width: auto; accent-color: var(--accent); }
+    .cat-actions { display: flex; gap: 0.5rem; margin-bottom: 0.4rem; flex-wrap: wrap; }
+    .cat-actions button {
+      padding: 0.35rem 0.7rem;
+      font-size: 0.75rem;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--accent);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="/admin/">← Back to Admin</a>
+    <h1 style="margin-top:0.75rem">Bulk Price Update</h1>
+    <p class="sub">All products or by category. Preview first, then download files and upload to GitHub.</p>
+
+    <div class="card">
+      <div>
+        <label>Categories (select one or more)</label>
+        <div class="cat-actions">
+          <button type="button" id="selAll">Select all</button>
+          <button type="button" id="selNone">Clear</button>
+        </div>
+        <div class="cat-box" id="catBox">
+          <div class="cat-item"><label><input type="checkbox" id="catAll" checked> <strong>All products</strong></label></div>
+        </div>
+      </div>
+      <div class="row" style="margin-top:0.75rem">
+        <div>
+          <label>Change type</label>
+          <select id="mode">
+            <option value="percent">Percentage (%)</option>
+            <option value="fixed">Fixed amount (Rs.)</option>
+          </select>
+        </div>
+        <div>
+          <label>Direction</label>
+          <select id="dir">
+            <option value="up">Increase (+)</option>
+            <option value="down">Decrease (−)</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" style="margin-top:0.75rem">
+        <div>
+          <label id="valueLabel">Value (%)</label>
+          <input id="value" type="number" min="0" step="0.01" value="10" />
+        </div>
+        <div>
+          <label>Round to</label>
+          <select id="round">
+            <option value="1">Nearest Rs. 1</option>
+            <option value="10" selected>Nearest Rs. 10</option>
+            <option value="50">Nearest Rs. 50</option>
+            <option value="100">Nearest Rs. 100</option>
+          </select>
+        </div>
+      </div>
+      <div class="btns">
+        <button type="button" class="btn-primary" id="previewBtn">Preview changes</button>
+        <button type="button" class="btn-secondary" id="downloadBtn" disabled>Download updated files</button>
+      </div>
+      <p class="stat" id="stat">Loading products…</p>
+    </div>
+
+    <div class="card" id="previewCard" style="display:none">
+      <strong>Preview</strong>
+      <div style="overflow-x:auto; margin-top:0.5rem">
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Old price</th>
+              <th>New price</th>
+            </tr>
+          </thead>
+          <tbody id="previewBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>How to apply (safe):</strong>
+      <ol>
+        <li>Preview check කරන්න (prices හරිද බලන්න)</li>
+        <li><b>Download updated files</b> → zip එක download වෙනවා</li>
+        <li>Zip extract කරන්න</li>
+        <li>GitHub repo එකට upload:
+          <ul>
+            <li><code>content/products/*.json</code> → folder <code>content/products/</code> (replace)</li>
+            <li><code>data/products.json</code> → folder <code>data/</code> (replace)</li>
+          </ul>
+        </li>
+        <li>Commit → Cloudflare deploy (1–2 min)</li>
+        <li>Website refresh කරලා prices බලන්න</li>
+      </ol>
+      <p style="margin:0.5rem 0 0"><b>Note:</b> “Price on request” වගේ text prices change වෙන්නේ නැහැ.</p>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script>
+    var allProducts = [];
+    var pendingUpdates = [];
+
+    function productCategories(p) {
+      if (!p) return [];
+      if (Array.isArray(p.categories) && p.categories.length) return p.categories.filter(Boolean);
+      if (Array.isArray(p.category) && p.category.length) return p.category.filter(Boolean);
+      if (p.category) return [p.category];
+      return [];
+    }
+
+    function categoryLabel(p) {
+      return productCategories(p).join(' · ') || '—';
+    }
+
+    function inCategory(p, cat) {
+      if (!cat || cat === 'all') return true;
+      var c = String(cat).toLowerCase();
+      return productCategories(p).some(function (x) {
+        return String(x).toLowerCase() === c;
+      });
+    }
+
+    function parsePrice(str) {
+      if (str == null) return null;
+      var s = String(str).trim();
+      if (!s) return null;
+      if (/request|call|n\/a|na|tbd/i.test(s) && !/\d/.test(s)) return null;
+      // keep only digits and dots/commas that look like numbers
+      var cleaned = s.replace(/[^0-9.,]/g, '');
+      if (!cleaned) return null;
+      // remove thousand separators (commas), keep last dot as decimal if present
+      if (cleaned.indexOf(',') >= 0 && cleaned.indexOf('.') >= 0) {
+        cleaned = cleaned.replace(/,/g, '');
+      } else if (cleaned.indexOf(',') >= 0) {
+        // Rs. 68,900 or European 68,90
+        var parts = cleaned.split(',');
+        if (parts.length === 2 && parts[1].length <= 2) {
+          cleaned = parts[0].replace(/\./g, '') + '.' + parts[1];
+        } else {
+          cleaned = cleaned.replace(/,/g, '');
+        }
+      }
+      var n = parseFloat(cleaned);
+      return isNaN(n) ? null : n;
+    }
+
+    function formatPrice(n) {
+      if (n == null || isNaN(n)) return 'Price on request';
+      var rounded = Math.max(0, Math.round(n));
+      return 'Rs. ' + rounded.toLocaleString('en-IN');
+    }
+
+    function roundTo(n, step) {
+      step = Number(step) || 1;
+      return Math.round(n / step) * step;
+    }
+
+    function slugify(name, index) {
+      var base = String(name || 'product')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '')
+        .slice(0, 60);
+      return base || ('product-' + index);
+    }
+
+    function applyChange(amount, mode, dir, step) {
+      var v = Number(document.getElementById('value').value);
+      if (isNaN(v) || v < 0) v = 0;
+      var next = amount;
+      if (mode === 'percent') {
+        var delta = amount * (v / 100);
+        next = dir === 'up' ? amount + delta : amount - delta;
+      } else {
+        next = dir === 'up' ? amount + v : amount - v;
+      }
+      next = roundTo(next, step);
+      if (next < 0) next = 0;
+      return next;
+    }
+
+    function fillCategories() {
+      var set = {};
+      allProducts.forEach(function (p) {
+        productCategories(p).forEach(function (c) {
+          set[c] = true;
+        });
+      });
+      var cats = Object.keys(set).sort();
+      var box = document.getElementById('catBox');
+      // keep All products row
+      box.innerHTML = '<div class="cat-item"><label><input type="checkbox" id="catAll" checked> <strong>All products</strong></label></div>';
+      cats.forEach(function (c) {
+        var id = 'cat-' + c.replace(/[^a-zA-Z0-9]/g, '_');
+        var row = document.createElement('div');
+        row.className = 'cat-item';
+        row.innerHTML = '<label><input type="checkbox" class="cat-check" value="' + c.replace(/"/g, '&quot;') + '"> ' + c + '</label>';
+        box.appendChild(row);
+      });
+      document.getElementById('catAll').addEventListener('change', function () {
+        if (this.checked) {
+          document.querySelectorAll('.cat-check').forEach(function (cb) { cb.checked = false; });
+        }
+      });
+      document.querySelectorAll('.cat-check').forEach(function (cb) {
+        cb.addEventListener('change', function () {
+          if (this.checked) document.getElementById('catAll').checked = false;
+          var any = Array.prototype.some.call(document.querySelectorAll('.cat-check'), function (x) { return x.checked; });
+          if (!any) document.getElementById('catAll').checked = true;
+        });
+      });
+    }
+
+    function selectedCategoryList() {
+      if (document.getElementById('catAll').checked) return null; // null = all
+      var list = [];
+      document.querySelectorAll('.cat-check:checked').forEach(function (cb) {
+        list.push(cb.value);
+      });
+      return list.length ? list : null;
+    }
+
+    function selectedProducts() {
+      var cats = selectedCategoryList();
+      if (!cats) return allProducts.slice();
+      return allProducts.filter(function (p) {
+        return cats.some(function (c) { return inCategory(p, c); });
+      });
+    }
+
+    function preview() {
+      var mode = document.getElementById('mode').value;
+      var dir = document.getElementById('dir').value;
+      var step = document.getElementById('round').value;
+      var list = selectedProducts();
+      pendingUpdates = [];
+      var body = document.getElementById('previewBody');
+      body.innerHTML = '';
+      var changed = 0;
+      var skipped = 0;
+
+      list.forEach(function (p, i) {
+        var oldStr = p.price;
+        var amount = parsePrice(oldStr);
+        var tr = document.createElement('tr');
+        var cat = categoryLabel(p);
+        if (amount == null) {
+          skipped++;
+          tr.innerHTML =
+            '<td>' + escapeHtml(p.name || '') + '</td>' +
+            '<td>' + escapeHtml(cat) + '</td>' +
+            '<td colspan="2" class="skip">Skipped (no number): ' + escapeHtml(String(oldStr || '')) + '</td>';
+          body.appendChild(tr);
+          pendingUpdates.push({ product: p, newPrice: oldStr, changed: false, index: allProducts.indexOf(p) });
+          return;
+        }
+        var next = applyChange(amount, mode, dir, step);
+        var newStr = formatPrice(next);
+        changed++;
+        tr.innerHTML =
+          '<td>' + escapeHtml(p.name || '') + '</td>' +
+          '<td>' + escapeHtml(cat) + '</td>' +
+          '<td class="old">' + escapeHtml(String(oldStr)) + '</td>' +
+          '<td class="new">' + escapeHtml(newStr) + '</td>';
+        body.appendChild(tr);
+        pendingUpdates.push({ product: p, newPrice: newStr, changed: true, index: allProducts.indexOf(p) });
+      });
+
+      document.getElementById('previewCard').style.display = 'block';
+      document.getElementById('downloadBtn').disabled = changed === 0;
+      document.getElementById('stat').textContent =
+        list.length + ' selected · ' + changed + ' will update · ' + skipped + ' skipped';
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    async function downloadZip() {
+      if (!pendingUpdates.length) return;
+      var zip = new JSZip();
+      var folder = zip.folder('content/products');
+      var used = {};
+      var productsOut = allProducts.map(function (p) {
+        return Object.assign({}, p);
+      });
+
+      pendingUpdates.forEach(function (u) {
+        if (!u.changed) return;
+        var idx = u.index;
+        if (idx >= 0) productsOut[idx].price = u.newPrice;
+      });
+
+      productsOut.forEach(function (p, i) {
+        var slug = slugify(p.name, i);
+        if (used[slug]) {
+          slug = slug + '-' + i;
+        }
+        used[slug] = true;
+        // strip internal fields
+        var copy = Object.assign({}, p);
+        delete copy._i;
+        folder.file(slug + '.json', JSON.stringify(copy, null, 2));
+      });
+
+      zip.file('data/products.json', JSON.stringify({ products: productsOut }, null, 2));
+      zip.file('README-UPLOAD.txt',
+        'Upload instructions\n' +
+        '1. Extract this zip\n' +
+        '2. Upload content/products/*.json to GitHub folder content/products/ (replace existing files)\n' +
+        '3. Upload data/products.json to GitHub folder data/\n' +
+        '4. Commit and wait for Cloudflare deploy\n' +
+        '5. Optional: delete old product json files in content/products that are no longer needed\n'
+      );
+
+      var blob = await zip.generateAsync({ type: 'blob' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'hasitha-bulk-price-update.zip';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    document.getElementById('mode').addEventListener('change', function () {
+      document.getElementById('valueLabel').textContent =
+        this.value === 'percent' ? 'Value (%)' : 'Value (Rs.)';
+    });
+    
+    document.getElementById('selAll').addEventListener('click', function () {
+      document.getElementById('catAll').checked = true;
+      document.querySelectorAll('.cat-check').forEach(function (cb) { cb.checked = false; });
+    });
+    document.getElementById('selNone').addEventListener('click', function () {
+      document.getElementById('catAll').checked = false;
+      document.querySelectorAll('.cat-check').forEach(function (cb) { cb.checked = false; });
+      document.getElementById('catAll').checked = true;
+    });
+
+    document.getElementById('previewBtn').addEventListener('click', preview);
+    document.getElementById('downloadBtn').addEventListener('click', downloadZip);
+
+    (async function init() {
+      try {
+        var res = await fetch('/data/products.json', { cache: 'no-store' });
+        var data = await res.json();
+        allProducts = (data.products || []).slice();
+        fillCategories();
+        document.getElementById('stat').textContent = allProducts.length + ' products loaded';
+      } catch (e) {
+        document.getElementById('stat').textContent = 'Could not load products.json';
+        console.error(e);
+      }
+    })();
+  </script>
+</body>
+</html>
