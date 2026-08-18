@@ -1,6 +1,10 @@
 {
   "name": "3-Door Wooden Wardrobe with Drawers and Lights",
-  "category": "Wardrobes",
+  "category": [
+    "Wardrobes",
+    "Bedroom",
+    "Wood"
+  ],
   "description": "Elegant 3-door wooden wardrobe with bottom drawers, lockable doors, and classic finish — ideal for bedrooms.",
   "details": "This spacious 3-door wardrobe is crafted from quality teak wood with a warm natural finish. It features three lockable doors with silver handles, decorative panel design, and bottom drawers for extra storage. Suitable for master bedrooms and family rooms. Strong build for long-term daily use.",
   "price": "Rs. 225,000",
