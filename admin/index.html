@@ -30,13 +30,8 @@
         border-radius: 999px;
         border: 1px solid rgba(243,235,224,.35);
       }
-      #hf-admin-bar a:hover {
-        background: rgba(243,235,224,.12);
-      }
-      #hf-admin-bar .brand {
-        opacity: 0.9;
-        font-weight: 500;
-      }
+      #hf-admin-bar a:hover { background: rgba(243,235,224,.12); }
+      #hf-admin-bar .brand { opacity: 0.9; font-weight: 500; }
       body { padding-top: 42px !important; }
 
       #hf-toast {
@@ -56,18 +51,32 @@
         pointer-events: none;
         transition: opacity .25s ease, transform .25s ease;
       }
-      #hf-toast.show {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
+      #hf-toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+      #hf-toast.ok { background: #166534; color: #ecfdf5; }
+      #hf-toast.err { background: #991b1b; color: #fef2f2; }
+
+      /* Make Sveltia save control look like a clear Publish button */
+      button[aria-label*="Publish" i],
+      button[aria-label*="Save" i],
+      button[title*="Publish" i],
+      button[title*="Save" i],
+      .hf-publish-btn {
+        min-width: 120px !important;
+        height: auto !important;
+        padding: 0.55rem 1.1rem !important;
+        border-radius: 8px !important;
+        background: #2563eb !important;
+        color: #fff !important;
+        font-weight: 700 !important;
+        font-size: 0.9rem !important;
+        border: none !important;
+        box-shadow: 0 2px 8px rgba(37,99,235,.35) !important;
+        gap: 0.35rem !important;
       }
-      #hf-toast.ok {
-        background: #166534;
-        color: #ecfdf5;
-      }
-      #hf-toast.err {
-        background: #991b1b;
-        color: #fef2f2;
+      button[aria-label*="Publish" i]:hover,
+      button[aria-label*="Save" i]:hover,
+      .hf-publish-btn:hover {
+        background: #1d4ed8 !important;
       }
     </style>
   </head>
@@ -89,10 +98,9 @@
           clearTimeout(hideTimer);
           hideTimer = setTimeout(function () {
             toastEl.className = '';
-          }, 3500);
+          }, 4000);
         }
 
-        // Intercept GitHub API writes from Sveltia CMS
         var originalFetch = window.fetch;
         window.fetch = function () {
           var args = arguments;
@@ -117,35 +125,46 @@
               if (response.ok) {
                 showToast('✓ Saved successfully — publishing to site…', 'ok');
               } else if (response.status === 401 || response.status === 403) {
-                showToast('Save failed — login / GitHub permission issue', 'err');
+                showToast('Save failed — GitHub login/token expired. Log out and sign in again.', 'err');
               } else if (response.status >= 400) {
                 showToast('Save failed (error ' + response.status + ')', 'err');
               }
             }
             return response;
           }).catch(function (err) {
-            if (isGithubWrite) {
-              showToast('Save failed — network error', 'err');
-            }
+            if (isGithubWrite) showToast('Save failed — network error', 'err');
             throw err;
           });
         };
 
-        // Also show toast when URL goes back to products list after edit (fallback)
-        var lastHash = location.hash;
-        setInterval(function () {
-          var h = location.hash;
-          if (h !== lastHash) {
-            if (/\/collections\/products\/?$/.test(h) && /\/collections\/products\//.test(lastHash)) {
-              // left editor → list; mild confirmation if no toast recently
+        // Label / enlarge the Sveltia save control so it looks like old Publish button
+        function enhancePublishButtons() {
+          var buttons = document.querySelectorAll('button');
+          buttons.forEach(function (b) {
+            var label = (
+              (b.getAttribute('aria-label') || '') + ' ' +
+              (b.getAttribute('title') || '') + ' ' +
+              (b.textContent || '')
+            ).toLowerCase();
+            if (!/(publish|save entry|save)/.test(label)) return;
+            if (b.dataset.hfEnhanced) return;
+            b.dataset.hfEnhanced = '1';
+            b.classList.add('hf-publish-btn');
+            if (!/publish|save/i.test(b.textContent || '')) {
+              var span = document.createElement('span');
+              span.textContent = ' Publish';
+              span.style.marginLeft = '4px';
+              b.appendChild(span);
             }
-            lastHash = h;
-          }
-        }, 500);
+          });
+        }
+
+        setInterval(enhancePublishButtons, 800);
+        setTimeout(enhancePublishButtons, 1500);
       })();
     </script>
 
-    <!-- Sveltia CMS: works with GitHub on Cloudflare (no Netlify Identity) -->
+    <!-- Sveltia CMS (GitHub PAT login — clear Publish styling added above) -->
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
   </body>
 </html>
