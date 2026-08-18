@@ -83,6 +83,38 @@
     }
     
     /* Navbar blur */
+    
+    .nav-more { position: relative; }
+    .nav-more-btn {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: #F3EBE0; font-size: 0.875rem; font-weight: 500;
+      background: transparent; border: none; cursor: pointer; padding: 0;
+      font-family: inherit;
+    }
+    .nav-more-btn:hover { color: #fff; }
+    .nav-more-panel {
+      display: none;
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      margin-top: 0.85rem; min-width: 220px;
+      background: #2c1d0f; border: 1px solid rgba(243,235,224,.18);
+      border-radius: 14px; padding: 0.45rem; box-shadow: 0 16px 40px rgba(0,0,0,.4);
+      z-index: 70;
+    }
+    .nav-more.open .nav-more-panel { display: block; }
+    .nav-more-panel .nav-label {
+      display: block; padding: 0.4rem 0.85rem 0.2rem;
+      font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(243,235,224,.45); font-weight: 600;
+    }
+    .nav-more-panel a {
+      display: block; padding: 0.5rem 0.85rem; border-radius: 8px;
+      color: #F3EBE0; font-size: 0.875rem; text-decoration: none;
+    }
+    .nav-more-panel a:hover { background: rgba(243,235,224,.1); color: #fff; }
+    .nav-more-panel .nav-divider {
+      height: 1px; background: rgba(243,235,224,.12); margin: 0.35rem 0.5rem;
+    }
+
     .nav-blur {
       backdrop-filter: blur(12px);
       background: rgba(61, 41, 20, 0.92);
@@ -311,17 +343,33 @@
         </div>
         
         <!-- Desktop Menu -->
-        <div class="hidden md:flex items-center gap-8">
+        <div class="hidden md:flex items-center gap-6 lg:gap-8">
           <a href="#home" class="text-beige-100 hover:text-white text-sm font-medium transition">Home</a>
           <a href="/all-products.html" class="text-beige-100 hover:text-white text-sm font-medium transition">All Products</a>
           <a href="#furniture" class="text-beige-100 hover:text-white text-sm font-medium transition">Furniture</a>
           <a href="#electronics" class="text-beige-100 hover:text-white text-sm font-medium transition">Electronics</a>
-          <a href="/category.html?cat=Living%20Room" class="text-beige-100 hover:text-white text-sm font-medium transition">Living Room</a>
-          <a href="/category.html?cat=Bedroom" class="text-beige-100 hover:text-white text-sm font-medium transition">Bedroom</a>
-          <a href="/category.html?cat=Kitchen" class="text-beige-100 hover:text-white text-sm font-medium transition">Kitchen</a>
-          <a href="#custom" class="text-beige-100 hover:text-white text-sm font-medium transition">Custom</a>
-          <a href="#about" class="text-beige-100 hover:text-white text-sm font-medium transition">About</a>
-          <a href="#contact" class="text-beige-100 hover:text-white text-sm font-medium transition">Contact</a>
+          <div class="nav-more" id="navMore">
+            <button type="button" class="nav-more-btn" id="navMoreBtn" aria-expanded="false" aria-haspopup="true">
+              More
+              <svg class="w-3.5 h-3.5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="nav-more-panel" role="menu">
+              <span class="nav-label">Materials</span>
+              <a href="/category.html?cat=Wooden">Wooden</a>
+              <a href="/category.html?cat=Melamine">Melamine</a>
+              <a href="/category.html?cat=Steel">Steel</a>
+              <a href="/category.html?cat=Plastic%20Items">Plastic</a>
+              <div class="nav-divider"></div>
+              <span class="nav-label">Rooms</span>
+              <a href="/category.html?cat=Living%20Room">Living Room</a>
+              <a href="/category.html?cat=Bedroom">Bedroom</a>
+              <a href="/category.html?cat=Kitchen">Kitchen</a>
+              <div class="nav-divider"></div>
+              <a href="#custom">Custom</a>
+              <a href="#about">About</a>
+              <a href="#contact">Contact</a>
+            </div>
+          </div>
         </div>
         
         <!-- Right: Call button -->
@@ -336,17 +384,29 @@
     
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="hidden md:hidden bg-primary-900 border-t border-primary-800">
-      <div class="px-4 py-4 space-y-3">
-        <a href="#home" class="block text-beige-100 py-2">Home</a>
-        <a href="/all-products.html" class="block text-beige-100 py-2">All Products</a>
-        <a href="#furniture" class="block text-beige-100 py-2">Furniture</a>
-        <a href="#electronics" class="block text-beige-100 py-2">Electronics</a>
-        <a href="/category.html?cat=Living%20Room" class="block text-beige-100 py-2">Living Room</a>
-        <a href="/category.html?cat=Bedroom" class="block text-beige-100 py-2">Bedroom</a>
-        <a href="/category.html?cat=Kitchen" class="block text-beige-100 py-2">Kitchen</a>
-        <a href="#custom" class="block text-beige-100 py-2">Custom</a>
-        <a href="#about" class="block text-beige-100 py-2">About</a>
-        <a href="#contact" class="block text-beige-100 py-2">Contact</a>
+      <div class="px-4 py-4 space-y-1">
+        <a href="#home" class="block text-beige-100 py-2.5">Home</a>
+        <a href="/all-products.html" class="block text-beige-100 py-2.5">All Products</a>
+        <a href="#furniture" class="block text-beige-100 py-2.5">Furniture</a>
+        <a href="#electronics" class="block text-beige-100 py-2.5">Electronics</a>
+        <div class="border-t border-primary-800 my-2 pt-2">
+          <p class="text-[10px] tracking-widest uppercase text-beige-300/60 px-0 pb-1">Materials</p>
+          <a href="/category.html?cat=Wooden" class="block text-beige-100 py-2">Wooden</a>
+          <a href="/category.html?cat=Melamine" class="block text-beige-100 py-2">Melamine</a>
+          <a href="/category.html?cat=Steel" class="block text-beige-100 py-2">Steel</a>
+          <a href="/category.html?cat=Plastic%20Items" class="block text-beige-100 py-2">Plastic</a>
+        </div>
+        <div class="border-t border-primary-800 my-2 pt-2">
+          <p class="text-[10px] tracking-widest uppercase text-beige-300/60 px-0 pb-1">Rooms</p>
+          <a href="/category.html?cat=Living%20Room" class="block text-beige-100 py-2">Living Room</a>
+          <a href="/category.html?cat=Bedroom" class="block text-beige-100 py-2">Bedroom</a>
+          <a href="/category.html?cat=Kitchen" class="block text-beige-100 py-2">Kitchen</a>
+        </div>
+        <div class="border-t border-primary-800 my-2 pt-2">
+          <a href="#custom" class="block text-beige-100 py-2.5">Custom</a>
+          <a href="#about" class="block text-beige-100 py-2.5">About</a>
+          <a href="#contact" class="block text-beige-100 py-2.5">Contact</a>
+        </div>
       </div>
     </div>
   </nav>
@@ -546,9 +606,9 @@
           <div class="text-4xl mb-3">🪵</div>
           <h3 class="font-medium text-primary-900">Melamine</h3>
         </div>
-        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Wood'">
-          <div class="text-4xl mb-3">🌳</div>
-          <h3 class="font-medium text-primary-900">Wood</h3>
+        <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Wooden'">
+          <div class="text-4xl mb-3">🪵</div>
+          <h3 class="font-medium text-primary-900">Wooden</h3>
         </div>
         <div class="cat-card bg-white rounded-2xl p-4 sm:p-6 text-center shadow-sm hover:shadow-md transition fade-in cursor-pointer" onclick="window.location.href='/category.html?cat=Steel'">
           <div class="text-4xl mb-3">⚙️</div>
@@ -833,6 +893,23 @@
     
     // Mobile menu toggle
     const menuBtn = document.getElementById('menuBtn');
+    
+    (function () {
+      var more = document.getElementById('navMore');
+      var btn = document.getElementById('navMoreBtn');
+      if (!btn || !more) return;
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        more.classList.toggle('open');
+        btn.setAttribute('aria-expanded', more.classList.contains('open') ? 'true' : 'false');
+      });
+      document.addEventListener('click', function () {
+        more.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+      more.addEventListener('click', function (e) { e.stopPropagation(); });
+    })();
+
     const mobileMenu = document.getElementById('mobileMenu');
     menuBtn.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
