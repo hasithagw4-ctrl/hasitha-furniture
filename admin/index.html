@@ -37,8 +37,38 @@
         opacity: 0.9;
         font-weight: 500;
       }
-      /* push CMS below bar */
       body { padding-top: 42px !important; }
+
+      #hf-toast {
+        position: fixed;
+        top: 56px;
+        right: 16px;
+        z-index: 100000;
+        max-width: min(360px, calc(100vw - 24px));
+        padding: 0.85rem 1.1rem;
+        border-radius: 12px;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        font-size: 0.95rem;
+        font-weight: 600;
+        box-shadow: 0 8px 24px rgba(0,0,0,.25);
+        opacity: 0;
+        transform: translateY(-8px);
+        pointer-events: none;
+        transition: opacity .25s ease, transform .25s ease;
+      }
+      #hf-toast.show {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      #hf-toast.ok {
+        background: #166534;
+        color: #ecfdf5;
+      }
+      #hf-toast.err {
+        background: #991b1b;
+        color: #fef2f2;
+      }
     </style>
   </head>
   <body>
@@ -46,6 +76,75 @@
       <span class="brand">Hasitha Admin</span>
       <a href="/admin/bulk-price.html">Bulk Price Update</a>
     </div>
+    <div id="hf-toast" role="status" aria-live="polite"></div>
+
+    <script>
+      (function () {
+        var toastEl = document.getElementById('hf-toast');
+        var hideTimer = null;
+
+        function showToast(message, type) {
+          toastEl.textContent = message;
+          toastEl.className = 'show ' + (type || 'ok');
+          clearTimeout(hideTimer);
+          hideTimer = setTimeout(function () {
+            toastEl.className = '';
+          }, 3500);
+        }
+
+        // Intercept GitHub API writes from Sveltia CMS
+        var originalFetch = window.fetch;
+        window.fetch = function () {
+          var args = arguments;
+          var url = '';
+          try {
+            if (typeof args[0] === 'string') url = args[0];
+            else if (args[0] && args[0].url) url = args[0].url;
+          } catch (e) {}
+
+          var method = 'GET';
+          try {
+            if (args[1] && args[1].method) method = String(args[1].method).toUpperCase();
+            else if (args[0] && args[0].method) method = String(args[0].method).toUpperCase();
+          } catch (e) {}
+
+          var isGithubWrite =
+            /api\.github\.com/i.test(url) &&
+            (method === 'PUT' || method === 'POST' || method === 'PATCH' || method === 'DELETE');
+
+          return originalFetch.apply(this, args).then(function (response) {
+            if (isGithubWrite) {
+              if (response.ok) {
+                showToast('✓ Saved successfully — publishing to site…', 'ok');
+              } else if (response.status === 401 || response.status === 403) {
+                showToast('Save failed — login / GitHub permission issue', 'err');
+              } else if (response.status >= 400) {
+                showToast('Save failed (error ' + response.status + ')', 'err');
+              }
+            }
+            return response;
+          }).catch(function (err) {
+            if (isGithubWrite) {
+              showToast('Save failed — network error', 'err');
+            }
+            throw err;
+          });
+        };
+
+        // Also show toast when URL goes back to products list after edit (fallback)
+        var lastHash = location.hash;
+        setInterval(function () {
+          var h = location.hash;
+          if (h !== lastHash) {
+            if (/\/collections\/products\/?$/.test(h) && /\/collections\/products\//.test(lastHash)) {
+              // left editor → list; mild confirmation if no toast recently
+            }
+            lastHash = h;
+          }
+        }, 500);
+      })();
+    </script>
+
     <!-- Sveltia CMS: works with GitHub on Cloudflare (no Netlify Identity) -->
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
   </body>
