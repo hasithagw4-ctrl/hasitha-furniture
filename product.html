@@ -599,10 +599,16 @@ swatchStyle = "background-image:url('" + c.image + "')";
         document.getElementById('whatsapp-btn').href =
           'https://wa.me/94772216854?text=' + encodeURIComponent(p.whatsapp || ('Hi, I am interested in ' + p.name));
 
-        // Similar products (same category, exclude current)
+        // Similar products: match FIRST category only (e.g. Wardrobes → only wardrobes)
+        var primaryCat = productCategories(p)[0] || '';
         const similar = products
           .map((item, i) => ({ ...item, _i: i }))
-          .filter(function(item){ if (item._i === index) return false; var a=productCategories(item); var b=productCategories(p); return a.some(function(x){ return b.indexOf(x)!==-1; }); })
+          .filter(function(item) {
+            if (item._i === index) return false;
+            if (!primaryCat) return false;
+            // Must include the same primary category
+            return inCategory(item, primaryCat);
+          })
           .slice(0, 6);
 
         if (similar.length) {
