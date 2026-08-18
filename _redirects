@@ -1,2 +1,3 @@
-# Pretty product URLs → product page (200 = rewrite, browser keeps /product/name)
-/product/*  /product/index.html  200
+# Force (200!) so Cloudflare does not fall back to homepage for /product/name
+/product/*  /product/index.html  200!
+/product/:slug  /product/index.html  200!
