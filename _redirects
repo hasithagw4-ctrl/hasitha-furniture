@@ -1,3 +1,2 @@
-# Force (200!) so Cloudflare does not fall back to homepage for /product/name
-/product/*  /product/index.html  200!
-/product/:slug  /product/index.html  200!
+# Pretty /product/name paths disabled — Cloudflare was serving homepage.
+# Products use: /product.html?p=product-name
