@@ -1,2 +1,2 @@
-# Pretty product URLs (plural /products/ avoids conflict with product.html)
-/products/*  /product.html  200
+# Pretty product URLs → product page (200 = rewrite, browser keeps /product/name)
+/product/*  /product/index.html  200
