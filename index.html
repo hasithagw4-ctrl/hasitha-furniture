@@ -958,6 +958,31 @@
           return list;
         }
 
+    
+    function slugifyName(name) {
+      return String(name || 'product')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .slice(0, 80) || 'product';
+    }
+    function buildProductSlugs(products) {
+      var used = {};
+      return (products || []).map(function(p) {
+        var base = slugifyName(p.name);
+        var s = base;
+        var n = 2;
+        while (used[s]) { s = base + '-' + n; n++; }
+        used[s] = true;
+        return s;
+      });
+    }
+    function productUrl(products, index) {
+      var slugs = buildProductSlugs(products);
+      if (index >= 0 && index < slugs.length) return '/product/' + encodeURI(slugs[index]);
+      return '/product.html?id=' + index;
+    }
+
     function isVisibleProduct(p) {
       if (p.visible === false || p.visible === 'false' || p.visible === 'No') return false;
       return true;
@@ -1102,7 +1127,7 @@
         const globalIdx = allProducts.indexOf(p);
         const id = globalIdx >= 0 ? globalIdx : idx;
         return `
-        <a href="/product.html?id=${id}" class="product-card-sm block">
+        <a href="${productUrl(products, id)}" class="product-card-sm block">
           <div class="img-wrap">
             ${p.image
               ? `<img src="${p.image}" alt="${p.name || ''}">`
@@ -1197,7 +1222,7 @@
         }
         section.classList.remove('hidden');
         grid.innerHTML = featured.slice(0, 6).map(p => `
-          <a href="/product.html?id=${p._i}" class="product-card-feat">
+          <a href="${productUrl(products, p._i)}" class="product-card-feat">
             <div class="img-wrap">
               ${p.image
                 ? `<img src="${p.image}" alt="${p.name || ''}">`

@@ -1,0 +1,2 @@
+# Pretty product URLs → product.html (200 = rewrite, URL stays pretty)
+/product/*  /product.html  200

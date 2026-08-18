@@ -185,6 +185,31 @@
     var electronicsCats = ['Televisions','Refrigerators','Washing Machines','Ovens','Blenders','Kettles & Irons','Pressure Washers','Fans','Vacuum Cleaners','Rice Cookers','Party Boxes','Sound Systems & Radios','Lights & Bulbs','Other Electronics'];
     var furnitureCats = ['Sofas','Beds','Wardrobes','Dressing Tables','Dining Tables','Dining Chairs','Dining Sets','Veranda Chairs','Office Furniture','Mattresses','Wall Units','Coffee Tables','TV Stands','Display Cupboards','Shoe Racks','Drawer Cupboards','Desks','Study','Laundry','Baby Items','Bathroom','Towel Racks','Melamine','Wood','Wooden','Steel','Other Furniture','Plastic Items','Gift Items','Living Room','Bedroom','Kitchen'];
 
+    
+    function slugifyName(name) {
+      return String(name || 'product')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .slice(0, 80) || 'product';
+    }
+    function buildProductSlugs(products) {
+      var used = {};
+      return (products || []).map(function(p) {
+        var base = slugifyName(p.name);
+        var s = base;
+        var n = 2;
+        while (used[s]) { s = base + '-' + n; n++; }
+        used[s] = true;
+        return s;
+      });
+    }
+    function productUrl(products, index) {
+      var slugs = buildProductSlugs(products);
+      if (index >= 0 && index < slugs.length) return '/product/' + encodeURI(slugs[index]);
+      return '/product.html?id=' + index;
+    }
+
     function productCategories(p) {
       if (!p) return [];
       if (Array.isArray(p.categories) && p.categories.length) return p.categories.filter(Boolean);
@@ -207,7 +232,7 @@
       var disc = p.discount
         ? '<span class="text-[10px] sm:text-xs bg-red-100 text-red-700 px-1.5 py-0.5 rounded-full">' + p.discount + '</span>'
         : '';
-      return '<a href="/product.html?id=' + p._i + '" class="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">' +
+      return '<a href="' + productUrl(window.__allProductsFull || allProducts, p._i) + '" class="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">' +
         '<div class="aspect-square bg-beige-100 overflow-hidden">' + img + '</div>' +
         '<div class="p-2.5 sm:p-4">' +
           '<h3 class="font-display text-sm sm:text-lg text-primary-900 mb-1 line-clamp-2 leading-snug">' + (p.name||'') + '</h3>' +
@@ -278,6 +303,7 @@
           return Object.assign({}, p, { _i: i });
         });
         // fix index to original array index for product links
+        window.__allProductsFull = data.products || [];
         allProducts = (data.products || []).map(function(p, i) {
           return Object.assign({}, p, { _i: i });
         }).filter(function(p){

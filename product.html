@@ -352,6 +352,31 @@
       return productCategories(p).join(' · ');
     }
 
+    
+    function slugifyName(name) {
+      return String(name || 'product')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .slice(0, 80) || 'product';
+    }
+    function buildProductSlugs(products) {
+      var used = {};
+      return (products || []).map(function(p) {
+        var base = slugifyName(p.name);
+        var s = base;
+        var n = 2;
+        while (used[s]) { s = base + '-' + n; n++; }
+        used[s] = true;
+        return s;
+      });
+    }
+    function productUrl(products, index) {
+      var slugs = buildProductSlugs(products);
+      if (index >= 0 && index < slugs.length) return '/product/' + encodeURI(slugs[index]);
+      return '/product.html?id=' + index;
+    }
+
     function getParam(name) {
       return new URLSearchParams(window.location.search).get(name);
     }
@@ -442,16 +467,39 @@
         }
 
     async function load() {
-      const id = getParam('id');
+      const idParam = getParam('id');
+      const slugParam = getParam('p') || getParam('slug');
       try {
         const res = await fetch('/data/products.json');
         const data = await res.json();
         const products = data.products || [];
-        const index = parseInt(id, 10);
+        const slugs = buildProductSlugs(products);
+        let index = -1;
+        // 1) Pretty URL: /product/my-product-name
+        var pathMatch = (location.pathname || '').match(/\/product\/([^\/]+)\/?$/);
+        if (pathMatch) {
+          var pathSlug = decodeURIComponent(pathMatch[1]).toLowerCase();
+          index = slugs.findIndex(function(s) { return s === pathSlug; });
+        }
+        // 2) ?p=slug or ?slug=
+        if (index < 0 && slugParam) {
+          var sp = String(slugParam).toLowerCase();
+          index = slugs.findIndex(function(s) { return s === sp; });
+        }
+        // 3) Legacy ?id=0
+        if (index < 0 && idParam != null && idParam !== '') {
+          index = parseInt(idParam, 10);
+        }
         if (isNaN(index) || index < 0 || index >= products.length) {
           document.getElementById('loading').classList.add('hidden');
           document.getElementById('not-found').classList.remove('hidden');
           return;
+        }
+        // Keep address bar pretty when opened with ?id=
+        if (!pathMatch && slugs[index]) {
+          try {
+            history.replaceState(null, '', '/product/' + slugs[index]);
+          } catch (e) {}
         }
         const p = products[index];
         document.getElementById('loading').classList.add('hidden');
@@ -614,7 +662,7 @@ swatchStyle = "background-image:url('" + c.image + "')";
         if (similar.length) {
           document.getElementById('similar-section').classList.remove('hidden');
           document.getElementById('similar-grid').innerHTML = similar.map(item => `
-            <a href="/product.html?id=${item._i}" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">
+            <a href="${productUrl(products, item._i)}" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">
               <div class="h-48 bg-beige-200 flex items-center justify-center overflow-hidden">
                 ${item.image
                   ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">`
