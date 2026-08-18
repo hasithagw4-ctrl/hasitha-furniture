@@ -206,7 +206,7 @@
     }
     function productUrl(products, index) {
       var slugs = buildProductSlugs(products);
-      if (index >= 0 && index < slugs.length) return '/product/' + encodeURI(slugs[index]);
+      if (index >= 0 && index < slugs.length) return '/products/' + encodeURI(slugs[index]);
       return '/product.html?id=' + index;
     }
 

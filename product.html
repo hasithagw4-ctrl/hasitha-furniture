@@ -373,7 +373,7 @@
     }
     function productUrl(products, index) {
       var slugs = buildProductSlugs(products);
-      if (index >= 0 && index < slugs.length) return '/product/' + encodeURI(slugs[index]);
+      if (index >= 0 && index < slugs.length) return '/products/' + encodeURI(slugs[index]);
       return '/product.html?id=' + index;
     }
 
@@ -475,8 +475,8 @@
         const products = data.products || [];
         const slugs = buildProductSlugs(products);
         let index = -1;
-        // 1) Pretty URL: /product/my-product-name
-        var pathMatch = (location.pathname || '').match(/\/product\/([^\/]+)\/?$/);
+        // 1) Pretty URL: /products/my-product-name
+        var pathMatch = (location.pathname || '').match(/\/products\/([^\/]+)\/?$/);
         if (pathMatch) {
           var pathSlug = decodeURIComponent(pathMatch[1]).toLowerCase();
           index = slugs.findIndex(function(s) { return s === pathSlug; });
@@ -498,7 +498,7 @@
         // Keep address bar pretty when opened with ?id=
         if (!pathMatch && slugs[index]) {
           try {
-            history.replaceState(null, '', '/product/' + slugs[index]);
+            history.replaceState(null, '', '/products/' + slugs[index]);
           } catch (e) {}
         }
         const p = products[index];
