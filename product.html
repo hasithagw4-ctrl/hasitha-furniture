@@ -373,7 +373,7 @@
     }
     function productUrl(products, index) {
       var slugs = buildProductSlugs(products);
-      if (index >= 0 && index < slugs.length) return '/products/' + encodeURI(slugs[index]);
+      if (index >= 0 && index < slugs.length) return '/product.html?p=' + encodeURIComponent(slugs[index]);
       return '/product.html?id=' + index;
     }
 
@@ -466,7 +466,7 @@
           return list;
         }
 
-    async function load() {
+        async function load() {
       const idParam = getParam('id');
       const slugParam = getParam('p') || getParam('slug');
       try {
@@ -475,18 +475,12 @@
         const products = data.products || [];
         const slugs = buildProductSlugs(products);
         let index = -1;
-        // 1) Pretty URL: /products/my-product-name
-        var pathMatch = (location.pathname || '').match(/\/products\/([^\/]+)\/?$/);
-        if (pathMatch) {
-          var pathSlug = decodeURIComponent(pathMatch[1]).toLowerCase();
-          index = slugs.findIndex(function(s) { return s === pathSlug; });
-        }
-        // 2) ?p=slug or ?slug=
-        if (index < 0 && slugParam) {
+        // Name slug: ?p=kingstar-kkwb18-wardrobe
+        if (slugParam) {
           var sp = String(slugParam).toLowerCase();
           index = slugs.findIndex(function(s) { return s === sp; });
         }
-        // 3) Legacy ?id=0
+        // Legacy: ?id=0
         if (index < 0 && idParam != null && idParam !== '') {
           index = parseInt(idParam, 10);
         }
@@ -494,12 +488,6 @@
           document.getElementById('loading').classList.add('hidden');
           document.getElementById('not-found').classList.remove('hidden');
           return;
-        }
-        // Keep address bar pretty when opened with ?id=
-        if (!pathMatch && slugs[index]) {
-          try {
-            history.replaceState(null, '', '/products/' + slugs[index]);
-          } catch (e) {}
         }
         const p = products[index];
         document.getElementById('loading').classList.add('hidden');
