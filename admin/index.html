@@ -9,18 +9,20 @@
         position: fixed;
         top: 0;
         left: 0;
-        right: 0;
+        /* do NOT cover the right side — Sveltia Save/Publish lives there */
+        right: auto;
         z-index: 99999;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 0.75rem;
-        padding: 0.45rem 0.85rem;
+        gap: 0.65rem;
+        padding: 0.4rem 0.75rem;
         background: #3d2914;
         color: #f3ebe0;
         font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
         font-size: 0.85rem;
         box-shadow: 0 2px 8px rgba(0,0,0,.2);
+        border-bottom-right-radius: 12px;
+        max-width: min(420px, 70vw);
       }
       #hf-admin-bar a {
         color: #f3ebe0;
@@ -29,15 +31,19 @@
         padding: 0.35rem 0.75rem;
         border-radius: 999px;
         border: 1px solid rgba(243,235,224,.35);
+        white-space: nowrap;
       }
       #hf-admin-bar a:hover { background: rgba(243,235,224,.12); }
-      #hf-admin-bar .brand { opacity: 0.9; font-weight: 500; }
-      body { padding-top: 42px !important; }
+      #hf-admin-bar .brand { opacity: 0.9; font-weight: 500; white-space: nowrap; }
+
+      /* small top gap so CMS header is not tight under bar on left only */
+      body { padding-top: 0 !important; }
 
       #hf-toast {
         position: fixed;
-        top: 56px;
-        right: 16px;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%) translateY(-8px);
         z-index: 100000;
         max-width: min(360px, calc(100vw - 24px));
         padding: 0.85rem 1.1rem;
@@ -47,43 +53,42 @@
         font-weight: 600;
         box-shadow: 0 8px 24px rgba(0,0,0,.25);
         opacity: 0;
-        transform: translateY(-8px);
         pointer-events: none;
         transition: opacity .25s ease, transform .25s ease;
+        text-align: center;
       }
-      #hf-toast.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+      #hf-toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+        pointer-events: auto;
+      }
       #hf-toast.ok { background: #166534; color: #ecfdf5; }
       #hf-toast.err { background: #991b1b; color: #fef2f2; }
 
-      /* Make Sveltia save control look like a clear Publish button */
       button[aria-label*="Publish" i],
       button[aria-label*="Save" i],
       button[title*="Publish" i],
       button[title*="Save" i],
       .hf-publish-btn {
-        min-width: 120px !important;
+        min-width: 110px !important;
         height: auto !important;
-        padding: 0.55rem 1.1rem !important;
+        padding: 0.5rem 1rem !important;
         border-radius: 8px !important;
         background: #2563eb !important;
         color: #fff !important;
         font-weight: 700 !important;
-        font-size: 0.9rem !important;
+        font-size: 0.88rem !important;
         border: none !important;
         box-shadow: 0 2px 8px rgba(37,99,235,.35) !important;
-        gap: 0.35rem !important;
-      }
-      button[aria-label*="Publish" i]:hover,
-      button[aria-label*="Save" i]:hover,
-      .hf-publish-btn:hover {
-        background: #1d4ed8 !important;
+        z-index: 100001 !important;
+        position: relative;
       }
     </style>
   </head>
   <body>
     <div id="hf-admin-bar">
       <span class="brand">Hasitha Admin</span>
-      <a href="/admin/bulk-price.html">Bulk Price Update</a>
+      <a href="/admin/bulk-price.html">Bulk Price</a>
     </div>
     <div id="hf-toast" role="status" aria-live="polite"></div>
 
@@ -125,7 +130,7 @@
               if (response.ok) {
                 showToast('✓ Saved successfully — publishing to site…', 'ok');
               } else if (response.status === 401 || response.status === 403) {
-                showToast('Save failed — GitHub login/token expired. Log out and sign in again.', 'err');
+                showToast('Save failed — GitHub login/token expired. Sign in again.', 'err');
               } else if (response.status >= 400) {
                 showToast('Save failed (error ' + response.status + ')', 'err');
               }
@@ -137,10 +142,8 @@
           });
         };
 
-        // Label / enlarge the Sveltia save control so it looks like old Publish button
         function enhancePublishButtons() {
-          var buttons = document.querySelectorAll('button');
-          buttons.forEach(function (b) {
+          document.querySelectorAll('button').forEach(function (b) {
             var label = (
               (b.getAttribute('aria-label') || '') + ' ' +
               (b.getAttribute('title') || '') + ' ' +
@@ -153,18 +156,14 @@
             if (!/publish|save/i.test(b.textContent || '')) {
               var span = document.createElement('span');
               span.textContent = ' Publish';
-              span.style.marginLeft = '4px';
               b.appendChild(span);
             }
           });
         }
-
         setInterval(enhancePublishButtons, 800);
-        setTimeout(enhancePublishButtons, 1500);
       })();
     </script>
 
-    <!-- Sveltia CMS (GitHub PAT login — clear Publish styling added above) -->
     <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js" type="module"></script>
   </body>
 </html>
