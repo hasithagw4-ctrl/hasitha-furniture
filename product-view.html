@@ -466,7 +466,7 @@
           return list;
         }
 
-                    async function load() {
+                        async function load() {
       const idParam = getParam('id');
       const slugParam = getParam('p') || getParam('slug');
       try {
@@ -474,25 +474,22 @@
         const data = await res.json();
         const products = data.products || [];
         const slugs = buildProductSlugs(products);
+        function norm(s) {
+          return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+        }
         let index = -1;
-        // /product/my-name  (pretty)
-        var pathMatch = (location.pathname || '').match(/\/product\/([^\/]+)\/?$/);
+        var pathMatch = (location.pathname || '').match(/\/product\/([^\/?#]+)\/?$/);
         if (pathMatch) {
-          var pathSlug = decodeURIComponent(pathMatch[1]).toLowerCase();
-          if (pathSlug && pathSlug !== 'index.html') {
+          var pathSlug = norm(decodeURIComponent(pathMatch[1]));
+          if (pathSlug && pathSlug !== 'index-html' && pathSlug !== 'index') {
             index = slugs.findIndex(function(s) { return s === pathSlug; });
+            if (index < 0) index = slugs.findIndex(function(s) { return norm(s) === pathSlug; });
           }
         }
-        // /product  alone (no slug) → not found
-        if (index < 0 && /\/product\/?$/.test(location.pathname || '') && !slugParam && (idParam == null || idParam === '')) {
-          index = -1;
-        }
-        // ?p=slug on product-view.html
         if (index < 0 && slugParam) {
-          var sp = String(slugParam).toLowerCase();
-          index = slugs.findIndex(function(s) { return s === sp; });
+          var sp = norm(slugParam);
+          index = slugs.findIndex(function(s) { return s === sp || norm(s) === sp; });
         }
-        // ?id=
         if (index < 0 && idParam != null && idParam !== '') {
           index = parseInt(idParam, 10);
         }

@@ -159,7 +159,7 @@
           : '<span class="text-3xl sm:text-5xl opacity-40">📦</span>';
         var disc = p.discount ? '<span class="text-[10px] sm:text-xs bg-red-100 text-red-700 px-1.5 py-0.5 rounded-full">' + p.discount + '</span>' : '';
         var stockClass = p.stock === 'Out of Stock' ? 'text-red-600' : 'text-green-600';
-        return '<a href="' + productUrl(window.__allProducts || [], p._i) + '" class="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">' +
+        return '<a href="' + productUrl(window.__allProductsFull || window.__allProducts || [], p._i) + '" class="bg-white rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">' +
           '<div class="aspect-square bg-beige-100 overflow-hidden">' + img + '</div>' +
           '<div class="p-2.5 sm:p-4">' +
             '<h3 class="font-display text-sm sm:text-lg text-primary-900 mb-1 line-clamp-2 leading-snug">' + (p.name || '') + '</h3>' +
@@ -191,6 +191,7 @@
       try {
         var res = await fetch('/data/products.json');
         var data = await res.json();
+        window.__allProductsFull = data.products || [];
         window.__allProducts = data.products || [];
         var products = (data.products || []).filter(function(p){ return p.visible !== false && p.visible !== "false" && p.visible !== "No"; }).map(function(p, i) {
           return Object.assign({}, p, { _i: i });
