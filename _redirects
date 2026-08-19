@@ -1,2 +1,4 @@
-# Pretty /product/name paths disabled — Cloudflare was serving homepage.
-# Products use: /product.html?p=product-name
+# /product/name → product page (no product.html in repo — avoids CF conflict)
+/product/*  /product/index.html  200
+/product/   /product/index.html  200
+/product    /product/index.html  200

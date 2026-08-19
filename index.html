@@ -979,8 +979,8 @@
     }
     function productUrl(products, index) {
       var slugs = buildProductSlugs(products);
-      if (index >= 0 && index < slugs.length) return '/product.html?p=' + encodeURIComponent(slugs[index]);
-      return '/product.html?id=' + index;
+      if (index >= 0 && index < slugs.length) return '/product/' + encodeURIComponent(slugs[index]);
+      return '/product-view.html?id=' + index;
     }
 
     function isVisibleProduct(p) {
