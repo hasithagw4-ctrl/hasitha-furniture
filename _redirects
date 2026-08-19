@@ -1,2 +1,1 @@
-# Backup only — primary routing is functions/product/[[slug]].js
-/product/*  /product/index.html  200
+# /product/name disabled — use /product-view.html?p=name

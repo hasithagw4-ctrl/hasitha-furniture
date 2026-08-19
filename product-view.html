@@ -373,7 +373,7 @@
     }
     function productUrl(products, index) {
       var slugs = buildProductSlugs(products);
-      if (index >= 0 && index < slugs.length) return '/product/' + encodeURIComponent(slugs[index]);
+      if (index >= 0 && index < slugs.length) return '/product-view.html?p=' + encodeURIComponent(slugs[index]);
       return '/product-view.html?id=' + index;
     }
 
@@ -478,17 +478,9 @@
           return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
         }
         let index = -1;
-        var pathMatch = (location.pathname || '').match(/\/product\/([^\/?#]+)\/?$/);
-        if (pathMatch) {
-          var pathSlug = norm(decodeURIComponent(pathMatch[1]));
-          if (pathSlug && pathSlug !== 'index-html' && pathSlug !== 'index') {
-            index = slugs.findIndex(function(s) { return s === pathSlug; });
-            if (index < 0) index = slugs.findIndex(function(s) { return norm(s) === pathSlug; });
-          }
-        }
-        if (index < 0 && slugParam) {
+        if (slugParam) {
           var sp = norm(slugParam);
-          index = slugs.findIndex(function(s) { return s === sp || norm(s) === sp; });
+          index = slugs.findIndex(function(s) { return norm(s) === sp; });
         }
         if (index < 0 && idParam != null && idParam !== '') {
           index = parseInt(idParam, 10);
