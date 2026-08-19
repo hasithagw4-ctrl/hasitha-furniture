@@ -1,4 +1,2 @@
-# /product/name → product page (no product.html in repo — avoids CF conflict)
+# Backup only — primary routing is functions/product/[[slug]].js
 /product/*  /product/index.html  200
-/product/   /product/index.html  200
-/product    /product/index.html  200
