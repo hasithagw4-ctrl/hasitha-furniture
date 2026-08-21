@@ -269,6 +269,24 @@
     }
 
     function render(list) {
+      // Price / Name sort → one flat list (material sections would look wrong)
+      if (typeof currentSort !== 'undefined' && currentSort && currentSort !== 'latest') {
+        var flatTitle = {
+          'price-asc': 'Price: Low to High',
+          'price-desc': 'Price: High to Low',
+          'name': 'Name A–Z'
+        }[currentSort] || 'Products';
+        var htmlFlat = '<section class="mb-14">' +
+          '<h2 class="font-display text-2xl md:text-3xl text-primary-900 mb-6">' + flatTitle + '</h2>' +
+          '<div class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6">' +
+          list.map(cardHtml).join('') +
+          '</div></section>';
+        document.getElementById('content').innerHTML = list.length
+          ? htmlFlat
+          : '<p class="text-center text-gray-500 py-10">No products found.</p>';
+        return;
+      }
+
       var used = {};
       var electronics = [];
       // Furniture material sub-categories (Wood first — primary)
@@ -372,8 +390,10 @@
     var currentQuery = '';
 
     function parsePrice(p) {
-      var s = String(p.price || '').replace(/[^0-9.]/g, '');
-      var n = parseFloat(s);
+      // "Rs. 7,500" / "Rs 225000" → digits only (commas break parseFloat)
+      var s = String(p.price || '').replace(/[^0-9]/g, '');
+      if (!s) return null;
+      var n = parseInt(s, 10);
       return isNaN(n) ? null : n;
     }
 
