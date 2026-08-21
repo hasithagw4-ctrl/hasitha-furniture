@@ -167,20 +167,146 @@
       display: block;
     }
 
+  
+    .nav-more { position: relative; }
+    .nav-more-btn {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: #F3EBE0; font-size: 0.875rem; font-weight: 500;
+      background: transparent; border: none; cursor: pointer; padding: 0;
+      font-family: inherit;
+    }
+    .nav-more-btn:hover { color: #fff; }
+    .nav-more-panel {
+      display: none;
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      margin-top: 0.85rem; min-width: 220px;
+      background: #2c1d0f; border: 1px solid rgba(243,235,224,.18);
+      border-radius: 14px; padding: 0.45rem; box-shadow: 0 16px 40px rgba(0,0,0,.4);
+      z-index: 70;
+    }
+    .nav-more.open .nav-more-panel { display: block; }
+    .nav-more-panel .nav-label {
+      display: block; padding: 0.4rem 0.85rem 0.2rem;
+      font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(243,235,224,.45); font-weight: 600;
+    }
+    .nav-more-panel a {
+      display: block; padding: 0.5rem 0.85rem; border-radius: 8px;
+      color: #F3EBE0; font-size: 0.875rem; text-decoration: none;
+    }
+    .nav-more-panel a:hover { background: rgba(243,235,224,.1); color: #fff; }
+    .nav-more-panel .nav-divider {
+      height: 1px; background: rgba(243,235,224,.12); margin: 0.35rem 0.5rem;
+    }
+  
   </style>
 </head>
 <body class="bg-beige-50 text-gray-800">
 
   <!-- Navbar -->
-  <nav class="bg-primary-900 text-white sticky top-0 z-50 shadow">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-      <a href="/" class="flex items-center gap-2">
-        <div class="w-9 h-9 rounded-full bg-beige-300 flex items-center justify-center text-primary-900 font-display font-bold">H</div>
-        <span class="font-display text-lg">Hasitha Furniture</span>
-      </a>
-      <a href="/" class="text-sm text-beige-200 hover:text-white">← Back to Home</a>
+  <nav id="navbar" class="bg-primary-900 text-white sticky top-0 z-50 shadow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 md:h-20">
+        <div class="flex items-center gap-2">
+          <button id="menuBtn" class="md:hidden text-white p-2 -ml-2" aria-label="Menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+          <a href="/" class="flex items-center gap-2">
+            <div class="w-10 h-10 rounded-full bg-beige-300 flex items-center justify-center text-primary-900 font-display font-bold text-xl">H</div>
+            <div class="hidden sm:block">
+              <span class="font-display text-xl text-white tracking-wide">Hasitha</span>
+              <span class="block text-[10px] text-beige-300 tracking-widest uppercase -mt-1">Furniture & Electronics</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="hidden md:flex items-center gap-6 lg:gap-8">
+          <a href="/" class="text-beige-100 hover:text-white text-sm font-medium transition">Home</a>
+          <a href="/all-products.html" class="text-beige-100 hover:text-white text-sm font-medium transition">All Products</a>
+          <a href="/#furniture" class="text-beige-100 hover:text-white text-sm font-medium transition">Furniture</a>
+          <a href="/#electronics" class="text-beige-100 hover:text-white text-sm font-medium transition">Electronics</a>
+          <div class="nav-more" id="navMore">
+            <button type="button" class="nav-more-btn" id="navMoreBtn" aria-expanded="false">
+              More
+              <svg class="w-3.5 h-3.5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="nav-more-panel">
+              <span class="nav-label">Materials</span>
+              <a href="/category.html?cat=Wooden">Wooden</a>
+              <a href="/category.html?cat=Melamine">Melamine</a>
+              <a href="/category.html?cat=Steel">Steel</a>
+              <a href="/category.html?cat=Plastic%20Items">Plastic</a>
+              <div class="nav-divider"></div>
+              <span class="nav-label">Rooms</span>
+              <a href="/category.html?cat=Living%20Room">Living Room</a>
+              <a href="/category.html?cat=Bedroom">Bedroom</a>
+              <a href="/category.html?cat=Kitchen">Kitchen</a>
+              <div class="nav-divider"></div>
+              <a href="/#custom">Custom</a>
+              <a href="/#about">About</a>
+              <a href="/#contact">Contact</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="tel:0772216854" class="flex items-center gap-2 bg-beige-300 text-primary-900 px-3 sm:px-4 py-2 rounded-full text-sm font-semibold hover:bg-beige-200 transition">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+            <span class="hidden sm:inline">Call</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden bg-primary-900 border-t border-primary-800">
+      <div class="px-4 py-4 space-y-1">
+        <a href="/" class="block text-beige-100 py-2.5">Home</a>
+        <a href="/all-products.html" class="block text-white py-2.5">All Products</a>
+        <a href="/#furniture" class="block text-beige-100 py-2.5">Furniture</a>
+        <a href="/#electronics" class="block text-beige-100 py-2.5">Electronics</a>
+        <div class="border-t border-primary-800 my-2 pt-2">
+          <p class="text-[10px] tracking-widest uppercase text-beige-300/60 pb-1">Materials</p>
+          <a href="/category.html?cat=Wooden" class="block text-beige-100 py-2">Wooden</a>
+          <a href="/category.html?cat=Melamine" class="block text-beige-100 py-2">Melamine</a>
+          <a href="/category.html?cat=Steel" class="block text-beige-100 py-2">Steel</a>
+          <a href="/category.html?cat=Plastic%20Items" class="block text-beige-100 py-2">Plastic</a>
+        </div>
+        <div class="border-t border-primary-800 my-2 pt-2">
+          <p class="text-[10px] tracking-widest uppercase text-beige-300/60 pb-1">Rooms</p>
+          <a href="/category.html?cat=Living%20Room" class="block text-beige-100 py-2">Living Room</a>
+          <a href="/category.html?cat=Bedroom" class="block text-beige-100 py-2">Bedroom</a>
+          <a href="/category.html?cat=Kitchen" class="block text-beige-100 py-2">Kitchen</a>
+        </div>
+        <div class="border-t border-primary-800 my-2 pt-2">
+          <a href="/#custom" class="block text-beige-100 py-2.5">Custom</a>
+          <a href="/#about" class="block text-beige-100 py-2.5">About</a>
+          <a href="/#contact" class="block text-beige-100 py-2.5">Contact</a>
+        </div>
+      </div>
     </div>
   </nav>
+
+  <div class="bg-beige-100 border-b border-primary-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <form action="/all-products.html" method="get" class="max-w-2xl mx-auto relative" onsubmit="return goSearch(event)">
+        <input type="text" name="q" id="nav-search" placeholder="Search furniture, electronics..."
+          class="w-full px-5 py-2.5 pl-11 rounded-full border border-primary-200 focus:outline-none focus:ring-2 focus:ring-primary-500 bg-white text-sm shadow-sm"
+          autocomplete="off">
+        <svg class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </form>
+    </div>
+  </div>
+  <script>
+    function goSearch(e) {
+      e.preventDefault();
+      var q = document.getElementById('nav-search').value.trim();
+      window.location.href = '/all-products.html' + (q ? ('?q=' + encodeURIComponent(q)) : '');
+      return false;
+    }
+  </script>
+
 
   <!-- Product Content -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -671,6 +797,23 @@ swatchStyle = "background-image:url('" + c.image + "')";
         document.getElementById('not-found').classList.remove('hidden');
       }
     }
+
+    document.getElementById('menuBtn')?.addEventListener('click', function() {
+      document.getElementById('mobileMenu')?.classList.toggle('hidden');
+    });
+    (function() {
+      var more = document.getElementById('navMore');
+      var btn = document.getElementById('navMoreBtn');
+      if (btn && more) {
+        btn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          more.classList.toggle('open');
+          btn.setAttribute('aria-expanded', more.classList.contains('open') ? 'true' : 'false');
+        });
+        document.addEventListener('click', function() { more.classList.remove('open'); });
+      }
+    })();
+
     load();
   </script>
 </body>
