@@ -242,22 +242,62 @@
     }
 
     function render(list) {
-      // Each product only once: Electronics first, then Furniture, then Other
       var used = {};
       var electronics = [];
-      var furniture = [];
+      // Furniture material sub-categories (Wood first — primary)
+      var wood = [];
+      var melamine = [];
+      var plastic = [];
+      var steel = [];
+      var furnitureOther = [];
       var other = [];
 
+      var woodCats = ['Wooden', 'Wood'];
+      var melamineCats = ['Melamine'];
+      var plasticCats = ['Plastic Items'];
+      var steelCats = ['Steel'];
+
+      // 1) Electronics
       list.forEach(function(p) {
         if (inAny(p, electronicsCats)) {
           electronics.push(p);
           used[p._i] = true;
         }
       });
+
+      // 2) Furniture by material — Wood first priority
+      list.forEach(function(p) {
+        if (used[p._i]) return;
+        if (inAny(p, woodCats)) {
+          wood.push(p);
+          used[p._i] = true;
+        }
+      });
+      list.forEach(function(p) {
+        if (used[p._i]) return;
+        if (inAny(p, melamineCats)) {
+          melamine.push(p);
+          used[p._i] = true;
+        }
+      });
+      list.forEach(function(p) {
+        if (used[p._i]) return;
+        if (inAny(p, plasticCats)) {
+          plastic.push(p);
+          used[p._i] = true;
+        }
+      });
+      list.forEach(function(p) {
+        if (used[p._i]) return;
+        if (inAny(p, steelCats)) {
+          steel.push(p);
+          used[p._i] = true;
+        }
+      });
       list.forEach(function(p) {
         if (used[p._i]) return;
         if (inAny(p, furnitureCats) || productCategories(p).length === 0) {
-          furniture.push(p);
+          furnitureOther.push(p);
           used[p._i] = true;
         }
       });
@@ -266,17 +306,34 @@
       });
 
       var html = '';
-      function section(title, items) {
+      function section(title, items, isSub) {
         if (!items.length) return '';
-        return '<section class="mb-14">' +
-          '<h2 class="font-display text-2xl md:text-3xl text-primary-900 mb-6">' + title + '</h2>' +
+        var h = isSub
+          ? '<h3 class="font-display text-xl md:text-2xl text-primary-800 mb-5">' + title + '</h3>'
+          : '<h2 class="font-display text-2xl md:text-3xl text-primary-900 mb-6">' + title + '</h2>';
+        return '<section class="mb-12">' + h +
           '<div class="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6">' +
           items.map(cardHtml).join('') +
           '</div></section>';
       }
-      html += section('Furniture', furniture);
-      html += section('Electronics', electronics);
-      html += section('Other', other);
+
+      // Furniture block with material sub-categories
+      var furnHtml = '';
+      furnHtml += section('Wooden', wood, true);
+      furnHtml += section('Melamine', melamine, true);
+      furnHtml += section('Plastic', plastic, true);
+      furnHtml += section('Steel', steel, true);
+      furnHtml += section('Other Furniture', furnitureOther, true);
+      if (furnHtml) {
+        html += '<section class="mb-16">' +
+          '<h2 class="font-display text-2xl md:text-3xl text-primary-900 mb-2">Furniture</h2>' +
+          '<p class="text-sm text-primary-700/80 mb-8">Browse by material — wood pieces shown first</p>' +
+          furnHtml +
+          '</section>';
+      }
+
+      html += section('Electronics', electronics, false);
+      html += section('Other', other, false);
 
       document.getElementById('content').innerHTML = html
         ? html
