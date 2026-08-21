@@ -9,32 +9,42 @@
         position: fixed;
         top: 0;
         left: 0;
-        /* do NOT cover the right side — Sveltia Save/Publish lives there */
         right: auto;
         z-index: 99999;
         display: flex;
         align-items: center;
-        gap: 0.65rem;
-        padding: 0.4rem 0.75rem;
+        padding: 0.35rem 0.7rem;
         background: #3d2914;
         color: #f3ebe0;
         font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         box-shadow: 0 2px 8px rgba(0,0,0,.2);
-        border-bottom-right-radius: 12px;
-        max-width: min(420px, 70vw);
+        border-bottom-right-radius: 10px;
       }
-      #hf-admin-bar a {
+      #hf-admin-bar .brand { opacity: 0.9; font-weight: 500; white-space: nowrap; }
+
+      /* Bulk Price — bottom-left, away from Save/Publish */
+      #hf-bulk-btn {
+        position: fixed;
+        left: 12px;
+        bottom: 16px;
+        z-index: 99999;
+        background: #3d2914;
         color: #f3ebe0;
         text-decoration: none;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        font-size: 0.8rem;
         font-weight: 600;
-        padding: 0.35rem 0.75rem;
+        padding: 0.55rem 0.95rem;
         border-radius: 999px;
-        border: 1px solid rgba(243,235,224,.35);
-        white-space: nowrap;
+        box-shadow: 0 4px 14px rgba(0,0,0,.28);
+        border: 1px solid rgba(243,235,224,.3);
+        opacity: 0.92;
       }
-      #hf-admin-bar a:hover { background: rgba(243,235,224,.12); }
-      #hf-admin-bar .brand { opacity: 0.9; font-weight: 500; white-space: nowrap; }
+      #hf-bulk-btn:hover {
+        opacity: 1;
+        background: #4a3420;
+      }
 
       /* small top gap so CMS header is not tight under bar on left only */
       body { padding-top: 0 !important; }
@@ -88,8 +98,8 @@
   <body>
     <div id="hf-admin-bar">
       <span class="brand">Hasitha Admin</span>
-      <a href="/admin/bulk-price.html">Bulk Price</a>
     </div>
+    <a id="hf-bulk-btn" href="/admin/bulk-price.html" title="Bulk update product prices">Bulk Price</a>
     <div id="hf-toast" role="status" aria-live="polite"></div>
 
     <script>
