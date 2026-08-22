@@ -1132,6 +1132,20 @@
       }
     }
 
+
+    function productCategories(p) {
+      if (!p) return [];
+      if (Array.isArray(p.categories) && p.categories.length) return p.categories.filter(Boolean);
+      if (Array.isArray(p.category) && p.category.length) return p.category.filter(Boolean);
+      if (p.category) return [p.category];
+      return [];
+    }
+    var homeElectronicsCats = ['Electronics','Televisions','Refrigerators','Washing Machines','Ovens','Blenders','Mixer Grinders','Kettles','Irons','Kettles & Irons','Pressure Washers','Fans','Vacuum Cleaners','Rice Cookers','Party Boxes','Sound Systems & Radios','Lights & Bulbs','Other Electronics'];
+    function isElectronicsProduct(p) {
+      var cats = productCategories(p).map(function(c) { return String(c).toLowerCase(); });
+      return homeElectronicsCats.some(function(c) { return cats.indexOf(String(c).toLowerCase()) !== -1; });
+    }
+
     function renderProducts(products) {
       const grid = document.getElementById("products-grid");
       if (!grid) return;
@@ -1171,7 +1185,11 @@
     }
 
     function filterByCategory(category) {
-      const filtered = allProducts.filter(p => (p.category || "").toLowerCase() === category.toLowerCase());
+      const filtered = allProducts.filter(function(p) {
+        return productCategories(p).some(function(c) {
+          return String(c).toLowerCase() === String(category).toLowerCase();
+        });
+      });
       renderProducts(filtered);
       const info = document.getElementById("category-filter-info");
       const active = document.getElementById("active-category");
