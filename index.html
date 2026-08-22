@@ -1139,22 +1139,35 @@
         grid.innerHTML = '<div class="col-span-full text-center text-gray-500 py-10">No products in this category yet.</div>';
         return;
       }
-      grid.innerHTML = products.map((p, idx) => {
-        const id = (typeof p._i === 'number') ? p._i : (window.__productsFull || products).indexOf(p);
-        const full = window.__productsFull || products;
-        return `
-        <a href="${productUrl(full, id >= 0 ? id : idx)}" class="product-card-sm block">
-          <div class="img-wrap">
-            ${p.image
-              ? `<img src="${p.image}" alt="${p.name || ''}">`
-              : `<div class="w-full h-full flex items-center justify-center text-2xl opacity-40">📦</div>`}
-          </div>
-          <div class="meta">
-            <h3>${p.name || ''}</h3>
-            <p class="price">${p.price || 'Price on request'}</p>
-          </div>
-        </a>`;
-      }).join("");
+      const full = window.__productsFull || products;
+      function card(p) {
+        const id = (typeof p._i === 'number') ? p._i : full.indexOf(p);
+        return '<a href="' + productUrl(full, id >= 0 ? id : 0) + '" class="product-card-sm block">' +
+          '<div class="img-wrap">' +
+          (p.image
+            ? '<img src="' + p.image + '" alt="' + (p.name || '') + '">'
+            : '<div class="w-full h-full flex items-center justify-center text-2xl opacity-40">📦</div>') +
+          '</div><div class="meta"><h3>' + (p.name || '') + '</h3>' +
+          '<p class="price">' + (p.price || 'Price on request') + '</p></div></a>';
+      }
+      // Group: Furniture first, then Electronics (no random mix)
+      var furn = [];
+      var elec = [];
+      var other = [];
+      products.forEach(function(p) {
+        if (isElectronicsProduct(p)) elec.push(p);
+        else furn.push(p);
+      });
+      var html = '';
+      if (furn.length) {
+        html += '<div class="col-span-full mb-2 mt-2"><h3 class="font-display text-xl md:text-2xl text-primary-900">Furniture</h3></div>';
+        html += furn.map(card).join('');
+      }
+      if (elec.length) {
+        html += '<div class="col-span-full mb-2 mt-8"><h3 class="font-display text-xl md:text-2xl text-primary-900">Electronics</h3></div>';
+        html += elec.map(card).join('');
+      }
+      grid.innerHTML = html || '<div class="col-span-full text-center text-gray-500 py-10">No products yet.</div>';
     }
 
     function filterByCategory(category) {
