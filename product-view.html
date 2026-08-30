@@ -464,16 +464,33 @@
 
     function catItem(x) {
       if (x == null || x === '') return '';
-      if (typeof x === 'object') return String(x.name || x.label || x.value || x.item || '');
+      if (typeof x === 'object') return String(x.name || x.label || x.value || x.item || x.c1 || '');
       return String(x);
     }
     function productCategories(p) {
       if (!p) return [];
       var raw = [];
-      if (Array.isArray(p.categories) && p.categories.length) raw = p.categories;
-      else if (Array.isArray(p.category) && p.category.length) raw = p.category;
-      else if (p.category) raw = [p.category];
-      return raw.map(catItem).filter(Boolean);
+      if (Array.isArray(p.categories) && p.categories.length) raw = raw.concat(p.categories);
+      if (Array.isArray(p.category) && p.category.length) raw = raw.concat(p.category);
+      else if (p.category && typeof p.category === 'object' && !Array.isArray(p.category)) {
+        raw = raw.concat([p.category.c1, p.category.c2, p.category.c3, p.category.c4]);
+      } else if (p.category && typeof p.category === 'string') {
+        raw = raw.concat(p.category.split(','));
+      }
+      raw = raw.concat([p.cat1, p.cat2, p.cat3, p.cat4]);
+      var out = [];
+      var seen = {};
+      raw.forEach(function(x) {
+        String(catItem(x)).split(',').forEach(function(part) {
+          var s = part.trim();
+          if (!s) return;
+          var k = s.toLowerCase();
+          if (seen[k]) return;
+          seen[k] = true;
+          out.push(s);
+        });
+      });
+      return out;
     }
     function inCategory(p, cat) {
       if (!cat) return true;
