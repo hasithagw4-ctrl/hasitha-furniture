@@ -23,30 +23,29 @@ collections:
     summary: "{{name}} — {{category}}"
     fields:
       - { label: "Product Name", name: "name", widget: "string" }
-      - label: "Category 1"
+      - label: "Categories (saved)"
+        name: "category"
+        widget: "select"
+        multiple: true
+        required: false
+        hint: "Existing tags. To ADD more without replacing, use Extra 1 / Extra 2 / Extra 3 below."
+        options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Wall Units", "Coffee Tables", "TV Stands", "Display Cupboards", "Shoe Racks", "Drawer Cupboards", "Desks", "Study", "Laundry", "Baby Items", "Living Room", "Bedroom", "Kitchen", "Cookware", "Bathroom", "Towel Racks", "Melamine", "Wooden", "Steel", "Electronics", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Mixer Grinders", "Kettles", "Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Lights & Bulbs", "Other Electronics", "Plastic Items", "Gift Items"]
+      - label: "Extra category 1"
         name: "cat1"
         widget: "select"
         required: false
         options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Wall Units", "Coffee Tables", "TV Stands", "Display Cupboards", "Shoe Racks", "Drawer Cupboards", "Desks", "Study", "Laundry", "Baby Items", "Living Room", "Bedroom", "Kitchen", "Cookware", "Bathroom", "Towel Racks", "Melamine", "Wooden", "Steel", "Electronics", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Mixer Grinders", "Kettles", "Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Lights & Bulbs", "Other Electronics", "Plastic Items", "Gift Items"]
-      - label: "Category 2"
+      - label: "Extra category 2"
         name: "cat2"
         widget: "select"
         required: false
         options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Wall Units", "Coffee Tables", "TV Stands", "Display Cupboards", "Shoe Racks", "Drawer Cupboards", "Desks", "Study", "Laundry", "Baby Items", "Living Room", "Bedroom", "Kitchen", "Cookware", "Bathroom", "Towel Racks", "Melamine", "Wooden", "Steel", "Electronics", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Mixer Grinders", "Kettles", "Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Lights & Bulbs", "Other Electronics", "Plastic Items", "Gift Items"]
-      - label: "Category 3"
+      - label: "Extra category 3"
         name: "cat3"
         widget: "select"
         required: false
         options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Wall Units", "Coffee Tables", "TV Stands", "Display Cupboards", "Shoe Racks", "Drawer Cupboards", "Desks", "Study", "Laundry", "Baby Items", "Living Room", "Bedroom", "Kitchen", "Cookware", "Bathroom", "Towel Racks", "Melamine", "Wooden", "Steel", "Electronics", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Mixer Grinders", "Kettles", "Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Lights & Bulbs", "Other Electronics", "Plastic Items", "Gift Items"]
-      - label: "Category 4"
-        name: "cat4"
-        widget: "select"
-        required: false
-        options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Wall Units", "Coffee Tables", "TV Stands", "Display Cupboards", "Shoe Racks", "Drawer Cupboards", "Desks", "Study", "Laundry", "Baby Items", "Living Room", "Bedroom", "Kitchen", "Cookware", "Bathroom", "Towel Racks", "Melamine", "Wooden", "Steel", "Electronics", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Mixer Grinders", "Kettles", "Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Lights & Bulbs", "Other Electronics", "Plastic Items", "Gift Items"]
-      - label: "Saved category list"
-        name: "category"
-        widget: "hidden"
-        required: false
+
 
       - { label: "Short Description", name: "description", widget: "text", required: false }
       - { label: "Full Details", name: "details", widget: "text", required: false }
