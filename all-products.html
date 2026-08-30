@@ -107,8 +107,8 @@
         <div class="hidden md:flex items-center gap-6 lg:gap-8">
           <a href="/" class="text-beige-100 hover:text-white text-sm font-medium transition">Home</a>
           <a href="/all-products.html" class="text-white text-sm font-medium transition">All Products</a>
-          <a href="/#furniture" class="text-beige-100 hover:text-white text-sm font-medium transition">Furniture</a>
-          <a href="/#electronics" class="text-beige-100 hover:text-white text-sm font-medium transition">Electronics</a>
+          <a href="/all-products.html?section=furniture" class="text-beige-100 hover:text-white text-sm font-medium transition">Furniture</a>
+          <a href="/all-products.html?section=electronics" class="text-beige-100 hover:text-white text-sm font-medium transition">Electronics</a>
           <div class="nav-more" id="navMore">
             <button type="button" class="nav-more-btn" id="navMoreBtn" aria-expanded="false">
               More
@@ -146,8 +146,8 @@
       <div class="px-4 py-4 space-y-1">
         <a href="/" class="block text-beige-100 py-2.5">Home</a>
         <a href="/all-products.html" class="block text-white py-2.5">All Products</a>
-        <a href="/#furniture" class="block text-beige-100 py-2.5">Furniture</a>
-        <a href="/#electronics" class="block text-beige-100 py-2.5">Electronics</a>
+        <a href="/all-products.html?section=furniture" class="block text-beige-100 py-2.5">Furniture</a>
+        <a href="/all-products.html?section=electronics" class="block text-beige-100 py-2.5">Electronics</a>
         <div class="border-t border-primary-800 my-2 pt-2">
           <p class="text-[10px] tracking-widest uppercase text-beige-300/60 pb-1">Materials</p>
           <a href="/category.html?cat=Wooden" class="block text-beige-100 py-2">Wooden</a>
@@ -409,6 +409,13 @@
     }
 
 
+
+    var currentSection = '';
+
+    function isElectronicsItem(p) {
+      return inAny(p, electronicsCats);
+    }
+
     var currentSort = 'latest';
     var currentQuery = '';
 
@@ -459,9 +466,14 @@
 
     function applyFilters() {
       var list = allProducts;
+      if (currentSection === 'electronics') {
+        list = list.filter(isElectronicsItem);
+      } else if (currentSection === 'furniture') {
+        list = list.filter(function(p) { return !isElectronicsItem(p); });
+      }
       if (currentQuery) {
         var q = currentQuery.toLowerCase();
-        list = allProducts.filter(function(p) {
+        list = list.filter(function(p) {
           return (p.name||'').toLowerCase().indexOf(q) !== -1 ||
                  (p.description||'').toLowerCase().indexOf(q) !== -1 ||
                  productCategories(p).join(' ').toLowerCase().indexOf(q) !== -1;
@@ -498,6 +510,18 @@
           var inp = document.getElementById('product-search');
           if (inp) inp.value = q0;
           currentQuery = q0;
+        }
+        currentSection = (params.get('section') || '').toLowerCase();
+        var titleEl = document.querySelector('main h1');
+        var subEl = document.querySelector('main .text-primary-700');
+        if (currentSection === 'furniture') {
+          document.title = 'Furniture | Hasitha Furniture & Electronics';
+          if (titleEl) titleEl.textContent = 'Furniture';
+          if (subEl) subEl.textContent = 'Furniture Collection';
+        } else if (currentSection === 'electronics') {
+          document.title = 'Electronics | Hasitha Furniture & Electronics';
+          if (titleEl) titleEl.textContent = 'Electronics';
+          if (subEl) subEl.textContent = 'Electronics Collection';
         }
         applyFilters();
 
