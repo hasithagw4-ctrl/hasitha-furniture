@@ -237,12 +237,18 @@
       return '/product-view.html?id=' + index;
     }
 
+    function catItem(x) {
+      if (x == null || x === '') return '';
+      if (typeof x === 'object') return String(x.name || x.label || x.value || x.item || '');
+      return String(x);
+    }
     function productCategories(p) {
       if (!p) return [];
-      if (Array.isArray(p.categories) && p.categories.length) return p.categories.filter(Boolean);
-      if (Array.isArray(p.category) && p.category.length) return p.category.filter(Boolean);
-      if (p.category) return [p.category];
-      return [];
+      var raw = [];
+      if (Array.isArray(p.categories) && p.categories.length) raw = p.categories;
+      else if (Array.isArray(p.category) && p.category.length) raw = p.category;
+      else if (p.category) raw = [p.category];
+      return raw.map(catItem).filter(Boolean);
     }
     function inCategory(p, cat) {
       var c = String(cat).toLowerCase();
