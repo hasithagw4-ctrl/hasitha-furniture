@@ -25,12 +25,17 @@ collections:
       - { label: "Product Name", name: "name", widget: "string" }
       - label: "Categories"
         name: "category"
-        widget: "select"
-        multiple: true
+        widget: "list"
         required: false
-        default: []
-        hint: "Choose one, then click the dropdown again to add more. Selected items appear as tags."
-        options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Wall Units", "Coffee Tables", "TV Stands", "Display Cupboards", "Shoe Racks", "Drawer Cupboards", "Desks", "Study", "Laundry", "Baby Items", "Living Room", "Bedroom", "Kitchen", "Cookware", "Bathroom", "Towel Racks", "Melamine", "Wooden", "Steel", "Electronics", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Mixer Grinders", "Kettles", "Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Lights & Bulbs", "Other Electronics", "Plastic Items", "Gift Items"]
+        collapsed: false
+        label_singular: "Category"
+        hint: "Click Add Category for each extra one (Dining Tables, then Wooden, then Kitchen)."
+        field:
+          label: "Category"
+          name: "name"
+          widget: "select"
+          options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Wall Units", "Coffee Tables", "TV Stands", "Display Cupboards", "Shoe Racks", "Drawer Cupboards", "Desks", "Study", "Laundry", "Baby Items", "Living Room", "Bedroom", "Kitchen", "Cookware", "Bathroom", "Towel Racks", "Melamine", "Wooden", "Steel", "Electronics", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Mixer Grinders", "Kettles", "Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Lights & Bulbs", "Other Electronics", "Plastic Items", "Gift Items"]
+
 
       - { label: "Short Description", name: "description", widget: "text", required: false }
       - { label: "Full Details", name: "details", widget: "text", required: false }
