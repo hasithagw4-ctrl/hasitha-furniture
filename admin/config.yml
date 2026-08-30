@@ -27,8 +27,12 @@ collections:
         name: "category"
         widget: "select"
         multiple: true
+        min: 0
+        max: 8
+        dropdown_threshold: 80
+        default: []
         required: false
-        hint: "Optional multi-select. Pick one or more (e.g. Veranda Chairs + Plastic Items, or Sofa + Living Room)."
+        hint: "Tick one or more boxes. Example: Veranda Chairs + Plastic Items + Living Room."
         options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Wall Units", "Coffee Tables", "TV Stands", "Display Cupboards", "Shoe Racks", "Drawer Cupboards", "Desks", "Study", "Laundry", "Baby Items", "Living Room", "Bedroom", "Kitchen", "Cookware", "Bathroom", "Towel Racks", "Melamine", "Wooden", "Steel", "Electronics", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Mixer Grinders", "Kettles", "Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Lights & Bulbs", "Other Electronics", "Plastic Items", "Gift Items"]
       - { label: "Short Description", name: "description", widget: "text", required: false }
       - { label: "Full Details", name: "details", widget: "text", required: false }
