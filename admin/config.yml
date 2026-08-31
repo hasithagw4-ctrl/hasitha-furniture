@@ -67,11 +67,17 @@ collections:
           - { label: "3 — Third", value: "3" }
           - { label: "4 — Fourth", value: "4" }
       - { label: "Main Image", name: "image", widget: "image", required: false }
-      - label: "Gallery Images"
+      - label: "Gallery Images (saved)"
         name: "gallery"
         widget: "list"
         required: false
+        hint: "Existing photos. Do not add here — it replaces the first image. Use Extra gallery slots below."
         field: { label: "Image", name: "src", widget: "image" }
+      - { label: "Extra gallery image 1", name: "gallery2", widget: "image", required: false }
+      - { label: "Extra gallery image 2", name: "gallery3", widget: "image", required: false }
+      - { label: "Extra gallery image 3", name: "gallery4", widget: "image", required: false }
+      - { label: "Extra gallery image 4", name: "gallery5", widget: "image", required: false }
+      - { label: "Extra gallery image 5", name: "gallery6", widget: "image", required: false }
       - { label: "Specifications (bulk)", name: "specs_text", widget: "text", required: false, hint: "One per line: Label | Value" }
 
       - label: "Enable Color Options"
