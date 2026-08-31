@@ -672,15 +672,27 @@
           document.getElementById('specs-wrap').classList.remove('hidden');
         }
 
+
+        function galleryUrls(p) {
+          var out = [];
+          function add(x) {
+            if (!x) return;
+            if (typeof x === 'object') x = x.src || x.image || x.url || '';
+            x = String(x).trim();
+            if (x && out.indexOf(x) === -1) out.push(x);
+          }
+          if (Array.isArray(p.gallery)) p.gallery.forEach(add);
+          else add(p.gallery);
+          ['gallery2','gallery3','gallery4','gallery5','gallery6'].forEach(function(k) { add(p[k]); });
+          return out;
+        }
+
         // Images
         let images = [];
         if (p.image) images.push(p.image);
-        if (p.gallery && Array.isArray(p.gallery)) {
-          p.gallery.forEach(g => {
-            const src = typeof g === 'string' ? g : (g && g.src);
-            if (src && !images.includes(src)) images.push(src);
-          });
-        }
+        galleryUrls(p).forEach(function(g) {
+          if (g && images.indexOf(g) === -1) images.push(g);
+        });
         window._productImages = images;
         currentImgIndex = 0;
         setMainImage(images[0] || '');
