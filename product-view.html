@@ -977,6 +977,30 @@ swatchStyle = "background-image:url('" + c.image + "')";
       __hfBack.onclick = hfGoBack;
     }
 
+
+    document.addEventListener('click', function(e) {
+      var a = e.target.closest && e.target.closest('a');
+      if (!a || !a.getAttribute('href')) return;
+      var href = a.getAttribute('href');
+      if (href.indexOf('product-view') !== -1 || href.indexOf('all-products') !== -1 || href.indexOf('category.html') !== -1) {
+        try {
+          var key = 'hfScroll:' + location.pathname + location.search;
+          sessionStorage.setItem(key, String(window.scrollY || window.pageYOffset || 0));
+        } catch (err) {}
+      }
+    });
+    function hfRestoreScroll() {
+      try {
+        var key = 'hfScroll:' + location.pathname + location.search;
+        var y = sessionStorage.getItem(key);
+        if (y === null || y === '') return;
+        var n = parseInt(y, 10) || 0;
+        window.scrollTo(0, n);
+        setTimeout(function() { window.scrollTo(0, n); }, 50);
+        setTimeout(function() { window.scrollTo(0, n); }, 250);
+      } catch (err) {}
+    }
+
     load();
   </script>
 </body>
