@@ -93,7 +93,7 @@
 
   <nav class="bg-primary-900 text-white sticky top-0 z-50 shadow">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-                <button type="button" class="hf-back-btn" id="hfBackBtn" aria-label="Back">
+                          <button type="button" class="hf-back-btn" id="hfBackBtn" aria-label="Back" onclick="(function(){try{if(document.referrer&&document.referrer.indexOf(location.host)!==-1){history.back();return;}}catch(e){}if(history.length>1){history.back();return;}location.href='/all-products.html';})()">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
           </button>
 <a href="/" class="flex items-center gap-2">
@@ -289,6 +289,26 @@
         document.getElementById('empty').querySelector('p').textContent = 'Could not load products.';
       }
     }
+
+
+    (function() {
+      function hfGoBack(e) {
+        if (e) e.preventDefault();
+        try {
+          if (document.referrer && document.referrer.indexOf(location.host) !== -1) {
+            history.back();
+            return;
+          }
+        } catch (err) {}
+        if (history.length > 1) {
+          history.back();
+          return;
+        }
+        location.href = '/all-products.html';
+      }
+      var b = document.getElementById('hfBackBtn');
+      if (b) b.addEventListener('click', hfGoBack);
+    })();
 
     load();
   </script>
