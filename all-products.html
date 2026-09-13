@@ -84,6 +84,24 @@
       color: #F3EBE0;
     }
 
+
+    .oos-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      z-index: 3;
+      background: #7f1d1d;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      line-height: 1.2;
+    }
+    @media (min-width: 768px) {
+      .oos-badge { font-size: 11px; padding: 5px 10px; }
+    }
   </style>
 </head>
 <body class="bg-beige-50 text-gray-800">
@@ -275,6 +293,14 @@
       return cats.some(function(c) { return inCategory(p, c); });
     }
 
+
+    function isOutOfStock(p) {
+      var s = String((p && p.stock) || '').toLowerCase().replace(/[_-]+/g, ' ').trim();
+      return s === 'out of stock' || s === 'outofstock' || s === 'oos';
+    }
+    function oosBadge(p) {
+      return isOutOfStock(p) ? '<span class="oos-badge">OUT OF STOCK</span>' : '';
+    }
     function cardHtml(p) {
       var img = p.image
         ? '<img src="' + p.image + '" alt="' + (p.name||'') + '" class="w-full h-full object-cover">'
@@ -283,7 +309,7 @@
         ? '<span class="text-[10px] sm:text-xs bg-red-100 text-red-700 px-1.5 py-0.5 rounded-full">' + p.discount + '</span>'
         : '';
       return '<a href="' + productUrl(window.__allProductsFull || allProducts, p._i) + '" class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition block">' +
-        '<div class="aspect-square bg-beige-100 overflow-hidden">' + img + '</div>' +
+        '<div class="aspect-square bg-beige-100 overflow-hidden relative">' + oosBadge(p) + img + '</div>' +
         '<div class="p-2 sm:p-3">' +
           '<h3 class="font-display text-xs sm:text-sm text-primary-900 mb-0.5 line-clamp-2 leading-snug">' + (p.name||'') + '</h3>' +
           '<p class="font-semibold text-primary-800 text-xs sm:text-sm">' + (p.price||'Price on request') + '</p>' +

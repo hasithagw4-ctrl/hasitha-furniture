@@ -242,6 +242,24 @@
         grid-template-columns: repeat(5, minmax(0, 1fr));
       }
     }
+
+    .oos-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      z-index: 3;
+      background: #7f1d1d;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      line-height: 1.2;
+    }
+    @media (min-width: 768px) {
+      .oos-badge { font-size: 11px; padding: 5px 10px; }
+    }
     .product-card-sm {
       background: #fff;
       border-radius: 0.75rem;
@@ -1169,6 +1187,14 @@
       return homeElectronicsCats.some(function(c) { return cats.indexOf(String(c).toLowerCase()) !== -1; });
     }
 
+
+    function isOutOfStock(p) {
+      var s = String((p && p.stock) || '').toLowerCase().replace(/[_-]+/g, ' ').trim();
+      return s === 'out of stock' || s === 'outofstock' || s === 'oos';
+    }
+    function oosBadge(p) {
+      return isOutOfStock(p) ? '<span class="oos-badge">OUT OF STOCK</span>' : '';
+    }
     function renderProducts(products) {
       const grid = document.getElementById("products-grid");
       if (!grid) return;
@@ -1180,7 +1206,8 @@
       function card(p) {
         const id = (typeof p._i === 'number') ? p._i : full.indexOf(p);
         return '<a href="' + productUrl(full, id >= 0 ? id : 0) + '" class="product-card-sm block">' +
-          '<div class="img-wrap">' +
+          '<div class="img-wrap" style="position:relative">' +
+          oosBadge(p) +
           (p.image
             ? '<img src="' + p.image + '" alt="' + (p.name || '') + '">'
             : '<div class="w-full h-full flex items-center justify-center text-2xl opacity-40">📦</div>') +
@@ -1293,7 +1320,8 @@
         section.classList.remove('hidden');
         grid.innerHTML = featured.slice(0, 6).map(p => `
           <a href="${productUrl(window.__productsFull || products, p._i)}" class="product-card-feat">
-            <div class="img-wrap">
+            <div class="img-wrap" style="position:relative">
+              ${isOutOfStock(p) ? '<span class="oos-badge">OUT OF STOCK</span>' : ''}
               ${p.image
                 ? `<img src="${p.image}" alt="${p.name || ''}">`
                 : `<div class="w-full h-full flex items-center justify-center text-3xl opacity-40">📦</div>`}

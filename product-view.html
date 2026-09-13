@@ -54,6 +54,24 @@
         display: flex !important;
       }
     }
+
+    .oos-badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      z-index: 3;
+      background: #7f1d1d;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      line-height: 1.2;
+    }
+    @media (min-width: 768px) {
+      .oos-badge { font-size: 11px; padding: 5px 10px; }
+    }
     #main-image-wrap {
       position: relative;
       width: 100%;
@@ -320,7 +338,7 @@
       <div class="grid md:grid-cols-2 gap-8 lg:gap-12 mb-16">
         <!-- Gallery -->
         <div class="min-w-0 w-full">
-          <div id="main-image-wrap">
+          <div id="main-image-wrap"><span id="oos-badge" class="oos-badge hidden">OUT OF STOCK</span>
             <img id="main-image" src="" alt="" class="hidden cursor-pointer">
             <span id="no-image" class="text-6xl opacity-40">📦</span>
             <button type="button" id="img-prev" class="img-nav-btn absolute left-2 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 shadow items-center justify-center text-primary-900 text-xl hover:bg-white" aria-label="Previous">‹</button>
@@ -459,6 +477,11 @@
       var s = status || 'In Stock';
       stock.textContent = s;
       stock.className = 'text-sm mb-6 ' + (s === 'Out of Stock' ? 'text-red-600' : 'text-green-600');
+      var badge = document.getElementById('oos-badge');
+      if (badge) {
+        if (s === 'Out of Stock') badge.classList.remove('hidden');
+        else badge.classList.add('hidden');
+      }
     }
 
 
