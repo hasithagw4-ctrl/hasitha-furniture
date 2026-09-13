@@ -365,18 +365,20 @@
       else setTimeout(hfRestoreScroll, 400);
       return r;
     };
+
+    document.querySelectorAll('a[href="/"], a[href="/index.html"], a[href="index.html"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        try {
+          sessionStorage.setItem('hfNavStack', JSON.stringify(['/']));
+          sessionStorage.setItem('hfScroll:/', '0');
+          sessionStorage.setItem('hfScroll:/index.html', '0');
+        } catch (err) {}
+        location.href = '/#top';
+      });
+    });
+
     load();
   </script>
-<script>
-    (function() {
-      var btn = document.getElementById('hfBackBtn');
-      if (!btn) return;
-      btn.addEventListener('click', function() {
-        var ref = document.referrer || '';
-        if (ref && ref.indexOf(location.host) !== -1 && history.length > 1) history.back();
-        else location.href = '/';
-      });
-    })();
-</script>
 </body>
 </html>

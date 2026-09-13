@@ -636,26 +636,12 @@
     }
     function hfGoBack(e) {
       if (e) { e.preventDefault(); e.stopPropagation(); }
-      try { sessionStorage.setItem('hfNavStack', JSON.stringify(['/'])); } catch (err) {}
-      location.href = '/';
+      try {
+        sessionStorage.setItem('hfNavStack', JSON.stringify(['/']));
+        sessionStorage.setItem('hfScroll:/', '0');
+      } catch (err) {}
+      window.location.replace('/');
       return;
-    }
-    function hfGoBack_disabled_old(e) {
-      if (false) {
-        location.href = '/';
-        return;
-      }
-      var here = hfHere();
-      var stack = [];
-      try { stack = JSON.parse(sessionStorage.getItem('hfNavStack') || '[]'); } catch (err) { stack = []; }
-      while (stack.length && stack[stack.length - 1] === here) stack.pop();
-      var prev = stack.pop() || '';
-      try { sessionStorage.setItem('hfNavStack', JSON.stringify(stack)); } catch (err) {}
-      if (prev && prev !== here) {
-        location.href = prev;
-        return;
-      }
-      location.href = '/';
     }
     window.hfGoBack = hfGoBack;
     var __hfBack = document.getElementById('hfBackBtn');
@@ -695,18 +681,20 @@
       else setTimeout(hfRestoreScroll, 400);
       return r;
     };
+
+    document.querySelectorAll('a[href="/"], a[href="/index.html"], a[href="index.html"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        try {
+          sessionStorage.setItem('hfNavStack', JSON.stringify(['/']));
+          sessionStorage.setItem('hfScroll:/', '0');
+          sessionStorage.setItem('hfScroll:/index.html', '0');
+        } catch (err) {}
+        location.href = '/#top';
+      });
+    });
+
     load();
   </script>
-<script>
-    (function() {
-      var btn = document.getElementById('hfBackBtn');
-      if (!btn) return;
-      btn.addEventListener('click', function() {
-        var ref = document.referrer || '';
-        if (ref && ref.indexOf(location.host) !== -1 && history.length > 1) history.back();
-        else location.href = '/';
-      });
-    })();
-</script>
 </body>
 </html>

@@ -1008,6 +1008,19 @@ swatchStyle = "background-image:url('" + c.image + "')";
       } catch (err) {}
     }
 
+
+    document.querySelectorAll('a[href="/"], a[href="/index.html"], a[href="index.html"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        try {
+          sessionStorage.setItem('hfNavStack', JSON.stringify(['/']));
+          sessionStorage.setItem('hfScroll:/', '0');
+          sessionStorage.setItem('hfScroll:/index.html', '0');
+        } catch (err) {}
+        location.href = '/#top';
+      });
+    });
+
     load();
   </script>
 </body>

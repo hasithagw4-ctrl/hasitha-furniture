@@ -1315,6 +1315,11 @@
       }
     });
     function hfRestoreScroll() {
+      if (location.hash === '#top') {
+        window.scrollTo(0, 0);
+        try { sessionStorage.setItem('hfScroll:/', '0'); } catch (e) {}
+        return;
+      }
       try {
         var key = 'hfScroll:' + location.pathname + location.search;
         var y = sessionStorage.getItem(key);
@@ -1325,6 +1330,19 @@
         setTimeout(function() { window.scrollTo(0, n); }, 250);
       } catch (err) {}
     }
+
+    
+    document.querySelectorAll('a[href="/"], a[href="/index.html"], a[href="index.html"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        try {
+          sessionStorage.setItem('hfNavStack', JSON.stringify(['/']));
+          sessionStorage.setItem('hfScroll:/', '0');
+          sessionStorage.setItem('hfScroll:/index.html', '0');
+        } catch (err) {}
+        location.href = '/#top';
+      });
+    });
 
     var __lp = loadProducts();
     if (__lp && typeof __lp.then === 'function') {
