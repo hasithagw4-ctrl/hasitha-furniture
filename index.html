@@ -1141,6 +1141,13 @@
       if (typeof x === 'object') return String(x.name || x.label || x.value || x.item || x.c1 || '');
       return String(x);
     }
+
+    function displayCategoryName(x) {
+      var s = String(x || '').trim();
+      if (!s) return '';
+      if (s.toLowerCase() === 'wood') return 'Wooden';
+      return s;
+    }
     function productCategories(p) {
       if (!p) return [];
       var raw = [];

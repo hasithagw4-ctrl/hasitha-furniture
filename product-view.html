@@ -490,6 +490,13 @@
       if (typeof x === 'object') return String(x.name || x.label || x.value || x.item || x.c1 || '');
       return String(x);
     }
+
+    function displayCategoryName(x) {
+      var s = String(x || '').trim();
+      if (!s) return '';
+      if (s.toLowerCase() === 'wood') return 'Wooden';
+      return s;
+    }
     function productCategories(p) {
       if (!p) return [];
       var raw = [];
@@ -521,7 +528,7 @@
       return productCategories(p).some(function(x) { return String(x).toLowerCase() === c; });
     }
     function categoryLabel(p) {
-      return productCategories(p).join(' · ');
+      return productCategories(p).map(displayCategoryName).filter(Boolean).join(' · ');
     }
 
     

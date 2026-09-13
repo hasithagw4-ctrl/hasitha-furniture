@@ -260,6 +260,13 @@
       if (typeof x === 'object') return String(x.name || x.label || x.value || x.item || x.c1 || '');
       return String(x);
     }
+
+    function displayCategoryName(x) {
+      var s = String(x || '').trim();
+      if (!s) return '';
+      if (s.toLowerCase() === 'wood') return 'Wooden';
+      return s;
+    }
     function productCategories(p) {
       if (!p) return [];
       var raw = [];
@@ -286,8 +293,13 @@
       return out;
     }
     function inCategory(p, cat) {
-      var c = String(cat).toLowerCase();
-      return productCategories(p).some(function(x) { return String(x).toLowerCase() === c; });
+      function norm(s) {
+        s = String(s || '').toLowerCase().trim();
+        if (s === 'wood') s = 'wooden';
+        return s;
+      }
+      var c = norm(cat);
+      return productCategories(p).some(function(x) { return norm(x) === c; });
     }
     function inAny(p, cats) {
       return cats.some(function(c) { return inCategory(p, c); });
