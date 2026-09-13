@@ -827,15 +827,53 @@ swatchStyle = "background-image:url('" + c.image + "')";
         document.getElementById('whatsapp-btn').href =
           'https://wa.me/94772216854?text=' + encodeURIComponent(p.whatsapp || ('Hi, I am interested in ' + p.name));
 
-        // Similar products: match FIRST category only (e.g. Wardrobes → only wardrobes)
-        var primaryCat = productCategories(p)[0] || '';
+        // Similar: same PRODUCT TYPE (Wardrobes/Sofas/Fans…), plus same material if tagged (Wooden…)
+        var TYPE_CATS = ['Sofas','Beds','Wardrobes','Dressing Tables','Dining Tables','Dining Chairs','Dining Sets','Veranda Chairs','Office Furniture','Mattresses','Other Furniture','Wall Units','Coffee Tables','TV Stands','Display Cupboards','Shoe Racks','Drawer Cupboards','Desks','Study','Laundry','Baby Items','Bathroom','Towel Racks','Cookware','Televisions','Refrigerators','Washing Machines','Ovens','Blenders','Mixer Grinders','Kettles','Irons','Kettles & Irons','Pressure Washers','Fans','Vacuum Cleaners','Rice Cookers','Party Boxes','Sound Systems & Radios','Lights & Bulbs','Other Electronics','Gift Items'];
+        var MATERIAL_CATS = ['Wooden','Wood','Melamine','Steel','Plastic Items','Plastic'];
+        function pickFrom(list, pool) {
+          var lower = pool.map(function(x) { return String(x).toLowerCase(); });
+          for (var i = 0; i < list.length; i++) {
+            var hit = lower.indexOf(String(list[i]).toLowerCase());
+            if (hit !== -1) return pool[hit] ? list[i] : list[i];
+          }
+          // return the matching original label from product
+          for (var j = 0; j < pool.length; j++) {
+            if (list.indexOf(pool[j]) !== -1 || list.map(function(x){return String(x).toLowerCase();}).indexOf(String(list[j]||'').toLowerCase()) !== -1) {
+              return pool[j];
+            }
+          }
+          return '';
+        }
+        function pickType(cats) {
+          var cl = cats.map(function(x) { return String(x).toLowerCase(); });
+          for (var i = 0; i < TYPE_CATS.length; i++) {
+            if (cl.indexOf(TYPE_CATS[i].toLowerCase()) !== -1) return TYPE_CATS[i];
+          }
+          return '';
+        }
+        function pickMaterial(cats) {
+          var cl = cats.map(function(x) { return String(x).toLowerCase(); });
+          if (cl.indexOf('wooden') !== -1 || cl.indexOf('wood') !== -1) return 'Wooden';
+          if (cl.indexOf('melamine') !== -1) return 'Melamine';
+          if (cl.indexOf('steel') !== -1) return 'Steel';
+          if (cl.indexOf('plastic items') !== -1 || cl.indexOf('plastic') !== -1) return 'Plastic Items';
+          return '';
+        }
+        var theseCats = productCategories(p);
+        var typeCat = pickType(theseCats);
+        var materialCat = pickMaterial(theseCats);
         const similar = products
           .map((item, i) => ({ ...item, _i: i }))
           .filter(function(item) {
             if (item._i === index) return false;
-            if (!primaryCat) return false;
-            // Must include the same primary category
-            return inCategory(item, primaryCat);
+            var cats = productCategories(item);
+            if (typeCat && pickType(cats) !== typeCat) return false;
+            if (!typeCat) {
+              // no type tag: do not fall back to Electronics/Wooden-only
+              return false;
+            }
+            if (materialCat && pickMaterial(cats) !== materialCat) return false;
+            return true;
           })
           .slice(0, 6);
 
