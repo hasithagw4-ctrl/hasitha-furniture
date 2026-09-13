@@ -102,6 +102,25 @@
     @media (min-width: 768px) {
       .oos-badge { font-size: 11px; padding: 5px 10px; }
     }
+
+    .hf-back-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      margin-right: 2px;
+      border: none;
+      background: transparent;
+      color: #F3EBE0;
+      border-radius: 999px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .hf-back-btn:hover { background: rgba(243,235,224,.12); color: #fff; }
+    @media (min-width: 768px) {
+      .hf-back-btn { width: 40px; height: 40px; }
+    }
   </style>
 </head>
 <body class="bg-beige-50 text-gray-800">
@@ -113,7 +132,10 @@
           <button id="menuBtn" class="md:hidden text-white p-2 -ml-2" aria-label="Menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
-          <a href="/" class="flex items-center gap-2">
+                    <button type="button" class="hf-back-btn" id="hfBackBtn" aria-label="Back">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+<a href="/" class="flex items-center gap-2">
             <div class="w-10 h-10 rounded-full bg-beige-300 flex items-center justify-center text-primary-900 font-display font-bold text-xl">H</div>
             <div class="hidden sm:block">
               <span class="font-display text-xl text-white tracking-wide">Hasitha</span>
@@ -591,5 +613,16 @@
 
     load();
   </script>
+<script>
+    (function() {
+      var btn = document.getElementById('hfBackBtn');
+      if (!btn) return;
+      btn.addEventListener('click', function() {
+        var ref = document.referrer || '';
+        if (ref && ref.indexOf(location.host) !== -1 && history.length > 1) history.back();
+        else location.href = '/';
+      });
+    })();
+</script>
 </body>
 </html>

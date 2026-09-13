@@ -45,6 +45,25 @@
   <style>
     body { font-family: Inter, sans-serif; }
     .font-display { font-family: 'Playfair Display', serif; font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
+
+    .hf-back-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      margin-right: 2px;
+      border: none;
+      background: transparent;
+      color: #F3EBE0;
+      border-radius: 999px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .hf-back-btn:hover { background: rgba(243,235,224,.12); color: #fff; }
+    @media (min-width: 768px) {
+      .hf-back-btn { width: 40px; height: 40px; }
+    }
   </style>
 
   <style>
@@ -229,7 +248,10 @@
           <button id="menuBtn" class="md:hidden text-white p-2 -ml-2" aria-label="Menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
-          <a href="/" class="flex items-center gap-2">
+                    <button type="button" class="hf-back-btn" id="hfBackBtn" aria-label="Back">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+<a href="/" class="flex items-center gap-2">
             <div class="w-10 h-10 rounded-full bg-beige-300 flex items-center justify-center text-primary-900 font-display font-bold text-xl">H</div>
             <div class="hidden sm:block">
               <span class="font-display text-xl text-white tracking-wide">Hasitha</span>
@@ -881,7 +903,8 @@ swatchStyle = "background-image:url('" + c.image + "')";
           document.getElementById('similar-section').classList.remove('hidden');
           document.getElementById('similar-grid').innerHTML = similar.map(item => `
             <a href="${productUrl(products, item._i)}" class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition block">
-              <div class="h-48 bg-beige-200 flex items-center justify-center overflow-hidden">
+              <div class="h-48 bg-beige-200 flex items-center justify-center overflow-hidden relative">
+                ${(String(item.stock||'').toLowerCase()==='out of stock') ? '<span class="oos-badge">OUT OF STOCK</span>' : ''}
                 ${item.image
                   ? `<img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">`
                   : `<span class="text-4xl opacity-40">📦</span>`}
