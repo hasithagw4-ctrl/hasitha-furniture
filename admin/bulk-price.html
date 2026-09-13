@@ -107,6 +107,25 @@
     }
 
   </style>
+<script>
+    (function () {
+      function ok() {
+        try {
+          for (var i = 0; i < localStorage.length; i++) {
+            var k = localStorage.key(i) || '';
+            if (/sveltia|decap-cms|netlify-cms/i.test(k)) {
+              var v = localStorage.getItem(k) || '';
+              if (v && v.length > 20 && v !== 'null' && v !== '{}') return true;
+            }
+          }
+        } catch (e) {}
+        return false;
+      }
+      if (!ok()) {
+        location.replace('/admin/');
+      }
+    })();
+  </script>
 </head>
 <body>
   <div class="wrap">

@@ -11,7 +11,7 @@
         left: 0;
         right: auto;
         z-index: 99999;
-        display: flex;
+        display: none;
         align-items: center;
         padding: 0.35rem 0.7rem;
         background: #3d2914;
@@ -22,6 +22,8 @@
         border-bottom-right-radius: 10px;
       }
       #hf-admin-bar .brand { opacity: 0.9; font-weight: 500; white-space: nowrap; }
+      body.hf-logged-in #hf-admin-bar { display: flex; }
+      body.hf-logged-in #hf-bulk-btn { display: inline-block; }
 
       /* Bulk Price — bottom-left, away from Save/Publish */
       #hf-bulk-btn {
@@ -29,6 +31,7 @@
         left: 12px;
         bottom: 16px;
         z-index: 99999;
+        display: none;
         background: #3d2914;
         color: #f3ebe0;
         text-decoration: none;
@@ -170,6 +173,28 @@
             }
           });
         }
+
+        function hfIsLoggedIn() {
+          var text = (document.body && document.body.innerText) ? document.body.innerText : '';
+          if (/Sign In with GitHub/i.test(text) || /Sign In Using Access Token/i.test(text)) return false;
+          try {
+            for (var i = 0; i < localStorage.length; i++) {
+              var k = localStorage.key(i) || '';
+              if (/sveltia|decap-cms|netlify-cms/i.test(k)) {
+                var v = localStorage.getItem(k) || '';
+                if (v && v.length > 20 && v !== 'null' && v !== '{}') return true;
+              }
+            }
+          } catch (e) {}
+          return /\bProducts\b|New Product|Creating Product|Edit Product|Collections/i.test(text);
+        }
+        function hfSyncChrome() {
+          document.body.classList.toggle('hf-logged-in', hfIsLoggedIn());
+        }
+        hfSyncChrome();
+        setInterval(hfSyncChrome, 600);
+        new MutationObserver(hfSyncChrome).observe(document.body, { childList: true, subtree: true });
+
         setInterval(enhancePublishButtons, 800);
       })();
     </script>
