@@ -499,20 +499,22 @@
   </section>
 
 
-  <!-- ========== FEATURED PRODUCTS ========== -->
-  <section id="featured" class="py-12 md:py-16 bg-beige-50 hidden">
+
+<!-- ========== GIFT ITEMS ========== -->
+    <!-- ========== DYNAMIC PRODUCTS FROM ADMIN ========== -->
+  <section id="products" class="pt-8 pb-12 md:pt-10 md:pb-16 bg-beige-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
-        <p class="text-primary-700 text-sm tracking-[0.25em] uppercase mb-2">Just In</p>
-        <h2 class="font-display text-3xl md:text-4xl text-primary-900">Latest Products</h2>
-        <div class="w-16 h-1 bg-primary-700 mx-auto mt-3"></div>
+      <div class="text-center mb-12 md:mb-16">
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-primary-900">Our Collection</h2>
+        <div class="w-20 h-1 bg-primary-700 mx-auto mt-4"></div>
       </div>
-      <div id="featured-grid" class="product-grid-featured mb-10"></div>
-      <div class="text-center">
-        <a href="/all-products.html" class="inline-flex items-center gap-2 bg-primary-800 text-white px-8 py-3.5 rounded-full font-semibold hover:bg-primary-700 transition">
-          Show All
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
+      
+      <div id="category-filter-info" class="text-center mb-8 hidden">
+        <p class="text-primary-700 font-medium">Showing: <span id="active-category" class="font-semibold"></span></p>
+        <button onclick="showAllProducts()" class="mt-2 text-sm text-primary-600 underline hover:text-primary-800">Show All Products</button>
+      </div>
+      <div id="products-grid" class="product-grid-compact">
+        <div class="col-span-full text-center text-gray-500 py-10">Loading products...</div>
       </div>
     </div>
   </section>
@@ -780,24 +782,7 @@
   </section>
 
 
-<!-- ========== GIFT ITEMS ========== -->
-    <!-- ========== DYNAMIC PRODUCTS FROM ADMIN ========== -->
-  <section id="products" class="py-20 md:py-28 bg-beige-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12 md:mb-16">
-        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl text-primary-900">Our Collection</h2>
-        <div class="w-20 h-1 bg-primary-700 mx-auto mt-4"></div>
-      </div>
-      
-      <div id="category-filter-info" class="text-center mb-8 hidden">
-        <p class="text-primary-700 font-medium">Showing: <span id="active-category" class="font-semibold"></span></p>
-        <button onclick="showAllProducts()" class="mt-2 text-sm text-primary-600 underline hover:text-primary-800">Show All Products</button>
-      </div>
-      <div id="products-grid" class="product-grid-compact">
-        <div class="col-span-full text-center text-gray-500 py-10">Loading products...</div>
-      </div>
-    </div>
-  </section>
+
 
   
   <!-- ========== ABOUT ========== -->
@@ -1337,7 +1322,6 @@
         document.getElementById('featured')?.classList.add('hidden');
       }
     }
-    loadFeatured();
 
 
     // Homepage slideshow
