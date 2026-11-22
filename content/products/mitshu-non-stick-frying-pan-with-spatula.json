@@ -31,7 +31,7 @@
   "variant_attr1_name": "Size",
   "variant_attr1_values": "18cm, 20cm, 22cm, 24cm, 26cm",
   "variant_attr2_name": "Finish",
-  "variant_attr2_values": "Marble, Black",
+  "variant_attr2_values": "Marble, Classic Black",
   "variant_attr3_name": "",
   "variant_attr3_values": "",
   "variants": [
@@ -58,7 +58,7 @@
     {
       "sku": "MFP-2322",
       "attr1": "22cm",
-      "attr2": "Black",
+      "attr2": "Classic Black",
       "attr3": "",
       "price": "Rs. 2,790",
       "stock": "In Stock",
@@ -78,7 +78,7 @@
     {
       "sku": "MFP-2326",
       "attr1": "26cm",
-      "attr2": "Black",
+      "attr2": "Classic Black",
       "attr3": "",
       "price": "Rs. 3,890",
       "stock": "In Stock",
