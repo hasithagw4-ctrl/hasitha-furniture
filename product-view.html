@@ -64,6 +64,33 @@
     @media (min-width: 768px) {
       .hf-back-btn { width: 40px; height: 40px; }
     }
+
+    .variant-attr-row { margin-bottom: 1rem; }
+    .variant-attr-label { font-size: 0.875rem; font-weight: 600; color: #3d2914; margin-bottom: 0.5rem; }
+    .variant-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .variant-pill {
+      border: 1.5px solid #d4c4a8;
+      background: #fff;
+      color: #3d2914;
+      padding: 0.4rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .15s ease;
+    }
+    .variant-pill:hover:not(:disabled) { border-color: #3d2914; }
+    .variant-pill.active {
+      background: #3d2914;
+      color: #f3ebe0;
+      border-color: #3d2914;
+    }
+    .variant-pill:disabled,
+    .variant-pill.unavailable {
+      opacity: 0.4;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
   </style>
 
   <style>
@@ -381,6 +408,11 @@
           <div id="colors-wrap" class="hidden mb-6">
             <p class="text-sm font-medium text-primary-900 mb-2">Available colors</p>
             <div id="colors-scroll"></div>
+          </div>
+
+          <div id="variants-wrap" class="hidden mb-6">
+            <div id="variant-attrs"></div>
+            <p id="variant-hint" class="text-xs text-gray-500 mt-2 hidden"></p>
           </div>
 
           <p id="description" class="text-gray-600 mb-4"></p>
@@ -773,6 +805,149 @@
         });
 
 
+
+        // Product variations (Size / Finish / etc.)
+        function setupVariants(p, images) {
+          var wrap = document.getElementById('variants-wrap');
+          var attrsEl = document.getElementById('variant-attrs');
+          var hintEl = document.getElementById('variant-hint');
+          if (!wrap || !attrsEl) return false;
+
+          var enabled = p.has_variants === 'Yes' || p.has_variants === true;
+          var raw = Array.isArray(p.variants) ? p.variants : [];
+          var variants = raw.filter(function(v) {
+            if (!v) return false;
+            if (v.enabled === 'No' || v.enabled === false) return false;
+            return true;
+          });
+          if (!enabled || !variants.length) {
+            wrap.classList.add('hidden');
+            return false;
+          }
+
+          var n1 = (p.variant_attr1_name || 'Option 1').trim();
+          var n2 = (p.variant_attr2_name || '').trim();
+          var n3 = (p.variant_attr3_name || '').trim();
+
+          function valsFor(attrKey) {
+            var seen = {};
+            var out = [];
+            variants.forEach(function(v) {
+              var val = String(v[attrKey] || '').trim();
+              if (!val) return;
+              var k = val.toLowerCase();
+              if (seen[k]) return;
+              seen[k] = true;
+              out.push(val);
+            });
+            return out;
+          }
+
+          // Prefer values that actually appear on variants (so missing combos never show alone)
+          var a1vals = valsFor('attr1');
+          var a2vals = valsFor('attr2');
+          var a3vals = valsFor('attr3');
+
+          wrap.classList.remove('hidden');
+          // hide simple colors UI if full variants active
+          var colorsWrap = document.getElementById('colors-wrap');
+          if (colorsWrap) colorsWrap.classList.add('hidden');
+
+          var selected = { attr1: a1vals[0] || '', attr2: a2vals[0] || '', attr3: a3vals[0] || '' };
+
+          function findVariant() {
+            return variants.find(function(v) {
+              var ok1 = !selected.attr1 || String(v.attr1 || '').trim().toLowerCase() === selected.attr1.toLowerCase();
+              var ok2 = !n2 || !selected.attr2 || String(v.attr2 || '').trim().toLowerCase() === selected.attr2.toLowerCase();
+              var ok3 = !n3 || !selected.attr3 || String(v.attr3 || '').trim().toLowerCase() === selected.attr3.toLowerCase();
+              return ok1 && ok2 && ok3;
+            }) || null;
+          }
+
+          function availableValues(attrKey, others) {
+            return variants.filter(function(v) {
+              if (others.attr1 && attrKey !== 'attr1' && String(v.attr1||'').trim().toLowerCase() !== others.attr1.toLowerCase()) return false;
+              if (others.attr2 && attrKey !== 'attr2' && n2 && String(v.attr2||'').trim().toLowerCase() !== others.attr2.toLowerCase()) return false;
+              if (others.attr3 && attrKey !== 'attr3' && n3 && String(v.attr3||'').trim().toLowerCase() !== others.attr3.toLowerCase()) return false;
+              return true;
+            }).map(function(v) { return String(v[attrKey]||'').trim(); });
+          }
+
+          function applyVariant(v) {
+            var priceEl = document.getElementById('price');
+            if (priceEl) {
+              priceEl.textContent = (v && v.price) ? v.price : (p.price || 'Price on request');
+            }
+            setStockText((v && v.stock) ? v.stock : (p.stock || 'In Stock'));
+            if (v && v.image) {
+              var idx = images.indexOf(v.image);
+              if (idx === -1) setMainImage(v.image);
+              else showProductImage(idx);
+            }
+            var parts = [];
+            if (selected.attr1) parts.push(n1 + ': ' + selected.attr1);
+            if (n2 && selected.attr2) parts.push(n2 + ': ' + selected.attr2);
+            if (n3 && selected.attr3) parts.push(n3 + ': ' + selected.attr3);
+            var msg = p.whatsapp || ('Hi, I am interested in ' + (p.name || 'this product'));
+            if (parts.length) msg += ' (' + parts.join(', ') + ')';
+            if (v && v.sku) msg += ' [SKU: ' + v.sku + ']';
+            var wa = document.getElementById('whatsapp-btn');
+            if (wa) wa.href = 'https://wa.me/94772216854?text=' + encodeURIComponent(msg);
+            if (hintEl) {
+              if (!v) {
+                hintEl.textContent = 'This combination is not available.';
+                hintEl.classList.remove('hidden');
+              } else {
+                hintEl.classList.add('hidden');
+              }
+            }
+          }
+
+          function render() {
+            var html = '';
+            function row(label, attrKey, allVals) {
+              if (!allVals.length) return '';
+              var avail = availableValues(attrKey, selected).map(function(x){ return x.toLowerCase(); });
+              // if current selection not available with others, pick first available
+              if (selected[attrKey] && avail.indexOf(selected[attrKey].toLowerCase()) === -1) {
+                var first = availableValues(attrKey, selected)[0] || allVals[0] || '';
+                selected[attrKey] = first;
+              }
+              html += '<div class="variant-attr-row"><div class="variant-attr-label">' + label + '</div><div class="variant-pills">';
+              allVals.forEach(function(val) {
+                var isAvail = avail.indexOf(val.toLowerCase()) !== -1;
+                var isActive = selected[attrKey] && selected[attrKey].toLowerCase() === val.toLowerCase();
+                html += '<button type="button" class="variant-pill' + (isActive ? ' active' : '') + (isAvail ? '' : ' unavailable') + '"' +
+                  (isAvail ? '' : ' disabled') + ' data-attr="' + attrKey + '" data-val="' + val.replace(/"/g, '&quot;') + '">' + val + '</button>';
+              });
+              html += '</div></div>';
+            }
+            row(n1, 'attr1', a1vals);
+            if (n2) row(n2, 'attr2', a2vals);
+            if (n3) row(n3, 'attr3', a3vals);
+            attrsEl.innerHTML = html;
+            attrsEl.querySelectorAll('.variant-pill:not(:disabled)').forEach(function(btn) {
+              btn.addEventListener('click', function() {
+                selected[btn.getAttribute('data-attr')] = btn.getAttribute('data-val');
+                render();
+                applyVariant(findVariant());
+              });
+            });
+          }
+
+          // default selection: first fully available variant
+          var first = variants[0];
+          if (first) {
+            selected.attr1 = String(first.attr1 || '').trim();
+            selected.attr2 = String(first.attr2 || '').trim();
+            selected.attr3 = String(first.attr3 || '').trim();
+          }
+          render();
+          applyVariant(findVariant());
+          return true;
+        }
+
+
         // Colors (optional)
         var colorsWrap = document.getElementById('colors-wrap');
         var colorsScroll = document.getElementById('colors-scroll');
@@ -846,8 +1021,11 @@ swatchStyle = "background-image:url('" + c.image + "')";
           });
         }
 
-        document.getElementById('whatsapp-btn').href =
-          'https://wa.me/94772216854?text=' + encodeURIComponent(p.whatsapp || ('Hi, I am interested in ' + p.name));
+        var usedVariants = setupVariants(p, images);
+        if (!usedVariants) {
+          document.getElementById('whatsapp-btn').href =
+            'https://wa.me/94772216854?text=' + encodeURIComponent(p.whatsapp || ('Hi, I am interested in ' + p.name));
+        }
 
         // Similar: same PRODUCT TYPE (Wardrobes/Sofas/Fans…), plus same material if tagged (Wooden…)
         var TYPE_CATS = ['Sofas','Beds','Wardrobes','Dressing Tables','Dining Tables','Dining Chairs','Dining Sets','Veranda Chairs','Office Furniture','Mattresses','Other Furniture','Wall Units','Coffee Tables','TV Stands','Display Cupboards','Shoe Racks','Drawer Cupboards','Desks','Study','Laundry','Baby Items','Bathroom','Towel Racks','Cookware','Televisions','Refrigerators','Washing Machines','Ovens','Blenders','Mixer Grinders','Kettles','Irons','Kettles & Irons','Pressure Washers','Fans','Vacuum Cleaners','Rice Cookers','Party Boxes','Sound Systems & Radios','Lights & Bulbs','Other Electronics','Gift Items'];
