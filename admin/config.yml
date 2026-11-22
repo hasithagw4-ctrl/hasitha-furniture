@@ -98,6 +98,62 @@ collections:
           - { label: "Swatch (optional)", name: "swatch", widget: "string", required: false, hint: "Hex color for the circle e.g. #e11d48 or red. Leave empty = use image." }
           - { label: "Color Photo", name: "image", widget: "image", required: false, hint: "Photo shown when customer selects this color (add same image in Gallery too if you want it in thumbs)." }
           - { label: "Stock for this color", name: "stock", widget: "select", options: ["In Stock", "Out of Stock"], default: "In Stock", required: false, hint: "Shown on product page when this color is selected." }
+
+      - label: "Enable Variations (Size / Finish / etc.)"
+        name: "has_variants"
+        widget: "select"
+        options: ["No", "Yes"]
+        default: "No"
+        required: false
+        hint: "Turn Yes for products with Size, Finish, or other combinations. Simple products stay No."
+      - label: "Attribute 1 name"
+        name: "variant_attr1_name"
+        widget: "string"
+        required: false
+        default: "Size"
+        hint: "e.g. Size"
+      - label: "Attribute 1 values"
+        name: "variant_attr1_values"
+        widget: "string"
+        required: false
+        hint: "Comma-separated. e.g. 20cm, 24cm, 28cm"
+      - label: "Attribute 2 name"
+        name: "variant_attr2_name"
+        widget: "string"
+        required: false
+        default: "Finish"
+        hint: "e.g. Finish or Color"
+      - label: "Attribute 2 values"
+        name: "variant_attr2_values"
+        widget: "string"
+        required: false
+        hint: "Comma-separated. e.g. Classic Black, Marble, Walnut"
+      - label: "Attribute 3 name"
+        name: "variant_attr3_name"
+        widget: "string"
+        required: false
+        hint: "Optional third attribute name"
+      - label: "Attribute 3 values"
+        name: "variant_attr3_values"
+        widget: "string"
+        required: false
+        hint: "Optional. Comma-separated values"
+      - label: "Variants"
+        name: "variants"
+        widget: "list"
+        required: false
+        summary: "{{sku}} — {{attr1}} / {{attr2}} / {{attr3}} — {{price}}"
+        hint: "Add one row per combination (e.g. 24cm + Marble). Leave empty if Enable Variations = No. Tip: list all Size×Finish combos you sell."
+        fields:
+          - { label: "SKU", name: "sku", widget: "string", required: false, hint: "e.g. KKOC013-24-MAR" }
+          - { label: "Attribute 1 value", name: "attr1", widget: "string", required: false, hint: "Must match one value from Attribute 1 values (e.g. 24cm)" }
+          - { label: "Attribute 2 value", name: "attr2", widget: "string", required: false, hint: "e.g. Marble" }
+          - { label: "Attribute 3 value", name: "attr3", widget: "string", required: false }
+          - { label: "Price", name: "price", widget: "string", required: false, hint: "e.g. Rs. 42,900 — leave empty to use main product price" }
+          - { label: "Stock", name: "stock", widget: "select", options: ["In Stock", "Out of Stock"], default: "In Stock", required: false }
+          - { label: "Variant image", name: "image", widget: "image", required: false, hint: "Optional photo when this combination is selected" }
+          - { label: "Available", name: "enabled", widget: "select", options: ["Yes", "No"], default: "Yes", required: false, hint: "No = hide/disable this combination on the website" }
+
       - { label: "WhatsApp Message", name: "whatsapp", widget: "string", default: "Hi, I'm interested in this product", required: false }
 
   - name: "slides"
