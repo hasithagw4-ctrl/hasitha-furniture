@@ -1,0 +1,90 @@
+{
+  "name": "Mitshu Non-Stick Frying Pan with Spatula",
+  "category": [
+    "Cookware",
+    "Kitchen"
+  ],
+  "cat1": "",
+  "cat2": "",
+  "cat3": "",
+  "description": "Durable non-stick frying pan with a heat-resistant exterior and ergonomic Bakelite handle. Comes with a matching slotted spatula for effortless everyday cooking.",
+  "details": "This Mitshu non-stick frying pan is designed for convenient, everyday cooking in Sri Lankan kitchens. The interior features a smooth non-stick coating that prevents food from sticking and makes cleaning effortless. Its heat-resistant outer coating adds extra durability and scratch resistance. Equipped with a comfortable, stay-cool Bakelite handle and a matching slotted turner spatula, it is ideal for frying eggs, meats, and vegetables with minimal oil.",
+  "price": "Price on request",
+  "discount": "",
+  "stock": "In Stock",
+  "visible": "Yes",
+  "featured": "No",
+  "featured_position": "",
+  "image": "/images/uploads/Isolate_pan_and_spatula_9e14d7cc_2K.jpg",
+  "gallery": [
+    "/images/uploads/Isolate_pan_and_spatula_b09aa9e2_2K.jpg"
+  ],
+  "gallery2": "",
+  "gallery3": "",
+  "gallery4": "",
+  "gallery5": "",
+  "gallery6": "",
+  "specs_text": "Product Type | Non-Stick Frying Pan\nBrand | Mitshu\nInterior Coating | Non-Stick\nExterior Coating | Heat-Resistant & Scratch-Resistant\nHandle Material | Bakelite\nIncluded Accessories | Slotted Spatula\nSuitable For | Everyday Frying & Cooking",
+  "has_colors": "No",
+  "colors": [],
+  "has_variants": "Yes",
+  "variant_attr1_name": "Size",
+  "variant_attr1_values": "18cm, 20cm, 22cm, 24cm, 26cm",
+  "variant_attr2_name": "Finish",
+  "variant_attr2_values": "Non-stick coating, Marble non-stick coating",
+  "variant_attr3_name": "",
+  "variant_attr3_values": "",
+  "variants": [
+    {
+      "sku": "MFP-2318",
+      "attr1": "18cm",
+      "attr2": "Marble",
+      "attr3": "",
+      "price": "Rs. 2,390",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "MPF-2320",
+      "attr1": "20cm",
+      "attr2": "Marble",
+      "attr3": "",
+      "price": "Rs. 2,490",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "MFP-2322",
+      "attr1": "22cm",
+      "attr2": "Non-stick",
+      "attr3": "",
+      "price": "Rs. 2,790",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "MFP-2324",
+      "attr1": "24cm",
+      "attr2": "Marble",
+      "attr3": "",
+      "price": "Rs. 3,190",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "MFP-2326",
+      "attr1": "26cm",
+      "attr2": "Non-stick",
+      "attr3": "",
+      "price": "Rs. 3,890",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    }
+  ],
+  "whatsapp": "Hi, I'm interested in this product"
+}
