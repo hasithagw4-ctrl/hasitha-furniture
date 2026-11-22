@@ -23,13 +23,30 @@ collections:
     summary: "{{name}} — {{category}}"
     fields:
       - { label: "Product Name", name: "name", widget: "string" }
-      - label: "Categories"
+      - label: "Categories (saved)"
         name: "category"
         widget: "select"
         multiple: true
-        required: true
-        hint: "Select one or more. Example: Veranda Chairs + Plastic Items so it shows in both."
-        options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Kettles & Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Other Electronics", "Plastic Items", "Gift Items"]
+        required: false
+        hint: "Existing tags. To ADD more without replacing, use Extra 1 / Extra 2 / Extra 3 below."
+        options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Wall Units", "Coffee Tables", "TV Stands", "Display Cupboards", "Shoe Racks", "Drawer Cupboards", "Desks", "Study", "Laundry", "Baby Items", "Living Room", "Bedroom", "Kitchen", "Cookware", "Bathroom", "Towel Racks", "Melamine", "Wooden", "Steel", "Electronics", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Mixer Grinders", "Kettles", "Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Lights & Bulbs", "Other Electronics", "Plastic Items", "Gift Items"]
+      - label: "Extra category 1"
+        name: "cat1"
+        widget: "select"
+        required: false
+        options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Wall Units", "Coffee Tables", "TV Stands", "Display Cupboards", "Shoe Racks", "Drawer Cupboards", "Desks", "Study", "Laundry", "Baby Items", "Living Room", "Bedroom", "Kitchen", "Cookware", "Bathroom", "Towel Racks", "Melamine", "Wooden", "Steel", "Electronics", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Mixer Grinders", "Kettles", "Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Lights & Bulbs", "Other Electronics", "Plastic Items", "Gift Items"]
+      - label: "Extra category 2"
+        name: "cat2"
+        widget: "select"
+        required: false
+        options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Wall Units", "Coffee Tables", "TV Stands", "Display Cupboards", "Shoe Racks", "Drawer Cupboards", "Desks", "Study", "Laundry", "Baby Items", "Living Room", "Bedroom", "Kitchen", "Cookware", "Bathroom", "Towel Racks", "Melamine", "Wooden", "Steel", "Electronics", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Mixer Grinders", "Kettles", "Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Lights & Bulbs", "Other Electronics", "Plastic Items", "Gift Items"]
+      - label: "Extra category 3"
+        name: "cat3"
+        widget: "select"
+        required: false
+        options: ["Sofas", "Beds", "Wardrobes", "Dressing Tables", "Dining Tables", "Dining Chairs", "Dining Sets", "Veranda Chairs", "Office Furniture", "Mattresses", "Other Furniture", "Wall Units", "Coffee Tables", "TV Stands", "Display Cupboards", "Shoe Racks", "Drawer Cupboards", "Desks", "Study", "Laundry", "Baby Items", "Living Room", "Bedroom", "Kitchen", "Cookware", "Bathroom", "Towel Racks", "Melamine", "Wooden", "Steel", "Electronics", "Televisions", "Refrigerators", "Washing Machines", "Ovens", "Blenders", "Mixer Grinders", "Kettles", "Irons", "Pressure Washers", "Fans", "Vacuum Cleaners", "Rice Cookers", "Party Boxes", "Sound Systems & Radios", "Lights & Bulbs", "Other Electronics", "Plastic Items", "Gift Items"]
+
+
       - { label: "Short Description", name: "description", widget: "text", required: false }
       - { label: "Full Details", name: "details", widget: "text", required: false }
       - { label: "Price", name: "price", widget: "string", default: "Price on request" }
@@ -50,11 +67,17 @@ collections:
           - { label: "3 — Third", value: "3" }
           - { label: "4 — Fourth", value: "4" }
       - { label: "Main Image", name: "image", widget: "image", required: false }
-      - label: "Gallery Images"
+      - label: "Gallery Images (saved)"
         name: "gallery"
         widget: "list"
         required: false
+        hint: "Existing photos. Do not add here — it replaces the first image. Use Extra gallery slots below."
         field: { label: "Image", name: "src", widget: "image" }
+      - { label: "Extra gallery image 1", name: "gallery2", widget: "image", required: false }
+      - { label: "Extra gallery image 2", name: "gallery3", widget: "image", required: false }
+      - { label: "Extra gallery image 3", name: "gallery4", widget: "image", required: false }
+      - { label: "Extra gallery image 4", name: "gallery5", widget: "image", required: false }
+      - { label: "Extra gallery image 5", name: "gallery6", widget: "image", required: false }
       - { label: "Specifications (bulk)", name: "specs_text", widget: "text", required: false, hint: "One per line: Label | Value" }
 
       - label: "Enable Color Options"
@@ -75,6 +98,62 @@ collections:
           - { label: "Swatch (optional)", name: "swatch", widget: "string", required: false, hint: "Hex color for the circle e.g. #e11d48 or red. Leave empty = use image." }
           - { label: "Color Photo", name: "image", widget: "image", required: false, hint: "Photo shown when customer selects this color (add same image in Gallery too if you want it in thumbs)." }
           - { label: "Stock for this color", name: "stock", widget: "select", options: ["In Stock", "Out of Stock"], default: "In Stock", required: false, hint: "Shown on product page when this color is selected." }
+
+      - label: "Enable Variations (Size / Finish / etc.)"
+        name: "has_variants"
+        widget: "select"
+        options: ["No", "Yes"]
+        default: "No"
+        required: false
+        hint: "Turn Yes for products with Size, Finish, or other combinations. Simple products stay No."
+      - label: "Attribute 1 name"
+        name: "variant_attr1_name"
+        widget: "string"
+        required: false
+        default: "Size"
+        hint: "e.g. Size"
+      - label: "Attribute 1 values"
+        name: "variant_attr1_values"
+        widget: "string"
+        required: false
+        hint: "Comma-separated. e.g. 20cm, 24cm, 28cm"
+      - label: "Attribute 2 name"
+        name: "variant_attr2_name"
+        widget: "string"
+        required: false
+        default: "Finish"
+        hint: "e.g. Finish or Color"
+      - label: "Attribute 2 values"
+        name: "variant_attr2_values"
+        widget: "string"
+        required: false
+        hint: "Comma-separated. e.g. Classic Black, Marble, Walnut"
+      - label: "Attribute 3 name"
+        name: "variant_attr3_name"
+        widget: "string"
+        required: false
+        hint: "Optional third attribute name"
+      - label: "Attribute 3 values"
+        name: "variant_attr3_values"
+        widget: "string"
+        required: false
+        hint: "Optional. Comma-separated values"
+      - label: "Variants"
+        name: "variants"
+        widget: "list"
+        required: false
+        summary: "{{sku}} — {{attr1}} / {{attr2}} / {{attr3}} — {{price}}"
+        hint: "Add one row per combination (e.g. 24cm + Marble). Leave empty if Enable Variations = No. Tip: list all Size×Finish combos you sell."
+        fields:
+          - { label: "SKU", name: "sku", widget: "string", required: false, hint: "e.g. KKOC013-24-MAR" }
+          - { label: "Attribute 1 value", name: "attr1", widget: "string", required: false, hint: "Must match one value from Attribute 1 values (e.g. 24cm)" }
+          - { label: "Attribute 2 value", name: "attr2", widget: "string", required: false, hint: "e.g. Marble" }
+          - { label: "Attribute 3 value", name: "attr3", widget: "string", required: false }
+          - { label: "Price", name: "price", widget: "string", required: false, hint: "e.g. Rs. 42,900 — leave empty to use main product price" }
+          - { label: "Stock", name: "stock", widget: "select", options: ["In Stock", "Out of Stock"], default: "In Stock", required: false }
+          - { label: "Variant image", name: "image", widget: "image", required: false, hint: "Optional photo when this combination is selected" }
+          - { label: "Available", name: "enabled", widget: "select", options: ["Yes", "No"], default: "Yes", required: false, hint: "No = hide/disable this combination on the website" }
+
       - { label: "WhatsApp Message", name: "whatsapp", widget: "string", default: "Hi, I'm interested in this product", required: false }
 
   - name: "slides"
