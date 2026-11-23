@@ -1,0 +1,89 @@
+{
+  "name": "Prince Stainless Steel Whistling Kettle",
+  "category": [
+    "Cookware",
+    "Kettles",
+    "Kitchen"
+  ],
+  "cat1": "",
+  "cat2": "",
+  "cat3": "",
+  "description": "Durable stainless steel whistling kettle with a stay-cool handle and flip-up spout. Built for safe, convenient everyday water boiling.",
+  "details": "This Prince stainless steel whistling kettle is designed for durable and convenient everyday use in Sri Lankan kitchens. Its built-in whistle alerts you as soon as the water reaches a boil, helping prevent overheating and dry boiling. Featuring a wide opening for easy filling and cleaning, a flip-up spout cover for controlled pouring, and a heat-resistant black handle and lid knob for safe handling, it is ideal for making tea, coffee, or boiling water for daily household needs.",
+  "price": "RS. 2,290-3,590",
+  "discount": "",
+  "stock": "In Stock",
+  "visible": "Yes",
+  "featured": "No",
+  "featured_position": "",
+  "image": "/images/uploads/Kettle_on_white_background_9e0321eb_2K.jpg",
+  "gallery": [],
+  "gallery2": "/images/uploads/Kettle_on_white_background_2f90b971_2K.jpg",
+  "gallery3": "",
+  "gallery4": "",
+  "gallery5": "",
+  "gallery6": "",
+  "specs_text": "Product Type | Whistling Kettle\nBrand | Prince\nMaterial | Stainless Steel\nFinish | Polished Silver\nHandle & Knob | Heat-Resistant (Black)\nSpout | Flip-Up Spout Cover\nFeatures | Whistling Alert, Easy Filling & Cleaning\nSuitable For | Home Kitchen, Office Pantry",
+  "has_colors": "No",
+  "colors": [],
+  "has_variants": "Yes",
+  "variant_attr1_name": "Size",
+  "variant_attr1_values": "1.2l, 1.7l, 2.0l, 2.5l, 3.0l",
+  "variant_attr2_name": "Finish",
+  "variant_attr2_values": "",
+  "variant_attr3_name": "",
+  "variant_attr3_values": "",
+  "variants": [
+    {
+      "sku": "AXSS-120",
+      "attr1": "1.2l",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 2,290",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "AXSS-170",
+      "attr1": "1.7l",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 2,790",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "AXSS-200",
+      "attr1": "2.0l",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 2,990",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "AXSS-250",
+      "attr1": "2.5l",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 3,290",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "AXSS-300",
+      "attr1": "3.0l",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 3,590",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    }
+  ],
+  "whatsapp": "Hi, I'm interested in this product"
+}
