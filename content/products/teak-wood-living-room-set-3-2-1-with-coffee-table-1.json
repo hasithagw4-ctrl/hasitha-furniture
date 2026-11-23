@@ -14,7 +14,7 @@
   "discount": "",
   "stock": "In Stock",
   "visible": "Yes",
-  "featured": "No",
+  "featured": "Yes",
   "featured_position": "",
   "image": "/images/uploads/converted_image (43).jpeg",
   "gallery": [
@@ -29,5 +29,13 @@
   "specs_text": "Product Type | Teak Wood Living Room / Sofa Set\nMaterial | Solid Teak Wood\nFinish | Natural Teak\nSet Includes | 3-Seater Sofa + 2-Seater Sofa + 1 Single Chair + Coffee Table\nTable Top | Glass\nCushions | Brown seat cushions + Patterned back cushions + Bolsters\nStyle | Classic / Modern\nSuitable For | Living Room",
   "has_colors": "No",
   "colors": [],
+  "has_variants": "No",
+  "variant_attr1_name": "Size",
+  "variant_attr1_values": "",
+  "variant_attr2_name": "Finish",
+  "variant_attr2_values": "",
+  "variant_attr3_name": "",
+  "variant_attr3_values": "",
+  "variants": [],
   "whatsapp": "Hi, I'm interested in this product"
 }
