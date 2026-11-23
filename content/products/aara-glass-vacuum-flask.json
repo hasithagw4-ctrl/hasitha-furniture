@@ -1,0 +1,90 @@
+{
+  "name": "Aara Glass Vacuum Flask",
+  "category": [
+    "Kitchen",
+    "Gift Items"
+  ],
+  "cat1": "",
+  "cat2": "",
+  "cat3": "",
+  "description": "Insulated glass vacuum flask with a sturdy food-grade plastic outer body. Keeps beverages hot for up to 12 hours and cold for up to 24 hours.",
+  "details": "This vacuum flask features a high-quality glass vacuum refill designed to keep your beverages hot for up to 12 hours and cold for up to 24 hours. Built with a sturdy, food-grade plastic outer body and heat-resistant silicone rubber rings for secure refill mounting, it offers reliable daily insulation. The convenient twist-and-pour stopper allows effortless pouring without fully removing the cap, while the integrated handles on both the flask body and the top serving cup make carrying and serving easy at home, in the office, or while traveling.",
+  "price": "Rs. 1,790-3,190",
+  "discount": "",
+  "stock": "In Stock",
+  "visible": "Yes",
+  "featured": "No",
+  "featured_position": "",
+  "image": "/images/uploads/Edit_flask_image_on_white_1ad97421_2K.jpg",
+  "gallery": [
+    "/images/uploads/Edit_product_image_on_white_16ce708a_2K.jpg"
+  ],
+  "gallery2": "",
+  "gallery3": "",
+  "gallery4": "",
+  "gallery5": "",
+  "gallery6": "",
+  "specs_text": "Product Type | Vacuum Flask\nInner Material | High-Quality Glass Vacuum Refill\nOuter Material | Food-Grade Sturdy Plastic\nHeat Retention | Up to 12 Hours\nCold Retention | Up to 24 Hours\nStopper Type | Twist-and-Pour Stopper\nFeatures | Integrated Body & Cup Handles, Silicone Mounting Rings\nSuitable For | Home, Office, Travel, Tea & Coffee",
+  "has_colors": "No",
+  "colors": [],
+  "has_variants": "Yes",
+  "variant_attr1_name": "Capacity",
+  "variant_attr1_values": "450ml, 600ml, 800ml, 1000ml, 1800ml",
+  "variant_attr2_name": "Finish",
+  "variant_attr2_values": "",
+  "variant_attr3_name": "",
+  "variant_attr3_values": "",
+  "variants": [
+    {
+      "sku": "AVF-45",
+      "attr1": "450ml",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 1,790",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "AVF-60",
+      "attr1": "600ml",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 1,890",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "AVF-80",
+      "attr1": "800ml",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 2,190",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "AVF-100",
+      "attr1": "1000ml",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 2,390",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "AVF-180",
+      "attr1": "1800ml",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 3,190",
+      "stock": "In Stock",
+      "image": "/images/uploads/Remove_flask_reflections_white_b…_31a72dc1_2K.jpg",
+      "enabled": "Yes"
+    }
+  ],
+  "whatsapp": "Hi, I'm interested in this product"
+}
