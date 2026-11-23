@@ -12,7 +12,7 @@
   "discount": "",
   "stock": "In Stock",
   "visible": "Yes",
-  "featured": "No",
+  "featured": "Yes",
   "featured_position": "",
   "image": "/images/uploads/converted_image (38).jpeg",
   "gallery": [
@@ -26,5 +26,13 @@
   "specs_text": "Brand | Innovex\nModel | DFAN60\nProduct Type | Fully Automatic Top Load Washing Machine\nCapacity | 6 kg\nOuter Body | Full Plastic (Rust Free)\nWash System | Multi-Pulsator\nPower | Wash 310W / Spin 160W\nVoltage | 220V, 50Hz\nDimensions | 630 × 614 × 980 mm\nNet Weight | 30 kg\nFeatures | Intelligent Control, Transparent Window, Auto Power Off, Power Backup\nMade In | Sri Lanka\nWarranty | 5 Years (Motor)",
   "has_colors": "No",
   "colors": [],
+  "has_variants": "No",
+  "variant_attr1_name": "Size",
+  "variant_attr1_values": "",
+  "variant_attr2_name": "Finish",
+  "variant_attr2_values": "",
+  "variant_attr3_name": "",
+  "variant_attr3_values": "",
+  "variants": [],
   "whatsapp": "Hi, I'm interested in this product"
 }
