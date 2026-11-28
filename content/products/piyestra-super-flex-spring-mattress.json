@@ -1,0 +1,98 @@
+{
+  "name": "Piyestra Super Flex Spring Mattress",
+  "category": [
+    "Mattresses",
+    "Bedroom"
+  ],
+  "cat1": "",
+  "cat2": "",
+  "cat3": "",
+  "description": "7-inch Piyestra Super Flex spring mattress built with heat-treated high-tensile springs, high-density foam layers, and a quilted fabric cover. Backed by a 15-year spring structure warranty.",
+  "details": "The Piyestra Super Flex Spring Mattress is engineered to provide responsive orthopaedic support and lasting sleeping comfort for Sri Lankan bedrooms. Constructed with a durable heat-treated high-tensile spring unit, high-density cushioning foam, and a protective coir layer, it distributes body weight evenly while preventing sagging. Finished with a breathable, dust-proof quilted fabric cover, this 7-inch mattress comes backed by a 15-year manufacturer warranty on the spring structure and a 2-year warranty on the foam layers.",
+  "price": "Rs. 27,500-51,000",
+  "discount": "8%",
+  "stock": "In Stock",
+  "visible": "Yes",
+  "featured": "No",
+  "featured_position": "",
+  "image": "/images/uploads/converted_image (73).jpeg",
+  "gallery": [],
+  "gallery2": "",
+  "gallery3": "",
+  "gallery4": "",
+  "gallery5": "",
+  "gallery6": "",
+  "specs_text": "Product Type | Spring Mattress\nBrand | Piyestra\nModel | Super Flex\nCore Construction | Heat-Treated High-Tensile Springs, High-Density Foam & Protective Coir Layer\nCover Material | Dust-Proof Quilted Fabric Cover (White)\nThickness | 7 Inches\nWarranty | 15 Years (Spring Structure) / 2 Years (Foam Layers)\nSuitable For | Master Bedroom, Guest Bedroom, Everyday Sleep",
+  "has_colors": "No",
+  "colors": [],
+  "has_variants": "Yes",
+  "variant_attr1_name": "Size",
+  "variant_attr1_values": "72x36, 72x48, 72x60, 72x72, 78x60, 78x72",
+  "variant_attr2_name": "Finish",
+  "variant_attr2_values": "",
+  "variant_attr3_name": "",
+  "variant_attr3_values": "",
+  "variants": [
+    {
+      "sku": "psfs7236",
+      "attr1": "7236",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 27,500",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "psfs7248",
+      "attr1": "72x48",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 34,500",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "psfs7260",
+      "attr1": "72x60",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 41,500",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "psfs7272",
+      "attr1": "72x72",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 48,000",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "psfs7860",
+      "attr1": "78x60",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 43,900",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "psfs7872",
+      "attr1": "78x72",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 51,000",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    }
+  ],
+  "whatsapp": "Hi, I'm interested in this product"
+}
