@@ -1,0 +1,88 @@
+{
+  "name": "Piyestra Supreme Double Layer Foam Mattress",
+  "category": [
+    "Mattresses",
+    "Bedroom"
+  ],
+  "cat1": "",
+  "cat2": "",
+  "cat3": "",
+  "description": "4-inch Piyestra Supreme Double Layer foam mattress crafted for firm orthopaedic support and everyday comfort. Backed by a 7-year manufacturer warranty.",
+  "details": "The Piyestra Supreme Double Layer Foam Mattress is built to provide balanced spinal support and comfortable sleep for Sri Lankan homes. Featuring a dual-density foam construction—combining a firm high-density bonded foam base layer with a softer comfort foam top layer—it prevents sagging while promoting proper airflow and heat release. Covered in a durable printed fabric cover, this 4-inch mattress is ideal for everyday family use and comes backed by a 7-year manufacturer warranty on the foam.",
+  "price": "Rs. 13,200",
+  "discount": "8%",
+  "stock": "In Stock",
+  "visible": "Yes",
+  "featured": "No",
+  "featured_position": "",
+  "image": "/images/uploads/converted_image (72).jpeg",
+  "gallery": [],
+  "gallery2": "",
+  "gallery3": "",
+  "gallery4": "",
+  "gallery5": "",
+  "gallery6": "",
+  "specs_text": "Product Type | Double Layer Foam Mattress\nBrand | Piyestra\nModel | Supreme Double Layer\nCore Construction | Dual-Layer (High-Density Bonded Foam & Comfort Foam)\nCover Material | Printed Fabric Cover\nThickness | 4 Inches\nWarranty | 7 Years Warranty (Foam)\nSuitable For | Master Bedroom, Guest Bedroom, Everyday Sleep",
+  "has_colors": "No",
+  "colors": [],
+  "has_variants": "Yes",
+  "variant_attr1_name": "Size",
+  "variant_attr1_values": "72x36, 72x42, 72x48, 72x60, 72x72",
+  "variant_attr2_name": "Finish",
+  "variant_attr2_values": "",
+  "variant_attr3_name": "",
+  "variant_attr3_values": "",
+  "variants": [
+    {
+      "sku": "psdl7236",
+      "attr1": "72x36",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 13,200",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "psdl7242",
+      "attr1": "72x42",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 15,600",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "",
+      "attr1": "",
+      "attr2": "psdl7248",
+      "attr3": "",
+      "price": "Rs. 17,200",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "psdl7260",
+      "attr1": "",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 21,200",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "psdl7272",
+      "attr1": "72x72",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 25,000",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    }
+  ],
+  "whatsapp": "Hi, I'm interested in this product"
+}
