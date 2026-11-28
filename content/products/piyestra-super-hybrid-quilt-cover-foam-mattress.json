@@ -27,7 +27,7 @@
   "colors": [],
   "has_variants": "No",
   "variant_attr1_name": "Size",
-  "variant_attr1_values": "72\"x36\", 72\"x42\", 72\"x48\", 72\"x60\", 72\"x72\", 78\"x60\", 78\"x72\"",
+  "variant_attr1_values": "72x36, 72x42, 72x48, 72x60, 72x72, 78x60, 78x72",
   "variant_attr2_name": "Finish",
   "variant_attr2_values": "",
   "variant_attr3_name": "",
@@ -45,7 +45,7 @@
     },
     {
       "sku": "hy7242",
-      "attr1": "72\"x42\"",
+      "attr1": "72x42",
       "attr2": "",
       "attr3": "",
       "price": "Rs. 20,000",
@@ -55,7 +55,7 @@
     },
     {
       "sku": "hy7248",
-      "attr1": "72\"x48\"",
+      "attr1": "72x48",
       "attr2": "",
       "attr3": "",
       "price": "Rs. 22,500",
@@ -65,7 +65,7 @@
     },
     {
       "sku": "hy7260",
-      "attr1": "72\"x60\"",
+      "attr1": "72x60",
       "attr2": "",
       "attr3": "",
       "price": "Rs. 27,500",
@@ -75,7 +75,7 @@
     },
     {
       "sku": "hy7272",
-      "attr1": "72\"x72\"",
+      "attr1": "72x72",
       "attr2": "",
       "attr3": "",
       "price": "Rs. 32,500",
