@@ -1,0 +1,82 @@
+{
+  "name": "Innovex Automatic Rice Cooker with Stainless Steel Lid",
+  "category": [
+    "Rice Cookers",
+    "Cookware",
+    "Kitchen",
+    "Electronics"
+  ],
+  "cat1": "",
+  "cat2": "",
+  "cat3": "",
+  "description": "Automatic rice cooker featuring a durable 304 stainless steel lid, aluminium inner pot, and steamer tray. Backed by a 1-year warranty for reliable daily cooking.",
+  "details": "This Innovex Automatic Rice Cooker is designed for effortless everyday cooking for medium to large families. Equipped with a durable 304 food-grade stainless steel lid, a sturdy aluminium inner pot, and an efficient heating plate, it cooks rice evenly and automatically switches to warm mode once done. The included aluminium steamer attachment lets you steam vegetables, fish, or traditional snacks simultaneously while cooking rice, saving time and energy in the kitchen. Comes with a 1-year manufacturer warranty for added peace of mind.",
+  "price": "Rs. 8,190-11,590",
+  "discount": "",
+  "stock": "In Stock",
+  "visible": "Yes",
+  "featured": "No",
+  "featured_position": "",
+  "image": "/images/uploads/converted_image (67).jpeg",
+  "gallery": [
+    "/images/uploads/converted_image (68).jpeg"
+  ],
+  "gallery2": "",
+  "gallery3": "",
+  "gallery4": "",
+  "gallery5": "",
+  "gallery6": "",
+  "specs_text": "Product Type | Automatic Rice Cooker\nBrand | Innovex\nLid Material | 304 Stainless Steel\nInner Pot Material | Aluminium\nIncluded Accessories | Aluminium Steamer Tray\nFeatures | Automatic Cooking & Keep-Warm, Efficient Cooking Plate\nWarranty | 1 Year\nSuitable For | Family Kitchen, Everyday Rice & Steaming",
+  "has_colors": "No",
+  "colors": [],
+  "has_variants": "Yes",
+  "variant_attr1_name": "Capacity",
+  "variant_attr1_values": "1.5l, 1.8l, 2.2l, 2.8l",
+  "variant_attr2_name": "Finish",
+  "variant_attr2_values": "",
+  "variant_attr3_name": "",
+  "variant_attr3_values": "",
+  "variants": [
+    {
+      "sku": "IRC159",
+      "attr1": "1.5l",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 8,190",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "IRC189",
+      "attr1": "1.8l",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 9,290",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "IRC229",
+      "attr1": "2.2l",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 10,490",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "IRC289",
+      "attr1": "2.8l",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 11,590",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    }
+  ],
+  "whatsapp": "Hi, I'm interested in this product"
+}
