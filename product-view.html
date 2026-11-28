@@ -829,7 +829,21 @@
           var n2 = (p.variant_attr2_name || '').trim();
           var n3 = (p.variant_attr3_name || '').trim();
 
-          function valsFor(attrKey) {
+          function valsFromString(str) {
+            if (!str) return [];
+            var seen = {};
+            var out = [];
+            String(str).split(',').forEach(function(part) {
+              var s = part.trim();
+              if (!s) return;
+              var k = s.toLowerCase();
+              if (seen[k]) return;
+              seen[k] = true;
+              out.push(s);
+            });
+            return out;
+          }
+          function valsFromVariants(attrKey) {
             var seen = {};
             var out = [];
             variants.forEach(function(v) {
@@ -842,11 +856,20 @@
             });
             return out;
           }
+          // Show ALL values from Attribute fields; if empty, fall back to values used on variant rows
+          var a1vals = valsFromString(p.variant_attr1_values);
+          var a2vals = valsFromString(p.variant_attr2_values);
+          var a3vals = valsFromString(p.variant_attr3_values);
+          if (!a1vals.length) a1vals = valsFromVariants('attr1');
+          if (!a2vals.length) a2vals = valsFromVariants('attr2');
+          if (!a3vals.length) a3vals = valsFromVariants('attr3');
 
-          // Prefer values that actually appear on variants (so missing combos never show alone)
-          var a1vals = valsFor('attr1');
-          var a2vals = valsFor('attr2');
-          var a3vals = valsFor('attr3');
+
+          // If no variant row has attr2 filled, hide attribute 2 (size-only product)
+          var anyAttr2 = variants.some(function(v) { return String(v.attr2 || '').trim(); });
+          var anyAttr3 = variants.some(function(v) { return String(v.attr3 || '').trim(); });
+          if (!anyAttr2) { n2 = ''; a2vals = []; }
+          if (!anyAttr3) { n3 = ''; a3vals = []; }
 
           wrap.classList.remove('hidden');
           // hide simple colors UI if full variants active
