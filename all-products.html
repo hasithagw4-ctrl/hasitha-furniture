@@ -143,6 +143,25 @@
       vertical-align: middle;
     }
 
+
+    .discount-img-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 3;
+      background: #b91c1c;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      line-height: 1.2;
+      box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    }
+    @media (min-width: 768px) {
+      .discount-img-badge { font-size: 11px; padding: 5px 10px; }
+    }
   </style>
 </head>
 <body class="bg-beige-50 text-gray-800">
@@ -424,6 +443,24 @@
     function oosBadge(p) {
       return isOutOfStock(p) ? '<span class="oos-badge">OUT OF STOCK</span>' : '';
     }
+    function discountBadgeLabel(discount) {
+      if (!discount) return '';
+      var d = String(discount).trim();
+      if (!d) return '';
+      if (/%\s*$/.test(d) || /^\d+(\.\d+)?$/.test(d)) {
+        var n = d.replace(/%/g, '').trim();
+        return n + '% OFF';
+      }
+      if (/off/i.test(d)) return d.toUpperCase();
+      return d.toUpperCase() + ' OFF';
+    }
+    function discountBadge(p) {
+      if (!p || !p.discount) return '';
+      var label = discountBadgeLabel(p.discount);
+      if (!label) return '';
+      return '<span class="discount-img-badge">' + label.replace(/</g, '') + '</span>';
+    }
+
     function cardHtml(p) {
       var img = p.image
         ? '<img src="' + p.image + '" alt="' + (p.name||'') + '" class="w-full h-full object-cover">'
@@ -432,10 +469,10 @@
         ? '<span class="text-[10px] sm:text-xs bg-red-100 text-red-700 px-1.5 py-0.5 rounded-full">' + p.discount + '</span>'
         : '';
       return '<a href="' + productUrl(window.__allProductsFull || allProducts, p._i) + '" class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition block">' +
-        '<div class="aspect-square bg-beige-100 overflow-hidden relative">' + oosBadge(p) + img + '</div>' +
+        '<div class="aspect-square bg-beige-100 overflow-hidden relative">' + oosBadge(p) + discountBadge(p) + img + '</div>' +
         '<div class="p-2 sm:p-3">' +
           '<h3 class="font-display text-xs sm:text-sm text-primary-900 mb-0.5 line-clamp-2 leading-snug">' + (p.name||'') + '</h3>' +
-          '<p class="font-semibold text-primary-800 text-xs sm:text-sm">' + (p.price||'Price on request') + '</p>' +
+          '<p class="font-semibold text-primary-800 text-xs sm:text-sm">' + priceHtml(p.price, p.discount) + '</p>' +
           (disc ? '<div class="mt-1">' + disc + '</div>' : '') +
         '</div></a>';
     }

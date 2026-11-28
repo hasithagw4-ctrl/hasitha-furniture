@@ -488,6 +488,25 @@
       vertical-align: middle;
     }
 
+
+    .discount-img-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 3;
+      background: #b91c1c;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      line-height: 1.2;
+      box-shadow: 0 2px 6px rgba(0,0,0,.15);
+    }
+    @media (min-width: 768px) {
+      .discount-img-badge { font-size: 11px; padding: 5px 10px; }
+    }
   </style>
 </head>
 <body class="bg-beige-50 text-gray-800">
@@ -1426,6 +1445,24 @@
     function oosBadge(p) {
       return isOutOfStock(p) ? '<span class="oos-badge">OUT OF STOCK</span>' : '';
     }
+    function discountBadgeLabel(discount) {
+      if (!discount) return '';
+      var d = String(discount).trim();
+      if (!d) return '';
+      if (/%\s*$/.test(d) || /^\d+(\.\d+)?$/.test(d)) {
+        var n = d.replace(/%/g, '').trim();
+        return n + '% OFF';
+      }
+      if (/off/i.test(d)) return d.toUpperCase();
+      return d.toUpperCase() + ' OFF';
+    }
+    function discountBadge(p) {
+      if (!p || !p.discount) return '';
+      var label = discountBadgeLabel(p.discount);
+      if (!label) return '';
+      return '<span class="discount-img-badge">' + label.replace(/</g, '') + '</span>';
+    }
+
     function renderProducts(products) {
       const grid = document.getElementById("products-grid");
       if (!grid) return;
@@ -1438,12 +1475,12 @@
         const id = (typeof p._i === 'number') ? p._i : full.indexOf(p);
         return '<a href="' + productUrl(full, id >= 0 ? id : 0) + '" class="product-card-sm block">' +
           '<div class="img-wrap" style="position:relative">' +
-          oosBadge(p) +
+          oosBadge(p) + discountBadge(p) +
           (p.image
             ? '<img src="' + p.image + '" alt="' + (p.name || '') + '">'
             : '<div class="w-full h-full flex items-center justify-center text-2xl opacity-40">📦</div>') +
           '</div><div class="meta"><h3>' + (p.name || '') + '</h3>' +
-          '<p class="price">' + (p.price || 'Price on request') + '</p></div></a>';
+          '<p class="price">' + priceHtml(p.price, p.discount) + '</p></div></a>';
       }
       // Group: Furniture first, then Electronics (no random mix)
       var furn = [];
@@ -1636,7 +1673,7 @@
         track.innerHTML = items.map(function(p) {
           return '<div class="feat-slide"><a href="' + productUrl(full, p._i) + '">' +
             '<div class="img-wrap">' +
-            (isOutOfStock(p) ? '<span class="oos-badge">OUT OF STOCK</span>' : '') +
+            (isOutOfStock(p) ? '<span class="oos-badge">OUT OF STOCK</span>' : '') + discountBadge(p) +
             (p.image
               ? '<img src="' + p.image + '" alt="' + (p.name || '').replace(/"/g, '&quot;') + '">'
               : '<div class="w-full h-full flex items-center justify-center text-3xl opacity-40">📦</div>') +
