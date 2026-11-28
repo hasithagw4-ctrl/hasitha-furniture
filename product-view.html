@@ -91,6 +91,27 @@
       cursor: not-allowed;
       text-decoration: line-through;
     }
+
+    .price-was {
+      text-decoration: line-through;
+      color: #9ca3af;
+      font-weight: 500;
+      font-size: 0.95em;
+      margin-right: 0.35rem;
+    }
+    .price-now {
+      color: #b45309;
+      font-weight: 700;
+    }
+    .discount-badge, #discount {
+      font-size: 0.7rem;
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+      vertical-align: middle;
+    }
   </style>
 
   <style>
@@ -525,6 +546,73 @@
     });
 
 
+    
+    function parsePriceNumber(str) {
+      if (str == null || str === '') return null;
+      var s = String(str).replace(/,/g, '').replace(/[^\d.]/g, ' ');
+      var m = s.match(/(\d+(?:\.\d+)?)/);
+      return m ? parseFloat(m[1]) : null;
+    }
+    function formatRs(n) {
+      if (n == null || isNaN(n)) return '';
+      var rounded = Math.round(n);
+      return 'Rs. ' + rounded.toLocaleString('en-LK');
+    }
+    function parseDiscountInfo(discount, basePrice) {
+      if (!discount) return null;
+      var d = String(discount).trim();
+      var base = parsePriceNumber(basePrice);
+      if (base == null) return { label: d, sale: null, pct: null };
+      // percentage e.g. 10% or 10
+      var pctM = d.match(/(\d+(?:\.\d+)?)\s*%/);
+      if (pctM) {
+        var pct = parseFloat(pctM[1]);
+        var sale = base * (1 - pct / 100);
+        return { label: pct + '%', sale: sale, pct: pct };
+      }
+      var onlyNum = d.match(/^(\d+(?:\.\d+)?)$/);
+      if (onlyNum) {
+        var pct2 = parseFloat(onlyNum[1]);
+        if (pct2 > 0 && pct2 <= 100) {
+          var sale2 = base * (1 - pct2 / 100);
+          return { label: pct2 + '%', sale: sale2, pct: pct2 };
+        }
+      }
+      // fixed amount off e.g. Rs. 500 or 500 off
+      var amt = parsePriceNumber(d);
+      if (amt != null && amt > 0 && amt < base) {
+        return { label: d, sale: base - amt, pct: null };
+      }
+      return { label: d, sale: null, pct: null };
+    }
+    function priceHtml(price, discount) {
+      var info = parseDiscountInfo(discount, price);
+      if (!info || info.sale == null) {
+        return '<span class="price-main">' + (price || 'Price on request') + '</span>' +
+          (discount ? ' <span class="discount-badge">' + String(discount).replace(/</g,'') + '</span>' : '');
+      }
+      return '<span class="price-was">' + (price || '') + '</span> ' +
+        '<span class="price-now">' + formatRs(info.sale) + '</span> ' +
+        '<span class="discount-badge">' + info.label + ' OFF</span>';
+    }
+    function applyPriceDisplay(priceEl, discountEl, price, discount) {
+      if (!priceEl) return;
+      var info = parseDiscountInfo(discount, price);
+      if (info && info.sale != null) {
+        priceEl.innerHTML = '<span class="price-was">' + (price || '') + '</span> <span class="price-now">' + formatRs(info.sale) + '</span>';
+        if (discountEl) {
+          discountEl.textContent = (info.label || '') + (String(info.label).indexOf('%') >= 0 || info.pct ? ' OFF' : '');
+          discountEl.classList.remove('hidden');
+        }
+      } else {
+        priceEl.textContent = price || 'Price on request';
+        if (discountEl) {
+          if (discount) { discountEl.textContent = discount; discountEl.classList.remove('hidden'); }
+          else { discountEl.classList.add('hidden'); }
+        }
+      }
+    }
+
     function setStockText(status) {
       var stock = document.getElementById('stock');
       if (!stock) return;
@@ -730,11 +818,9 @@
 
         document.getElementById('category').textContent = categoryLabel(p);
         document.getElementById('name').textContent = p.name || '';
-        document.getElementById('price').textContent = p.price || 'Price on request';
+        applyPriceDisplay(document.getElementById('price'), document.getElementById('discount'), p.price, p.discount);
         document.getElementById('description').textContent = p.description || '';
 
-        const disc = document.getElementById('discount');
-        if (p.discount) { disc.textContent = p.discount; disc.classList.remove('hidden'); }
 
         const stock = document.getElementById('stock');
         stock.textContent = p.stock || 'In Stock';
@@ -898,9 +984,9 @@
 
           function applyVariant(v) {
             var priceEl = document.getElementById('price');
-            if (priceEl) {
-              priceEl.textContent = (v && v.price) ? v.price : (p.price || 'Price on request');
-            }
+            var discEl = document.getElementById('discount');
+            var showPrice = (v && v.price) ? v.price : (p.price || 'Price on request');
+            applyPriceDisplay(priceEl, discEl, showPrice, p.discount);
             setStockText((v && v.stock) ? v.stock : (p.stock || 'In Stock'));
             if (v && v.image) {
               var idx = images.indexOf(v.image);
@@ -1113,7 +1199,7 @@ swatchStyle = "background-image:url('" + c.image + "')";
               <div class="p-5">
                 <p class="text-xs text-primary-600 uppercase tracking-wider mb-1">${categoryLabel(item)}</p>
                 <h3 class="font-display text-lg text-primary-900 mb-1">${item.name}</h3>
-                <p class="font-semibold text-primary-800 text-sm">${item.price || 'Price on request'}</p>
+                <p class="font-semibold text-primary-800 text-sm">${priceHtml(item.price, item.discount)}</p>
               </div>
             </a>
           `).join('');
