@@ -1,0 +1,108 @@
+{
+  "name": "Piyestra Super Hybrid Quilt Cover Foam Mattress",
+  "category": [
+    "Mattresses",
+    "Bedroom"
+  ],
+  "cat1": "",
+  "cat2": "",
+  "cat3": "",
+  "description": "5-inch triple-layer Piyestra Super Hybrid foam mattress with a soft quilted fabric cover. Engineered for balanced body support, comfort, and backed by a 7-year manufacturer warranty.",
+  "details": "The Piyestra Super Hybrid Foam Mattress (by Damro) is engineered to deliver a balanced combination of firm orthopaedic support and plush sleeping comfort for Sri Lankan homes. Constructed with a triple-layer core—combining a high-density bonded foam base with soft comfort foam layers—it promotes proper spinal alignment and improved airflow for effective heat release. Finished with a durable, diamond-quilted fabric cover, this 5-inch mattress offers long-lasting resilience and comes backed by a 7-year manufacturer warranty.",
+  "price": "Rs. 17,500-35,000",
+  "discount": "",
+  "stock": "In Stock",
+  "visible": "Yes",
+  "featured": "No",
+  "featured_position": "",
+  "image": "/images/uploads/converted_image (71).jpeg",
+  "gallery": [],
+  "gallery2": "",
+  "gallery3": "",
+  "gallery4": "",
+  "gallery5": "",
+  "gallery6": "",
+  "specs_text": "Product Type | Hybrid Foam Mattress\nBrand | Piyestra (Damro Group)\nModel | Super Hybrid\nCore Construction | Triple-Layer (High-Density Bonded Foam & Soft Foam)\nCover Material | Quilted Fabric Cover\nThickness | 5 Inches\nAvailable Sizes | 72\"x36\", 72\"x48\", 72\"x60\", 72\"x72\", 75\"x60\", 75\"x72\", 78\"x72\"\nWarranty | 7 Years Manufacturer Warranty\nSuitable For | Master Bedroom, Guest Bedroom, Everyday Sleep",
+  "has_colors": "No",
+  "colors": [],
+  "has_variants": "No",
+  "variant_attr1_name": "Size",
+  "variant_attr1_values": "72\"x36\", 72\"x42\", 72\"x48\", 72\"x60\", 72\"x72\", 78\"x60\", 78\"x72\"",
+  "variant_attr2_name": "Finish",
+  "variant_attr2_values": "",
+  "variant_attr3_name": "",
+  "variant_attr3_values": "",
+  "variants": [
+    {
+      "sku": "hy7236",
+      "attr1": "72\"x36\"",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 17,500",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "hy7242",
+      "attr1": "72\"x42\"",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 20,000",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "hy7248",
+      "attr1": "72\"x48\"",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 22,500",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "hy7260",
+      "attr1": "72\"x60\"",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 27,500",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "hy7272",
+      "attr1": "72\"x72\"",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 32,500",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "hy7860",
+      "attr1": "78\"x60\"",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs, 30,000",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "hy7872",
+      "attr1": "78\"x72\"",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 35,000",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    }
+  ],
+  "whatsapp": "Hi, I'm interested in this product"
+}
