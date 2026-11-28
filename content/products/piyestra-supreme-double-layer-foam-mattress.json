@@ -54,9 +54,9 @@
       "enabled": "Yes"
     },
     {
-      "sku": "",
-      "attr1": "",
-      "attr2": "psdl7248",
+      "sku": "psdl7248",
+      "attr1": "72x48",
+      "attr2": "",
       "attr3": "",
       "price": "Rs. 17,200",
       "stock": "In Stock",
