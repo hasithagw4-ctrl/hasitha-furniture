@@ -1214,6 +1214,17 @@
         if (isElectronicsProduct(p)) elec.push(p);
         else furn.push(p);
       });
+      // Wooden items first within Furniture
+      function isWoodenProduct(p) {
+        var cats = productCategories(p).map(function(c) { return String(c).toLowerCase(); });
+        return cats.indexOf('wooden') !== -1 || cats.indexOf('wood') !== -1;
+      }
+      furn.sort(function(a, b) {
+        var aw = isWoodenProduct(a) ? 0 : 1;
+        var bw = isWoodenProduct(b) ? 0 : 1;
+        if (aw !== bw) return aw - bw;
+        return 0;
+      });
       var html = '';
       if (furn.length) {
         html += '<div class="col-span-full mb-2 mt-2"><h3 class="font-display text-xl md:text-2xl text-primary-900">Furniture</h3></div>';
