@@ -1519,7 +1519,7 @@
         const data = await res.json();
         const products = (data.products || []).map((p, i) => ({...p, _i: i}));
         window.__productsFull = window.__productsFull || (data.products || []);
-        const featured = products.filter(p => isVisibleProduct(p) && (p.featured === true || p.featured === 'true' || p.featured === 'Yes'));
+        const featured = products.filter(p => isVisibleProduct(p) && (p.featured === true || p.featured === 'true' || p.featured === 'Yes') && !isOutOfStock(p));
         featured.sort(function(a, b) {
           function pos(p) {
             var v = p.featured_position;
