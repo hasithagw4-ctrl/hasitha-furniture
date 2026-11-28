@@ -586,17 +586,35 @@
       return { label: d, sale: null, pct: null };
     }
     function priceHtml(price, discount) {
+      var p = String(price || '').trim();
+      // Price ranges (e.g. Rs. 17,500-35,000) — show as-is, no calculated sale price
+      if (/\d\s*[-–—to]+\s*\d/i.test(p) || (p.match(/\d/g) || []).length > 6 && p.indexOf('-') !== -1) {
+        return '<span class="price-main">' + (p || 'Price on request') + '</span>';
+      }
       var info = parseDiscountInfo(discount, price);
       if (!info || info.sale == null) {
-        return '<span class="price-main">' + (price || 'Price on request') + '</span>' +
-          (discount ? ' <span class="discount-badge">' + String(discount).replace(/</g,'') + '</span>' : '');
+        return '<span class="price-main">' + (price || 'Price on request') + '</span>';
       }
       return '<span class="price-was">' + (price || '') + '</span> ' +
-        '<span class="price-now">' + formatRs(info.sale) + '</span> ' +
-        '<span class="discount-badge">' + info.label + ' OFF</span>';
+        '<span class="price-now">' + formatRs(info.sale) + '</span>';
     }
     function applyPriceDisplay(priceEl, discountEl, price, discount) {
       if (!priceEl) return;
+      var p = String(price || '').trim();
+      var isRange = /\d\s*[-–—to]+\s*\d/i.test(p);
+      if (isRange) {
+        priceEl.textContent = p || 'Price on request';
+        if (discountEl) {
+          if (discount) {
+            var lab = String(discount).trim();
+            if (/^\d+(\.\d+)?$/.test(lab)) lab = lab + '%';
+            if (lab && lab.toUpperCase().indexOf('OFF') === -1) lab = lab + (/%/.test(lab) ? ' OFF' : '');
+            discountEl.textContent = lab;
+            discountEl.classList.remove('hidden');
+          } else discountEl.classList.add('hidden');
+        }
+        return;
+      }
       var info = parseDiscountInfo(discount, price);
       if (info && info.sale != null) {
         priceEl.innerHTML = '<span class="price-was">' + (price || '') + '</span> <span class="price-now">' + formatRs(info.sale) + '</span>';
@@ -1310,5 +1328,6 @@ swatchStyle = "background-image:url('" + c.image + "')";
 
     load();
   </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"0ae74e200e8d47a79f237ba25ae4de2c","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
