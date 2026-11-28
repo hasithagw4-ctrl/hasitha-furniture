@@ -1,0 +1,68 @@
+{
+  "name": "Kingstar Eco Flex Double Layer Foam Mattress",
+  "category": [
+    "Mattresses",
+    "Bedroom"
+  ],
+  "cat1": "",
+  "cat2": "",
+  "cat3": "",
+  "description": "Affordable 4-inch double-layer foam mattress with a printed fabric cover. A cost-effective choice backed by a 4-year foam guarantee for everyday home use.",
+  "details": "The Kingstar Eco Flex Double Layer Foam Mattress is a highly affordable, value-for-money sleeping solution designed for everyday home use without compromising on basic comfort. Built with a dual-layer foam construction combining a supportive bonded foam base with a softer comfort foam layer, it offers reliable daily support at a budget-friendly price point. Finished with a smooth, non-quilted floral printed fabric cover, this 4-inch mattress comes backed by a 4-year guarantee on the foam.",
+  "price": "Rs. 8,900-13,900",
+  "discount": "10%",
+  "stock": "In Stock",
+  "visible": "Yes",
+  "featured": "No",
+  "featured_position": "",
+  "image": "/images/uploads/converted_image (74).jpeg",
+  "gallery": [],
+  "gallery2": "",
+  "gallery3": "",
+  "gallery4": "",
+  "gallery5": "",
+  "gallery6": "",
+  "specs_text": "Product Type | Double Layer Foam Mattress\nBrand | Kingstar\nModel | Eco Flex Double Layer\nCore Construction | Dual-Layer (High-Density Bonded Foam & Soft Foam)\nCover Material | Printed Fabric Cover (Non-Quilted)\nThickness | 4 Inches\nWarranty | 4 Years Guarantee (Foam)\nPrice Segment | Budget-Friendly / Affordable\nSuitable For | Everyday Home Use, Guest Room, Hostel",
+  "has_colors": "No",
+  "colors": [],
+  "has_variants": "Yes",
+  "variant_attr1_name": "Size",
+  "variant_attr1_values": "72x36, 72x48, 72x60",
+  "variant_attr2_name": "Finish",
+  "variant_attr2_values": "",
+  "variant_attr3_name": "",
+  "variant_attr3_values": "",
+  "variants": [
+    {
+      "sku": "kef7236",
+      "attr1": "72x36",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 8,900",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "kef7248",
+      "attr1": "72x48",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 10,900",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    },
+    {
+      "sku": "kef7260",
+      "attr1": "72x60",
+      "attr2": "",
+      "attr3": "",
+      "price": "Rs. 13,900",
+      "stock": "In Stock",
+      "image": "",
+      "enabled": "Yes"
+    }
+  ],
+  "whatsapp": "Hi, I'm interested in this product"
+}
